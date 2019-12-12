@@ -8,7 +8,7 @@ job "codeday" {
     min_healthy_time = "10s"
     healthy_deadline = "3m"
     progress_deadline = "10m"
-    auto_revert = false
+    auto_revert = true
     canary = 0
   }
 
@@ -31,7 +31,7 @@ job "codeday" {
       driver = "docker"
 
       config {
-      	image = "https://docker.pkg.github.com/srnd/codeday-present/codeday-present:latest"
+        image = "https://docker.pkg.github.com/srnd/codeday-present/codeday-present:latest"
         port_map = {
           http = 8000
         }
@@ -64,6 +64,13 @@ EOF
         name = "codeday-present"
         port = "http"
         tags = [
+          "traefik.enable=true",
+          "traefik.http.routers.codeday-present-http.rule=Host(`present.codeday.org`)",
+          "traefik.http.routers.codeday-present.rule=Host(`present.codeday.org`)",
+          "traefik.http.routers.codeday-present.tls.certresolver=codeday-org",
+          "traefik.http.routers.codeday-present.tls.domains[0].main=*.codeday.org",
+          "traefik.http.routers.codeday-present.tls.domains[0].sans=codeday.org",
+
           "traefik.tags=service",
           "traefik.frontend.rule=Host:present.codeday.org"
         ]

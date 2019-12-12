@@ -8,7 +8,7 @@ job "email" {
     min_healthy_time = "10s"
     healthy_deadline = "3m"
     progress_deadline = "10m"
-    auto_revert = false
+    auto_revert = true
     canary = 0
   }
 
@@ -30,7 +30,7 @@ job "email" {
       driver = "docker"
 
       config {
-      	image = "https://docker.pkg.github.com/srnd/sendy/sendy:latest"
+        image = "https://docker.pkg.github.com/srnd/sendy/sendy:latest"
         port_map = {
           http = 80
         }
@@ -61,6 +61,15 @@ EOF
         name = "sendy"
         port = "http"
         tags = [
+          "traefik.enable=true",
+          "traefik.http.routers.email-sendy-http.rule=Host(`email.srnd.org`)",
+          "traefik.http.routers.email-sendy.rule=Host(`email.srnd.org`)",
+          "traefik.http.routers.email-sendy.tls=true",
+          "traefik.http.routers.email-sendy.tls.certresolver=srnd-org",
+          "traefik.http.routers.email-sendy.tls.domains[0].main=*.srnd.org",
+          "traefik.http.routers.email-sendy.tls.domains[0].sans=srnd.org",
+          "traefik.http.services.email-sendy.loadbalancer.sticky=true",
+
           "traefik.tags=service",
           "traefik.frontend.rule=Host:email.srnd.org"
         ]

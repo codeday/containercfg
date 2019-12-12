@@ -7,7 +7,7 @@ job "codecup" {
     min_healthy_time = "10s"
     healthy_deadline = "3m"
     progress_deadline = "10m"
-    auto_revert = false
+    auto_revert = true
     canary = 0
   }
 
@@ -85,6 +85,15 @@ EOF
         name = "ctfd"
         port = "http"
         tags = [
+          "traefik.enable=true",
+          "traefik.http.routers.codecup-ctfd-http.rule=Host(`playcodecup.com`)",
+          "traefik.http.routers.codecup-ctfd.rule=Host(`playcodecup.com`)",
+          "traefik.http.routers.codecup-ctfd.tls=true",
+          "traefik.http.routers.codecup-ctfd.tls.certresolver=playcodecup-com",
+          "traefik.http.routers.codecup-ctfd.tls.domains[0].main=*.playcodecup.com",
+          "traefik.http.routers.codecup-ctfd.tls.domains[0].sans=playcodecup.com",
+          "traefik.http.services.codecup-ctfd.loadbalancer.sticky=true",
+
           "traefik.tags=service",
           "traefik.frontend.rule=Host:playcodecup.com",
           "traefik.backend.loadbalancer.sticky=true"

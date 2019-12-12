@@ -8,7 +8,7 @@ job "data" {
     min_healthy_time = "10s"
     healthy_deadline = "3m"
     progress_deadline = "10m"
-    auto_revert = false
+    auto_revert = true
     canary = 0
   }
 
@@ -67,6 +67,15 @@ EOF
         name = "fathom"
         port = "http"
         tags = [
+          "traefik.enable=true",
+          "traefik.http.routers.data-fathom-http.rule=Host(`data.srnd.org`)",
+          "traefik.http.routers.data-fathom.rule=Host(`data.srnd.org`)",
+          "traefik.http.routers.data-fathom.tls=true",
+          "traefik.http.routers.data-fathom.tls.certresolver=srnd-org",
+          "traefik.http.routers.data-fathom.tls.domains[0].main=*.srnd.org",
+          "traefik.http.routers.data-fathom.tls.domains[0].sans=srnd.org",
+          "traefik.http.services.data-fathom.loadbalancer.sticky=true",
+
           "traefik.tags=service",
           "traefik.frontend.rule=Host:data.srnd.org"
         ]

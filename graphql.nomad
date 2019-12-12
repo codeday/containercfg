@@ -49,6 +49,15 @@ job "graphql" {
         name = "graphql-server"
         port = "http"
         tags = [
+          "traefik.enable=true",
+          "traefik.http.routers.graphql-graphql-server-http.rule=Host(`graph.srnd.org`)",
+          "traefik.http.routers.graphql-graphql-server.rule=Host(`graph.srnd.org`)",
+          "traefik.http.routers.graphql-graphql-server.tls=true",
+          "traefik.http.routers.graphql-graphql-server.tls.certresolver=srnd-org",
+          "traefik.http.routers.graphql-graphql-server.tls.domains[0].main=*.srnd.org",
+          "traefik.http.routers.graphql-graphql-server.tls.domains[0].sans=srnd.org",
+          "traefik.http.services.graphql-graphql-server.loadbalancer.sticky=true",
+
           "traefik.tags=service",
           "traefik.frontend.rule=Host:graph.srnd.org",
         ]

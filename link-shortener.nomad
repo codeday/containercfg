@@ -8,7 +8,7 @@ job "link-shortener" {
     min_healthy_time = "10s"
     healthy_deadline = "3m"
     progress_deadline = "10m"
-    auto_revert = false
+    auto_revert = true
     canary = 0
   }
 
@@ -30,7 +30,7 @@ job "link-shortener" {
       driver = "docker"
 
       config {
-      	image = "yourls:1.7.4-apache"
+        image = "yourls:1.7.4-apache"
         port_map = {
           http = 80
         }
@@ -64,6 +64,15 @@ EOF
         name = "link-shortener"
         port = "http"
         tags = [
+          "traefik.enable=true",
+          "traefik.http.routers.link-shortener-yourls-http.rule=Host(`srnd.to`)",
+          "traefik.http.routers.link-shortener-yourls.rule=Host(`srnd.to`)",
+          "traefik.http.routers.link-shortener-yourls.tls=true",
+          "traefik.http.routers.link-shortener-yourls.tls.certresolver=srnd-to",
+          "traefik.http.routers.link-shortener-yourls.tls.domains[0].main=*.srnd.to",
+          "traefik.http.routers.link-shortener-yourls.tls.domains[0].sans=srnd.to",
+          "traefik.http.services.link-shortener-yourls.loadbalancer.sticky=true",
+
           "traefik.tags=service",
           "traefik.frontend.rule=Host:srnd.to"
         ]

@@ -23,7 +23,7 @@ job "redis" {
 
       volume_mount {
         volume      = "redis"
-        destination = "/var/lib/redis"
+        destination = "/data"
         read_only   = false
       }
 
