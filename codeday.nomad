@@ -17,7 +17,7 @@ job "codeday" {
     value     = "true"
   }
 
-  group "codeday" {
+  group "codeday-services" {
     count = 1
 
     restart {
@@ -27,7 +27,41 @@ job "codeday" {
       mode = "fail"
     }
 
-    task "codeday-present" {
+    task "posters" {
+      driver = "docker"
+      config {
+        image = "docker.pkg.github.com/srnd/posters/posters:1.0.0"
+
+        port_map = {
+          http = 8000
+        }
+      }
+
+      service {
+        name = "posters-api"
+        port = "http"
+        tags = [
+          "traefik.enable=true",
+          "traefik.http.routers.posters-api-http.rule=Host(`posters.codeday.org`)",
+          "traefik.http.routers.posters-api.rule=Host(`posters.codeday.org`)",
+          "traefik.http.routers.posters-api.tls=true",
+          "traefik.http.routers.posters-api.tls.certresolver=codeday-org",
+          "traefik.http.routers.posters-api.tls.domains[0].main=*.codeday.org",
+          "traefik.http.routers.posters-api.tls.domains[0].sans=codeday.org",
+          "traefik.http.services.posters-api.loadbalancer.sticky=true",
+
+          "traefik.tags=service",
+          "traefik.frontend.rule=Host:posters.srnd.org",
+        ]
+      }
+      resources {
+        network {
+          port "http" {}
+        }
+      }
+    }
+
+    task "present" {
       driver = "docker"
 
       config {
