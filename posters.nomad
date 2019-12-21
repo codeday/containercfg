@@ -29,7 +29,7 @@ job "posters" {
     task "api" {
       driver = "docker"
       config {
-        image = "docker.pkg.github.com/srnd/posters/posters-api:latest"
+        image = "docker.pkg.github.com/srnd/posters/posters:0.10.1"
 
         port_map = {
           http = 8000
