@@ -48,6 +48,8 @@ job "main-postgres" {
           pg = 5432
         }
 
+        dns_servers = ["169.254.1.1"]
+
         logging {
           type = "journald"
           config {
@@ -61,7 +63,9 @@ job "main-postgres" {
         cpu = 500
 
         network {
-          port "pg" {}
+          port "pg" {
+            static = 5432
+          }
         }
       }
 
@@ -92,13 +96,13 @@ job "main-postgres" {
         template {
           data = <<EOH
             {{- with secret "kv/data/postgres" -}}
-            POSTGRESQL_REPLICATION_MODE="master"
+            POSTGRESQL_REPLICATION_MODE="slave"
             POSTGRESQL_REPLICATION_USER="{{ .Data.data.POSTGRESQL_REPLICATION_USER }}"
             POSTGRESQL_REPLICATION_PASSWORD="{{ .Data.data.POSTGRESQL_REPLICATION_PASSWORD }}"
             POSTGRESQL_USERNAME="{{ .Data.data.POSTGRESQL_USERNAME }}"
             POSTGRESQL_PASSWORD="{{ .Data.data.POSTGRESQL_PASSWORD }}"
-            POSTGRESQL_DATABASE="{{ .Data.data.POSTGRESQL_DATABASE }}"
             POSTGRESQL_MASTER_HOST="postgres-master.service.consul"
+            POSTGRESQL_MASTER_PORT_NUMBER="5432"
             {{ end }}
           EOH
   
@@ -108,7 +112,7 @@ job "main-postgres" {
 
         volume_mount {
           volume      = "postgresql-slave"
-          destination = "/deleteme"
+          destination = "/bitnami/postgresql"
           read_only   = false
         }
       config {
@@ -117,6 +121,8 @@ job "main-postgres" {
         port_map {
           pg = 5432
         }
+
+        dns_servers = ["169.254.1.1"]
 
         logging {
           type = "journald"
@@ -131,7 +137,9 @@ job "main-postgres" {
         cpu = 500
 
         network {
-          port "pg" {}
+          port "pg" {
+            static = 5433
+          }
         }
       }
 
