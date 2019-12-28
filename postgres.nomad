@@ -49,13 +49,6 @@ job "main-postgres" {
         }
 
         dns_servers = ["169.254.1.1"]
-
-        logging {
-          type = "journald"
-          config {
-            tag = "pg_docker_master"
-          }
-        }
       }
 
       resources {
