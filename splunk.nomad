@@ -48,7 +48,7 @@ job "splunk" {
                 image = "splunk/splunk:latest"
 
                 port_map {
-                    web = 8088
+                    web = 8000
                     splunk = 8514
                 }
 
@@ -86,10 +86,9 @@ job "splunk" {
                     "traefik.http.routers.splunk-splunk-server.tls.domains[0].main=*.srnd.org",
                     "traefik.http.routers.splunk-splunk-server.tls.domains[0].sans=srnd.org",
                     "traefik.http.services.splunk-splunk-server.loadbalancer.sticky=true",
-                    "trarfik.port=8000",
+                    "traefik.port=8000",
 
                     "traefik.tags=service",
-                    "traefik.frontend.rule=Host:splunk.srnd.org"
                 ]
             }
 
