@@ -48,8 +48,7 @@ job "splunk" {
                 image = "splunk/splunk:latest"
 
                 port_map {
-                    web = 8000
-                    splunk = 8514
+                    http = 8000
                 }
 
                 dns_servers = ["169.254.1.1"]
@@ -76,7 +75,7 @@ job "splunk" {
 
             service {
                 name = "spunk"
-                port = "web"
+                port = "http"
                 tags = [
                     "traefik.enable=true",
                     "traefik.http.routers.splunk-splunk-server-http.rule=Host(`splunk.srnd.org`)",
@@ -86,9 +85,9 @@ job "splunk" {
                     "traefik.http.routers.splunk-splunk-server.tls.domains[0].main=*.srnd.org",
                     "traefik.http.routers.splunk-splunk-server.tls.domains[0].sans=srnd.org",
                     "traefik.http.services.splunk-splunk-server.loadbalancer.sticky=true",
-                    "traefik.port=8000",
 
                     "traefik.tags=service",
+                    "traefik.frontend.rule=Host:splunk.srnd.org"
                 ]
             }
 
@@ -97,8 +96,7 @@ job "splunk" {
                 memory = 512
 
                 network {
-                    port "web" {}
-                    port "splunk" {}
+                    port "http" {}
                 }
             }
 
