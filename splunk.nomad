@@ -64,8 +64,8 @@ job "splunk" {
             template {
                 data = <<EOH
                 {{- with secret "kv/data/splunk" -}}
-                SPLUNK_START_ARGS="{{ .Data.data.SPLUNK_START_ARGS }}"
-                SPLUNK_PASSWORD="{{ .Data.data.SPLUNK_PASSWORD }}"
+                SPLUNK_START_ARGS=--accept-license
+                SPLUNK_PASSWORD={{ .Data.data.SPLUNK_PASSWORD }}
                 {{ end }}
                 EOH
 
