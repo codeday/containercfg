@@ -30,7 +30,7 @@ job "codeday" {
     task "posters" {
       driver = "docker"
       config {
-        image = "docker.pkg.github.com/srnd/posters/posters:1.0.0"
+        image = "docker.pkg.github.com/srnd/posters/posters:1.2.1"
 
         port_map = {
           http = 8000
