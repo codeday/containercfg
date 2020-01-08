@@ -59,6 +59,8 @@ EOF
       }
 
       resources {
+        cpu = 100
+        memory = 128
         network {
           port "http" {
             static = 80

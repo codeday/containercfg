@@ -124,7 +124,7 @@ job "splunk" {
 
             resources {
                 cpu = 800
-                memory = 1024
+                memory = 700
 
                 network {
                     port "http" {}

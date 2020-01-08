@@ -12,12 +12,7 @@ job "codeday" {
     canary = 0
   }
 
-  constraint {
-    operator  = "distinct_hosts"
-    value     = "true"
-  }
-
-  group "codeday-services" {
+  group "codeday-posters" {
     count = 1
 
     restart {
@@ -30,7 +25,7 @@ job "codeday" {
     task "posters" {
       driver = "docker"
       config {
-        image = "docker.pkg.github.com/srnd/posters/posters:1.2.1"
+        image = "docker.pkg.github.com/srnd/posters/posters:1.3.1"
 
         port_map = {
           http = 8000
@@ -55,10 +50,24 @@ job "codeday" {
         ]
       }
       resources {
+        cpu = 200
+        memory = 400
+
         network {
           port "http" {}
         }
       }
+    }
+  }
+
+  group "codeday-present" {
+    count = 1
+
+    restart {
+      attempts = 2
+      interval = "30m"
+      delay = "15s"
+      mode = "fail"
     }
 
     task "present" {
@@ -101,6 +110,7 @@ EOF
           "traefik.enable=true",
           "traefik.http.routers.codeday-present-http.rule=Host(`present.codeday.org`)",
           "traefik.http.routers.codeday-present.rule=Host(`present.codeday.org`)",
+          "traefik.http.routers.codeday-present.tls=true",
           "traefik.http.routers.codeday-present.tls.certresolver=codeday-org",
           "traefik.http.routers.codeday-present.tls.domains[0].main=*.codeday.org",
           "traefik.http.routers.codeday-present.tls.domains[0].sans=codeday.org",
