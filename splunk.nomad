@@ -22,17 +22,18 @@ job "splunk" {
     group "splunk-group" {
         count = 1
 
-        volume "splunk_data" {
+        volume "splunk-db" {
             type = "host"
             read_only = false
-            source = "splunk_data"
+            source = "splunk-db"
         }
 
-        volume "ingest" {
+        volume "splunk-etc" {
             type = "host"
             read_only = false
-            source = "splunk_ingest"
+            source = "splunk-etc"
         }
+
 
         restart {
             attempts = 2
@@ -49,10 +50,11 @@ job "splunk" {
 
                 port_map {
                     http = 8000
+                    collector = 8088
                 }
 
                 dns_servers = ["169.254.1.1"]
-                
+
                 logging {
                 type = "journald"
                     config {
@@ -65,16 +67,27 @@ job "splunk" {
                 data = <<EOH
                 {{- with secret "kv/data/splunk" -}}
                 SPLUNK_START_ARGS=--accept-license
-                SPLUNK_PASSWORD={{ .Data.data.SPLUNK_PASSWORD }}
+                SPLUNK_PASSWORD={{ .Data.data.ADMIN_PASSWORD }}
                 {{ end }}
                 EOH
 
                 destination = "secrets/.env"
-                env = true 
+                env = true
+            }
+
+            template {
+                data = <<EOH
+                {{- with secret "kv/data/splunk" -}}
+                {{- .Data.data.LICENSE -}}
+                {{ end }}
+                EOH
+
+                destination = "/opt/splunk/Splunk.License"
+                change_mode   = "restart"
             }
 
             service {
-                name = "spunk"
+                name = "splunk"
                 port = "http"
                 tags = [
                     "traefik.enable=true",
@@ -91,28 +104,43 @@ job "splunk" {
                 ]
             }
 
+            service {
+                name = "splunk-collector"
+                port = "collector"
+                tags = [
+                    "traefik.enable=true",
+                    "traefik.http.routers.splunk-splunk-collector-http.rule=Host(`splunk-collect.srnd.org`)",
+                    "traefik.http.routers.splunk-splunk-collector.rule=Host(`splunk-collect.srnd.org`)",
+                    "traefik.http.routers.splunk-splunk-collector.tls=true",
+                    "traefik.http.routers.splunk-splunk-collector.tls.certresolver=srnd-org",
+                    "traefik.http.routers.splunk-splunk-collector.tls.domains[0].main=*.srnd.org",
+                    "traefik.http.routers.splunk-splunk-collector.tls.domains[0].sans=srnd.org",
+                    "traefik.http.services.splunk-splunk-collector.loadbalancer.sticky=false",
+
+                    "traefik.tags=service",
+                    "traefik.frontend.rule=Host:splunk-collect.srnd.org"
+                ]
+            }
+
             resources {
-                cpu = 500
-                memory = 512
+                cpu = 800
+                memory = 1024
 
                 network {
                     port "http" {}
+                    port "collector" {}
                 }
             }
 
             volume_mount {
-                volume      = "splunk_data"
-                destination = "/opt/splunk/etc"
-                read_only   = false
-            }
-            volume_mount {
-                volume      = "splunk_data"
+                volume      = "splunk-db"
                 destination = "/opt/splunk/var"
                 read_only   = false
             }
+
             volume_mount {
-                volume      = "ingest"
-                destination = "/ingest"
+                volume      = "splunk-etc"
+                destination = "/opt/splunk/etc"
                 read_only   = false
             }
         }
