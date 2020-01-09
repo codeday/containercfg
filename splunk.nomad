@@ -51,6 +51,7 @@ job "splunk" {
                 port_map {
                     http = 8000
                     collector = 8088
+                    syslog = 8514
                 }
 
                 dns_servers = ["169.254.1.1"]
@@ -122,6 +123,11 @@ job "splunk" {
                 ]
             }
 
+            service {
+              name = "splunk-syslog"
+              port = "syslog"
+            }
+
             resources {
                 cpu = 800
                 memory = 700
@@ -129,6 +135,9 @@ job "splunk" {
                 network {
                     port "http" {}
                     port "collector" {}
+                    port "syslog" {
+                      static = 8514
+                    }
                 }
             }
 

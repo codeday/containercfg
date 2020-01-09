@@ -101,8 +101,6 @@ EOF
               address = "m.srnd.cloud:8500"
               scheme = "http"
 
-          [accessLog]
-
           [entryPoints]
             [entryPoints.http]
               address = ":80"
