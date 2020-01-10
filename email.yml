@@ -1,0 +1,24 @@
+job: email
+tasks:
+  email:
+    image: https://docker.pkg.github.com/srnd/sendy/sendy
+    version: latest
+
+    vault:
+      policies:
+        - sendy
+      env:
+        sendy:
+          MYSQL_USER: mysql_user
+          MYSQL_PASS: mysql_pass
+
+    env:
+      MYSQL_HOST: mysql-server.service.consul
+      MYSQL_DB: sendy
+
+    ports:
+      http:
+        inner: 80
+        lb:
+          domain: email.srnd.org
+          cert: srnd.org

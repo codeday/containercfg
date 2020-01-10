@@ -1,0 +1,65 @@
+# This is a Levant definition. Here's how to deploy it:
+# 1. Install levant: https://github.com/jrasell/levant
+# 2. Connect to the VPN
+# 3. Run `levant [plan|deploy] -address=http://m.srnd.cloud:4646 -var-file=[YOUR YML FILE NAME] template.nomad`
+
+job: foobar                     # the name of the job.
+region: global                  # (optional, default global) server region the tasks will run on.
+datacenters: [ srnd ]           # (optional, default [srnd]) server group the tasks will run on.
+
+placement:                      # (optional) controls which nodes that tasks will run on.
+  type: 'default'               #   - (optional) "default", "unique", "all", or "batch" (for short-lived tasks).
+  os_type: 'linux'              #   - (optional, none applied if unset)
+  os: 'ubuntu'                  #   - (optional, none applied if unset)
+  os_version: '19.04'           #   - (optional, none applied if unset)
+
+deployment:                     # (optional)
+  max_parallel: 1               #   - (optional, default 1). the number of instances to update at once.
+  healthy_deadline: '3m'        #   - (optional, default 3m). how long the task has to become healthy.
+  no_revert_on_failure: false   #   - (optional, default false). if false, reverts failed deployments automatically.
+  canaries: 0                   #   - (optional, default 0). if >0, old instances are kept until canaries are healthy.
+  attempts: 2                   #   - (optional, default 2). the number of times to restart an unhealthy task.
+
+tasks:                          # the specific tasks to run
+  foo:                          # name of each task
+    image: 'foo'                # docker image (or URL) to load, without version
+    version: 1.0.0              # TODO: move this to consul
+
+    resources:                  # (optional) limits to apply to the container. default limits applied even if unset.
+      cpu: 100                  #   - (optional, default 100) cpu to reserve (in MHz). burstable if resources permit.
+      memory: 300               #   - (optional, default 300) ram to reserve (in MiB). not burstable.
+
+    env:                        # (optional) static ENV to pass to the container
+      ENABLE: "true"            #   - ENV: value. supports interpolation from nomad agent.
+
+    vault:                      # (optional) information to fetch from hashicorp vault.
+      policies:                 #   - required if vault is set. policies to request from vault for this job.
+        - foo
+      env:                      #   - optional. allows setting env variables from vault.
+        foo:                    #     - key under which secrets are stored in vault (under /kv)
+          ADMIN: admin_pass     #     - ENV: vault_key
+
+    volumes:                    # (optional) volumes to mount.
+      share:                    #   - shared between all agents. slow, and must not be frequently read.
+        - fileshare: foo        #     - fileshare name (not automatically created).
+          mountpoint: "/foo"    #     - container mountpoint.
+      host:                     #   - can only be mounted to one container at a time. fast!
+        - volume: foo           #     - nomad host volume name. must be added to host_volumes above.
+          mountpoint: "/foo"    #     - container mountpoint.
+          read_only: false      #     - (optional, default false)
+
+    files:                      # (optional) add files to the container.
+      "/foo.txt":               #   - file name.
+        env: false              #     - if true, this will be read back as ENV variables.
+        data: |                 #     - data to set. supports interpolation from nomad agent.
+          foo
+
+    ports:                      # (optional) ports to expose. no other ports will be available outside the container.
+      http:                     #   - port name. will be used for service name.
+        inner: 8080             #     - port value exposed in the container.
+        outer: 80               #     - (optional, default is random > 1024) port accessible from other services.
+        lb:                     #     - (optional) exposes an HTTP service on the loadbalancer
+          domain: foo.srnd.org  #       - domain name to proxy. dns must be configured separately.
+          cert: srnd.org        #       - certificate name, must be a base domain name registered in Traefik.
+
+    allow_docker_sock: false    # (optional, default false) allows the container root access to the docker daemon.
