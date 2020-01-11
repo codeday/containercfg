@@ -1,0 +1,39 @@
+job: codecup
+datacenters: [ srnd ]
+
+tasks:
+  codecup:
+    image: "https://docker.pkg.github.com/srnd/ctfd/ctfd"
+    version: "2.1.5.03"
+
+    volumes:
+      share:
+        - fileshare: ctfd-uploads
+          mountpoint: /var/uploads
+      tmpfs:
+        - /var/log/CTFd
+        - /opt/CTFd/logs
+
+    vault:
+      policies:
+        - codecup
+      env:
+        codecup:
+          DATABASE_URL: DATABASE_URL
+          MAILGUN_KEY: MAILGUN_KEY
+          PUBNUB_SUB: PUBNUB_SUB
+          SECRET: SECRET
+
+    env:
+      UPLOAD_FOLDER: /var/uploads
+      REDIS_URL: redis://redis.service.consul:6379
+      WORKERS: 1
+      ACCESS_LOG: "-"
+      ERROR_LOG: "-"
+
+    ports:
+      http:
+        inner: 8000
+        lb:
+          domain: playcodecup.com
+          cert: playcodecup.com

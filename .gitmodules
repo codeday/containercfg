@@ -1,0 +1,3 @@
+[submodule "nomad-levant-templates"]
+	path = nomad-levant-templates
+	url = git@github.com:tylermenezes/nomad-levant-templates.git
