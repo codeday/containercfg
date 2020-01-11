@@ -32,7 +32,7 @@ tasks:
       ERROR_LOG: "-"
 
     ports:
-      http:
+      codecup:
         inner: 8000
         lb:
           domain: playcodecup.com

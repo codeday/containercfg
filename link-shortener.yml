@@ -1,0 +1,29 @@
+job: link-shortener
+datacenters: [ srnd ]
+
+tasks:
+  link-shortener:
+    image: "yourls"
+    version: "1.7.4-apache"
+
+    vault:
+      policies:
+        - yourls
+      env:
+        yourls:
+          YOURLS_DB_USER: db_user
+          YOURLS_DB_PASS: db_pass
+          YOURLS_USER: user
+          YOURLS_PASS: pass
+
+    env:
+      YOURLS_DB_HOST: mysql-server.service.consul
+      YOURLS_SITE: https://srnd.to
+      YOURLS_DB_PREFIX: yourls_
+
+    ports:
+      http:
+        inner: 80
+        lb:
+          domain: srnd.to
+          cert: srnd.to

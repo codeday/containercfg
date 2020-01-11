@@ -1,0 +1,14 @@
+job: codeday-posters
+datacenters: [ srnd ]
+
+tasks:
+  codeday-posters:
+    image: "https://docker.pkg.github.com/srnd/posters/posters"
+    version: "1.3.2"
+
+    ports:
+      http:
+        inner: 8000
+        lb:
+          domain: posters.codeday.org
+          cert: codeday.org
