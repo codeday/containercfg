@@ -5,6 +5,8 @@ tasks:
   codeday-present:
     image: "https://docker.pkg.github.com/srnd/codeday-present/codeday-present"
     version: "1.3"
+    resources:
+      memory: 128
 
     vault:
       policies:

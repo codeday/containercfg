@@ -1,0 +1,33 @@
+job: postgres-master
+datacenters: [ srnd ]
+
+tasks:
+  postgres-master:
+    image: "bitnami/postgresql"
+    version: "12"
+
+    resources:
+      memory: 256
+
+    env:
+      POSTGRESQL_REPLICATION_MODE: master
+
+    vault:
+      policies:
+        - postgres
+      env:
+        postgres:
+          POSTGRESQL_REPLICATION_USER: POSTGRESQL_REPLICATION_USER
+          POSTGRESQL_REPLICATION_PASSWORD: POSTGRESQL_REPLICATION_PASSWORD
+          POSTGRESQL_PASSWORD: POSTGRESQL_PASSWORD
+
+    volumes:
+      host:
+        - volume: postgres-master
+          mountpoint: /bitnami/postgresql
+
+    ports:
+      pg:
+        inner: 5432
+        outer: 5432
+        scheme: pg

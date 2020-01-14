@@ -5,6 +5,8 @@ tasks:
   link-shortener:
     image: "yourls"
     version: "1.7.4-apache"
+    resources:
+      memory: 64
 
     vault:
       policies:

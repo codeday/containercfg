@@ -11,7 +11,7 @@ tasks:
     allow_docker_sock: true
 
     resources:
-      memory: 128
+      memory: 32
 
     env:
       PORT: 8980

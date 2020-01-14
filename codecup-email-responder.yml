@@ -1,0 +1,24 @@
+job: codecup-email-responder
+datacenters: [ srnd ]
+
+tasks:
+  codecup-email-responder:
+    image: "srnd/docker-codecup-email-responder"
+    version: "latest"
+    resources:
+      memory: 128
+      cpu: 50
+
+    vault:
+      policies:
+        - codecup-email-responder
+      env:
+        codecup-email-responder:
+          MAILGUN_KEY: mailgun_key
+
+    ports:
+      http:
+        inner: 80
+        lb:
+          domain: incoming-email.codecupchallenge.com
+          cert: codecupchallenge.com

@@ -1,0 +1,41 @@
+job: chat
+datacenters: [ srnd ]
+
+tasks:
+  chat:
+    image: srnd/mattermost
+    version: latest
+    resources:
+      memory: 700
+
+    volumes:
+      share:
+        - fileshare: mattermost-config
+          mountpoint: /mattermost/config
+        - fileshare: mattermost-data
+          mountpoint: /mattermost/data
+        - fileshare: mattermost-plugins
+          mountpoint: /mattermost/plugins
+
+    ports:
+      http:
+        inner: 8000
+        lb:
+          domain: chat2.srnd.org
+          cert: srnd.org
+
+  pushproxy:
+    image: jostyee/docker-mattermost-push-proxy
+    version: latest
+    resources:
+      memory: 64
+
+    volumes:
+      share:
+        - fileshare: mattermost-push-proxy-config
+          mountpoint: /config
+
+    ports:
+      pushproxy:
+        inner: 8066
+        outer: 8066

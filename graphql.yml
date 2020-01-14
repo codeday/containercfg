@@ -6,6 +6,9 @@ tasks:
     image: "srnd/gql-server"
     version: "latest"
 
+    resources:
+      memory: 128
+
     ports:
       http:
         inner: 4000
