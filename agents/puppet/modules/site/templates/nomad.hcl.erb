@@ -13,7 +13,13 @@ client = {
     "docker.auth.helper" = "gcr"
   }
   host_volume "acme" {
-    path     = "/data/acme"
+    path     = "/acme"
     read_only = false
   }
+  <% @host_volumes.each do |tag, mountpoint| %>
+    host_volume "<%= tag %>" {
+      path = "/data-disks/<%= tag %>"
+      read_only = false
+    }
+  <% end %>
 }

@@ -1,8 +1,25 @@
 class site::nomad {
   $nomad_version = "0.10.2"
 
-  class { 'docker':
+  class { "site::host_volumes": }
+
+  class { "docker":
     ensure => present,
+  }
+
+  file { "/root/.docker":
+    ensure => directory,
+    owner => "root",
+    group => "root",
+    mode => "0770",
+  }
+  file { "/root/.docker/config.json":
+    ensure => file,
+    content => template("site/docker-config.json.erb"),
+    owner => "root",
+    group => "root",
+    mode => "0660",
+    require => File["/root/.docker"],
   }
 
   archive { "nomad":
@@ -32,7 +49,15 @@ class site::nomad {
     group => "root",
     mode => "0660",
     content => template("site/nomad.hcl.erb"),
-    require => File["/etc/nomad.d"],
+    require => [ File["/etc/nomad.d"], Class["site::host_volumes"] ],
+    notify => Service["nomad"],
+  }
+
+  file { "/acme":
+    ensure => directory,
+    owner => "root",
+    group => "root",
+    mode => "0770",
   }
 
   systemd::unit_file { 'nomad.service':
@@ -41,7 +66,7 @@ class site::nomad {
   ~> service { "nomad":
     ensure => running,
     enable => true,
-    require => [ File["nomad"], File["/etc/nomad.d/nomad.hcl"], Class["docker"] ],
+    require => [ File["nomad"], File["/etc/nomad.d/nomad.hcl"], File["/acme"], Class["site::host_volumes"], Class["docker"] ],
     subscribe => File["/etc/nomad.d/nomad.hcl"],
   }
 }

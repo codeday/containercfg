@@ -15,26 +15,45 @@ class site::consul {
     path => "/usr/local/bin/consul",
   }
 
+  group { "consul":
+    ensure => present,
+  }
+
+  user { "consul":
+    ensure => present,
+    gid => "consul",
+    home => "/etc/consul.d",
+    shell => "/bin/false",
+    require => Group["consul"],
+  }
+
+  file { "/opt/consul":
+    ensure => directory,
+    owner => "consul",
+    group => "consul",
+    mode => "0770",
+  }
+
   file { "/etc/consul.d":
     ensure => directory,
-    owner => "root",
-    group => "root",
+    owner => "consul",
+    group => "consul",
     mode => "0770",
-    content => template("site/consul.hcl.erb"),
+    require => [ User["consul"], Group["consul"] ],
   }
 
   file { "/etc/consul.d/consul.hcl":
     ensure => file,
-    owner => "root",
-    group => "root",
+    owner => "consul",
+    group => "consul",
     mode => "0660",
     content => template("site/consul.hcl.erb"),
-    require => File["/etc/consul.d"],
+    require => [ File["/etc/consul.d"], User["consul"], Group["consul"] ],
   }
 
   systemd::unit_file { 'consul.service':
-    source => "puppet:///modules/site/consul.service",
-    require => [ File["consul"], File["/etc/consul.d/consul.hcl"] ],
+    content => template('site/consul.service.erb'),
+    require => [ File["consul"], File["/etc/consul.d/consul.hcl"], File["/opt/consul"] ],
   }
   ~> service { "consul":
     ensure => running,

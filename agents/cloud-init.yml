@@ -14,22 +14,21 @@ write_files:
     permissions: 0775
     content: |
       #!/usr/bin/env bash
-      if [ -e "/opt/config" ]; then
-        git checkout https://github.com/srnd/NomadJobs.git /opt/config
+      if [ ! -e "/opt/config" ]; then
+        git clone https://github.com/srnd/NomadJobs.git /opt/config
       fi
 
       cd /opt/config
       git pull origin master
 
-      MDS="http://169.254.169.254/metadata/instance/compute?api-version=2019-08-15"
-      export FACTER_role=$(curl -H Metadata:true "$MDS" 2>/dev/null | jq -r '.tagsList[] | select(.name == "role").value')
-
       cd /opt/config/agents/puppet
+      export FACTERLIB=/opt/config/agents/puppet/facts/
 
       r10k puppetfile install
       puppet apply . --logdest syslog --modulepath /etc/puppet/modules:/opt/config/agents/puppet/modules
 
 runcmd:
+  - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
   - sudo gem install r10k
-  - puppet resource cron puppet-apply ensure=present user=root minute=30 command='/opt/apply_puppet.sh'
+  - puppet resource cron puppet-apply ensure=present user=root minute=15 command='/opt/apply_puppet.sh'
   - /opt/apply_puppet.sh
