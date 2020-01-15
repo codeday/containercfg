@@ -6,7 +6,7 @@ tasks:
     image: srnd/mattermost
     version: latest
     resources:
-      memory: 700
+      memory: 512
 
     volumes:
       share:
@@ -21,7 +21,7 @@ tasks:
       http:
         inner: 8000
         lb:
-          domain: chat2.srnd.org
+          domain: chat.srnd.org
           cert: srnd.org
 
   pushproxy:

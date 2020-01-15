@@ -1,0 +1,19 @@
+datacenter = "srnd"
+data_dir = "/opt/nomad"
+
+vault {
+  enabled = true
+  address = "http://vault.srnd.cloud:8200"
+}
+
+client = {
+  enabled = true
+  options = {
+    "docker.auth.config" = "/root/.docker/config.json"
+    "docker.auth.helper" = "gcr"
+  }
+  host_volume "acme" {
+    path     = "/data/acme"
+    read_only = false
+  }
+}
