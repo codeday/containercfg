@@ -1,12 +1,6 @@
 class site::users {
-  class { "site::fs": }
-
-  file { "/fileshare/_home":
-    ensure => directory,
-  }
-
   $::vault_ssh_users.each |String $username, String $ssh_key| {
-    $home_dir = "/fileshare/_home/${username}"
+    $home_dir = "/home/${username}"
 
     group { "${username}":
       ensure => present,
@@ -26,7 +20,7 @@ class site::users {
       owner => $username,
       group => $username,
       mode => "0770",
-      require => [ User[$username], Group[$username], Class["site::fs"], File["/fileshare/_home"] ],
+      require => [ User[$username], Group[$username] ],
     }
 
     file { "${home_dir}/.ssh/authorized_keys":

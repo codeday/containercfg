@@ -1,5 +1,6 @@
 class site::std {
   exec { "/usr/bin/apt-get update": }
+  class { "site::users": }
 
   package { "zsh":
     ensure => latest,
