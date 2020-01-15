@@ -24,7 +24,7 @@ write_files:
       cd /opt/config/agents/puppet
       export FACTERLIB=/opt/config/agents/puppet/facts/
 
-      r10k puppetfile install
+      r10k puppetfile install --verbose
       puppet apply . --modulepath /etc/puppet/modules:/opt/config/agents/puppet/modules
 
 runcmd:

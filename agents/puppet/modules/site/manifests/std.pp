@@ -7,6 +7,11 @@ class site::std {
     content  => '%sudo ALL=(ALL) NOPASSWD: ALL',
   }
 
+  service { "puppet":
+    ensure => stopped,
+    enable => false,
+  }
+
   package { "zsh":
     ensure => latest,
     require => Exec["/usr/bin/apt-get update"],
