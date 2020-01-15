@@ -1,4 +1,5 @@
 class site::users {
+
   $::vault_ssh_users.each |String $username, String $ssh_key| {
     $home_dir = "/home/${username}"
 
@@ -28,7 +29,7 @@ class site::users {
       content => $ssh_key,
       owner => $username,
       group => $username,
-      mode => "0770",
+      mode => "0600",
       require => [ User[$username], Group[$username], File["${home_dir}/.ssh"] ],
     }
   }

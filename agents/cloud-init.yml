@@ -25,10 +25,10 @@ write_files:
       export FACTERLIB=/opt/config/agents/puppet/facts/
 
       r10k puppetfile install
-      puppet apply . --logdest syslog --modulepath /etc/puppet/modules:/opt/config/agents/puppet/modules
+      puppet apply . --modulepath /etc/puppet/modules:/opt/config/agents/puppet/modules
 
 runcmd:
   - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
   - sudo gem install r10k
-  - puppet resource cron puppet-apply ensure=present user=root minute=15 command='/opt/apply_puppet.sh'
+  - puppet resource cron puppet-apply ensure=present user=root minute='*/15' command='/opt/apply_puppet.sh'
   - /opt/apply_puppet.sh

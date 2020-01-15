@@ -13,5 +13,6 @@ az disk create \
   --resource-group srnd-nomad \
   --tags volume=$1 \
   --size-gb $SIZE \
+  --sku Standard_LRS \
   --location northcentralus \
   --subscription 49f7105a-6649-48da-b7fd-97c41104d914
