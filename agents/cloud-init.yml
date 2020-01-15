@@ -15,7 +15,7 @@ write_files:
     content: |
       #!/usr/bin/env bash
       if [ ! -e "/opt/config" ]; then
-        git clone https://github.com/srnd/NomadJobs.git /opt/config
+        git clone https://github.com/srnd/containercfg.git /opt/config
       fi
 
       cd /opt/config
