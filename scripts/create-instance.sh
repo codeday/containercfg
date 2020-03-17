@@ -5,7 +5,6 @@
 # (requires the az and jq utilities)
 ########
 
-
 cd "$(dirname "$0")"
 NAME=srnd-nomad-agent-$(hexdump -n 4 -e '4/4 "%08x" 1 "\n"' /dev/random)
 
@@ -15,7 +14,7 @@ if [ $# -ge 1 ]; then
     --name $NAME \
     --tags role=nomad-agent \
     --image UbuntuLTS \
-    --size Standard_D2_v3 \
+    --size ${SIZE:-Standard_D2_v3} \
     --admin-username srnd \
     --subscription 49f7105a-6649-48da-b7fd-97c41104d914 \
     --location northcentralus \

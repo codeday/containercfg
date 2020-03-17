@@ -1,0 +1,9 @@
+job: codeday-radio
+datacenters: [ srnd ]
+
+tasks:
+  spotibot:
+    image: "srnd/spotibot"
+    version: "latest"
+    resources:
+      memory: 128

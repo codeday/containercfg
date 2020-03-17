@@ -5,10 +5,10 @@ job "mysql-server" {
   group "mysql-server" {
     count = 1
 
-    volume "mysql" {
+    volume "mysql-1" {
       type      = "host"
       read_only = false
-      source    = "mysql"
+      source    = "mysql-1"
     }
 
     restart {
@@ -22,7 +22,7 @@ job "mysql-server" {
       driver = "docker"
 
       volume_mount {
-        volume      = "mysql"
+        volume      = "mysql-1"
         destination = "/var/lib/mysql"
         read_only   = false
       }

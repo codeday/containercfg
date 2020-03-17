@@ -3,8 +3,8 @@ datacenters: [ srnd ]
 
 tasks:
   codeday-present:
-    image: "https://docker.pkg.github.com/srnd/codeday-present/codeday-present"
-    version: "1.3"
+    image: "srnd/codeday-present"
+    version: "1.6"
     resources:
       memory: 128
 

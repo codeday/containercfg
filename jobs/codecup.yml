@@ -3,8 +3,11 @@ datacenters: [ srnd ]
 
 tasks:
   codecup:
-    image: "https://docker.pkg.github.com/srnd/ctfd/ctfd"
-    version: "2.1.5.03"
+    image: "srnd/ctfd"
+    version: "1.2"
+    resources:
+      cpu: 200
+      memory: 200
 
     volumes:
       share:
@@ -37,3 +40,4 @@ tasks:
         lb:
           domain: playcodecup.com
           cert: playcodecup.com
+          sticky: true

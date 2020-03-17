@@ -28,13 +28,6 @@ job "splunk" {
             source = "splunk-db"
         }
 
-        volume "splunk-etc" {
-            type = "host"
-            read_only = false
-            source = "splunk-etc"
-        }
-
-
         restart {
             attempts = 2
             interval = "5m"
@@ -55,6 +48,7 @@ job "splunk" {
                 }
 
                 dns_servers = ["169.254.1.1"]
+
 
                 logging {
                 type = "journald"
@@ -140,15 +134,13 @@ job "splunk" {
                     }
                 }
             }
-
             volume_mount {
                 volume      = "splunk-db"
                 destination = "/opt/splunk/var"
                 read_only   = false
             }
-
             volume_mount {
-                volume      = "splunk-etc"
+                volume      = "splunk-db"
                 destination = "/opt/splunk/etc"
                 read_only   = false
             }

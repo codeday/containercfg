@@ -1,0 +1,48 @@
+job: minecraft
+datacenters: [ srnd ]
+
+tasks:
+  minecraft:
+    image: "itzg/minecraft-server"
+    version: "latest"
+    args:
+      - "--noconsole"
+
+    resources:
+      cpu: 17500
+      memory: 63000
+
+    volumes:
+      share:
+        - fileshare: minecraft-plugins
+          mountpoint: /plugins
+      host:
+        - volume: minecraft
+          mountpoint: "/data"
+
+    env:
+      MEMORY: 60G
+      MAX_MEMORY: 60G
+      EULA: "TRUE"
+      GUI: "FALSE"
+      TYPE: PAPER
+      VERSION: "1.15.2"
+      SERVER_NAME: CodeDay
+      MOTD: Everyday is CodeDay if you believe in magic.
+      MAX_PLAYERS: 144
+      ANNOUNCE_PLAYER_ACHIEVEMENTS: "FALSE"
+      ENABLE_COMMAND_BLOCK: "FALSE"
+      SPAWN_PROTECTION: 0
+      ALLOW_NETHER: "FALSE"
+
+    vault:
+      policies:
+        - minecraft
+      env:
+        minecraft:
+          OPS: ops
+
+    ports:
+      minecraft:
+        inner: 25565
+        outer: 25565

@@ -5,12 +5,6 @@ job "redis" {
   group "redis" {
     count = 1
 
-    volume "redis" {
-      type      = "host"
-      read_only = false
-      source    = "redis"
-    }
-
     restart {
       attempts = 10
       interval = "5m"
@@ -21,17 +15,14 @@ job "redis" {
     task "redis" {
       driver = "docker"
 
-      volume_mount {
-        volume      = "redis"
-        destination = "/data"
-        read_only   = false
-      }
-
       config {
         image = "redis"
         port_map {
           db = 6379
         }
+        volumes = [
+          "/fileshare/redis:/data"
+        ]
       }
 
       resources {
