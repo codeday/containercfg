@@ -12,13 +12,6 @@ job "JohnPeterDiscord" {
     canary = 0
   }
 
-  restart {
-    attempts = 2
-    interval = "5m"
-    delay = "15s"
-    mode = "fail"
-  }
-
   vault {
     policies = [
       "johnpeterdiscord"]
@@ -30,11 +23,18 @@ job "JohnPeterDiscord" {
   group "JohnPeterDiscord" {
     count = 1
 
+    restart {
+      attempts = 2
+      interval = "5m"
+      delay = "15s"
+      mode = "fail"
+    }
+
     task "DiscordBot" {
       driver = "docker"
 
       config {
-        image = "srnd/johnpeter-discord:1.3"
+        image = "srnd/johnpeter-discord:1.6"
 
         dns_servers = ["169.254.1.1"]
       }
@@ -46,19 +46,22 @@ job "JohnPeterDiscord" {
                 {{ end }}
                 EOH
 
-        destination = "/app/secrets/serviceAccount.json"
+        destination = "/local/serviceAccount.json"
         change_mode = "restart"
+      }
+
+      env {
+        GOOGLE_APPLICATION_CREDENTIALS = "/local/serviceAccount.json"
       }
 
       template {
         data = <<EOH
                 {{- with secret "kv/data/johnpeterdiscord" -}}
                 BOT_TOKEN={{- .Data.data.BOT_TOKEN -}}
-                GOOGLE_APPLICATION_CREDENTIALS={{- .Data.data.GOOGLE_APPLICATION_CREDENTIALS -}}
                 {{ end }}
                 EOH
 
-        destination = "/app/secrets/env.env"
+        destination = "/local/env.env"
         change_mode = "restart"
         env = true
       }
