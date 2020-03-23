@@ -35,7 +35,8 @@ job "traefik" {
         dns_servers = ["169.254.1.1"]
 
         volumes = [
-          "local/traefik.toml:/etc/traefik/traefik.toml"
+          "local/traefik.toml:/etc/traefik/traefik.toml",
+          "local/providers.toml:/etc/traefik/providers.toml"
         ]
       }
 
@@ -95,11 +96,24 @@ EOF
 
       template {
         data = <<EOF
+          [http.middlewares]
+            [http.middlewares.redirect-scheme.redirectScheme]
+              scheme = "https"
+            [http.middlewares.internal-ip.ipWhiteList]
+              sourceRange = ["10.0.0.0/8", "157.245.248.45", "172.17.0.1/16"]
+        EOF
+        destination = "local/providers.toml"
+      }
+
+      template {
+        data = <<EOF
           [providers.consulCatalog]
             exposedByDefault = false
             [providers.consulCatalog.endpoint]
               address = "m.srnd.cloud:8500"
               scheme = "http"
+          [providers.file]
+            filename = "/etc/traefik/providers.toml"
 
           [entryPoints]
             [entryPoints.http]
