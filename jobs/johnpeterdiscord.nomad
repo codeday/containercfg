@@ -34,7 +34,7 @@ job "JohnPeterDiscord" {
       driver = "docker"
 
       config {
-        image = "srnd/johnpeter-discord:1.6"
+        image = "srnd/johnpeter-discord:86aff91875d2f753567635e2f206d304a48dfe31"
 
         dns_servers = ["169.254.1.1"]
       }
@@ -57,8 +57,9 @@ job "JohnPeterDiscord" {
       template {
         data = <<EOH
                 {{- with secret "kv/data/johnpeterdiscord" -}}
-                BOT_TOKEN={{- .Data.data.BOT_TOKEN -}}
-                {{ end }}
+                BOT_TOKEN={{ .Data.data.BOT_TOKEN }}
+                CLEVERBOT_API_KEY={{ .Data.data.CLEVERBOT_API_KEY }}
+		{{ end }}
                 EOH
 
         destination = "/local/env.env"
