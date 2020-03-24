@@ -59,7 +59,8 @@ job "JohnPeterDiscord" {
                 {{- with secret "kv/data/johnpeterdiscord" -}}
                 BOT_TOKEN={{ .Data.data.BOT_TOKEN }}
                 CLEVERBOT_API_KEY={{ .Data.data.CLEVERBOT_API_KEY }}
-		{{ end }}
+                RAYGUN_KEY={{ .Data.data.RAYGUN_KEY }}
+                {{ end }}
                 EOH
 
         destination = "/local/env.env"
