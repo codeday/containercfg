@@ -34,7 +34,7 @@ job "JohnPeterDiscord" {
       driver = "docker"
 
       config {
-        image = "srnd/johnpeter-discord:86aff91875d2f753567635e2f206d304a48dfe31"
+        image = "srnd/johnpeter-discord:bba31bba51a7dd32f1d91a4ef6931f7e0e9aec4b"
 
         dns_servers = ["169.254.1.1"]
       }
@@ -69,7 +69,7 @@ job "JohnPeterDiscord" {
       }
 
       resources {
-        cpu = 100
+        cpu = 50
         memory = 100
       }
     }
