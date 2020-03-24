@@ -12,6 +12,9 @@ client = {
     "docker.auth.config" = "/root/.docker/config.json"
     "docker.auth.helper" = "gcr"
   }
+  meta {
+    "nomad_volumes" = "<%= @host_volumes.keys.sort_by!{ |m| m.downcase}.join(',') %>"
+  }
   host_volume "acme" {
     path     = "/acme"
     read_only = false

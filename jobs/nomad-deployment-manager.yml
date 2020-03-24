@@ -1,0 +1,28 @@
+job: nomad-deployment-manager
+datacenters: [ srnd ]
+
+tasks:
+  nomad-deployment-manager:
+    image: "srnd/nomad-deployment-manager"
+    version: "latest"
+    resources:
+      memory: 128
+
+    vault:
+      policies:
+        - nomad-deployment-manager
+      env:
+        nomad-deployment-manager:
+          CIRCLECI_TOKEN: CIRCLECI_TOKEN
+
+    env:
+      NOMAD_ADDR: http://m.srnd.cloud:4646
+
+    ports:
+      http:
+        inner: 3000
+        lb:
+          domain: deploy.srnd.cloud
+          middleware:
+            - internal-ip@file
+
