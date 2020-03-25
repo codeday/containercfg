@@ -34,7 +34,7 @@ job "JohnPeterDiscord" {
       driver = "docker"
 
       config {
-        image = "srnd/johnpeter-discord:1.6"
+        image = "srnd/johnpeter-discord:bba31bba51a7dd32f1d91a4ef6931f7e0e9aec4b"
 
         dns_servers = ["169.254.1.1"]
       }
@@ -57,7 +57,9 @@ job "JohnPeterDiscord" {
       template {
         data = <<EOH
                 {{- with secret "kv/data/johnpeterdiscord" -}}
-                BOT_TOKEN={{- .Data.data.BOT_TOKEN -}}
+                BOT_TOKEN={{ .Data.data.BOT_TOKEN }}
+                CLEVERBOT_API_KEY={{ .Data.data.CLEVERBOT_API_KEY }}
+                RAYGUN_KEY={{ .Data.data.RAYGUN_KEY }}
                 {{ end }}
                 EOH
 
@@ -67,7 +69,7 @@ job "JohnPeterDiscord" {
       }
 
       resources {
-        cpu = 100
+        cpu = 50
         memory = 100
       }
     }
