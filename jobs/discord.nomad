@@ -1,4 +1,4 @@
-job "JohnPeterDiscord" {
+job "discord" {
   region = "global"
   datacenters = ["srnd"]
   type = "service"
@@ -20,7 +20,7 @@ job "JohnPeterDiscord" {
     change_signal = "SIGHUP"
   }
 
-  group "JohnPeterDiscord" {
+  group "johnpeter-discord" {
     count = 1
 
     restart {
@@ -30,7 +30,7 @@ job "JohnPeterDiscord" {
       mode = "fail"
     }
 
-    task "DiscordBot" {
+    task "johnpeter-discord" {
       driver = "docker"
 
       config {

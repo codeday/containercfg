@@ -1,8 +1,8 @@
-job: nomad-deployment-manager
+job: quick-deploy
 datacenters: [ srnd ]
 
 tasks:
-  nomad-deployment-manager:
+  quick-deploy:
     image: "srnd/nomad-deployment-manager"
     version: "latest"
     resources:
