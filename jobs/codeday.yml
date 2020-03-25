@@ -1,0 +1,46 @@
+job: codeday
+datacenters: [ srnd ]
+
+tasks:
+  codeday:
+    image: "srnd/codeday"
+    version: "latest"
+
+    env:
+      APP_DEBUG: false
+      APP_URL: https://www.codeday.org/
+      SHOWCASE_API_BASE: https://showcase.srnd.org/
+      SESSION_COOKIE: codeday_www
+      CLEAR_API_BASE: https://clear.codeday.org/api
+      APPLE_PASSID: pass.org.srnd.codeday.ticket
+      APPLE_TEAMID: AN8JL7Z2TB
+      APPLE_TEAM: StudentRND
+      REDIS_HOST: redis.service.consul
+
+    vault:
+      policies:
+        - codeday
+      env:
+        codeday:
+          APP_KEY: APP_KEY
+          CLEAR_ACCESS_TOKEN: CLEAR_ACCESS_TOKEN
+          CLEAR_SECRET: CLEAR_SECRET
+          MICRO_IDENTIFY_KEY: MICRO_IDENTIFY_KEY
+          APPLE_PASSP12PASSWORD: APPLE_PASSP12PASSWORD
+          SPLUNK_HOST: SPLUNK_HOST
+          SPLUNK_PORT: SPLUNK_PORT
+          SPLUNK_USERNAME: SPLUNK_USERNAME
+          SPLUNK_PASSWORD: SPLUNK_PASSWORD
+          MAXMIND_USER_ID: MAXMIND_USER_ID
+          MAXMIND_LICENSE_KEY: MAXMIND_LICENSE_KEY
+          CHALLENGE: CHALLENGE
+
+    resources:
+      memory: 256
+
+    ports:
+      http:
+        inner: 80
+        lb:
+          domain: www.codeday.org
+          cert: codeday.org

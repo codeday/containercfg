@@ -1,0 +1,63 @@
+job: showcase
+datacenters: [ srnd ]
+
+tasks:
+  showcase:
+    image: "srnd/showcase"
+    version: "latest"
+
+    env:
+      APP_NAME: Showcase
+      APP_ENV: production
+      APP_DEBUG: false
+      APP_LOG_LEVEL: error
+      APP_URL: https://showcase.srnd.org/
+      BROADCAST_DRIVER: log
+      SESSION_LIFETIME: 120
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_DRIVER: redis
+      REDIS_HOST: redis.service.consul
+      REDIS_PORT: 6379
+
+    vault:
+      policies:
+        - showcase
+      env:
+        showcase:
+          APP_KEY: APP_KEY
+          DB_CONNECTION: DB_CONNECTION
+          DB_HOST: DB_HOST
+          DB_PORT: DB_PORT
+          DB_DATABASE: DB_DATABASE
+          DB_USERNAME: DB_USERNAME
+          DB_PASSWORD: DB_PASSWORD
+          MAIL_DRIVER: MAIL_DRIVER
+          MAIL_HOST: MAIL_HOST
+          MAIL_PORT: MAIL_PORT
+          MAIL_USERNAME: MAIL_USERNAME
+          MAIL_PASSWORD: MAIL_PASSWORD
+          MAIL_ENCRYPTION: MAIL_ENCRYPTION
+          KRAKEN_KEY: KRAKEN_KEY
+          KRAKEN_SECRET: KRAKEN_SECRET
+          AWS_ACCESS_KEY_ID: AWS_ACCESS_KEY_ID
+          AWS_SECRET_ACCESS_KEY: AWS_SECRET_ACCESS_KEY
+          AWS_DEFAULT_REGION: AWS_DEFAULT_REGION
+          AWS_BUCKET: AWS_BUCKET
+          AWS_URL: AWS_URL
+          AWS_PREFIX: AWS_PREFIX
+          CLEAR_PUBLIC: CLEAR_PUBLIC
+          CLEAR_SECRET: CLEAR_SECRET
+          CLEAR_ENDPOINT: CLEAR_ENDPOINT
+          S5_TOKEN: S5_TOKEN
+          S5_SECRET: S5_SECRET
+
+    resources:
+      memory: 256
+
+    ports:
+      http:
+        inner: 80
+        lb:
+          domain: showcase.srnd.org
+          cert: srnd.org
