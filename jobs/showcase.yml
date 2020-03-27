@@ -4,7 +4,6 @@ datacenters: [ srnd ]
 tasks:
   showcase:
     image: "srnd/showcase"
-    version: "latest"
 
     env:
       APP_NAME: Showcase

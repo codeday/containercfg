@@ -1,0 +1,31 @@
+job: backup-db
+datacenters: [ srnd ]
+
+placement:
+  type: batch
+  crontab: 0 7 * * * *
+
+tasks:
+  backup-db:
+    image: srnd/docker-dump
+    resources:
+      memory: 512
+
+    env:
+      MYSQL_HOST: mysql-server.service.consul
+      PGSQL_HOST: postgres-master-pg.service.consul
+
+    vault:
+      policies:
+        - backup
+      env:
+        backup:
+          MYSQL_USERNAME: mysql_username
+          MYSQL_PASSWORD: mysql_password
+          PGSQL_USERNAME: pgsql_username
+          PGSQL_PASSWORD: pgsql_password
+
+    volumes:
+      share:
+        - fileshare: db_backup
+          mountpoint: /dump

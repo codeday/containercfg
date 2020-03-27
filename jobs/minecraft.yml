@@ -4,7 +4,6 @@ datacenters: [ srnd ]
 tasks:
   minecraft:
     image: "itzg/minecraft-server"
-    version: "latest"
     args:
       - "--noconsole"
 

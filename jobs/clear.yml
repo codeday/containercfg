@@ -4,7 +4,6 @@ datacenters: [ srnd ]
 tasks:
   clear:
     image: "srnd/clear"
-    version: "latest"
 
     env:
       APP_DEBUG: false

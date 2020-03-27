@@ -4,7 +4,6 @@ datacenters: [ srnd ]
 tasks:
   email:
     image: https://docker.pkg.github.com/srnd/sendy/sendy
-    version: latest
     resources:
       memory: 128
 

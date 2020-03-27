@@ -4,7 +4,7 @@ datacenters: [ srnd ]
 tasks:
   codecup-email-responder:
     image: "srnd/docker-codecup-email-responder"
-    version: "latest"
+
     resources:
       memory: 128
       cpu: 50

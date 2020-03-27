@@ -1,0 +1,37 @@
+job: meilisearch
+datacenters: [ srnd ]
+
+deployment:
+  canaries: 0
+
+tasks:
+  meilisearch:
+    image: "getmeili/meilisearch"
+    version: "v0.9.0"
+
+    vault:
+      policies:
+        - meilisearch
+      env:
+        meilisearch:
+          MEILI_MASTER_KEY: MEILI_MASTER_KEY
+
+    env:
+      MEILI_NO_ANALYTICS: true
+      MEILI_ENV: production
+
+    volumes:
+      host:
+        - volume: meilisearch
+          mountpoint: "/data.ms"
+
+    resources:
+      memory: 350
+
+    ports:
+      meilisearch:
+        inner: 7700
+        lb:
+          domain: search.srnd.cloud
+          middleware:
+            - internal-ip@file

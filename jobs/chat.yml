@@ -4,7 +4,7 @@ datacenters: [ srnd ]
 tasks:
   chat:
     image: srnd/mattermost
-    version: latest
+
     resources:
       memory: 512
 

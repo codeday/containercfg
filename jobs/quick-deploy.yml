@@ -4,7 +4,6 @@ datacenters: [ srnd ]
 tasks:
   quick-deploy:
     image: "srnd/nomad-deployment-manager"
-    version: "latest"
     resources:
       memory: 128
 

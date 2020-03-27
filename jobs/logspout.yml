@@ -6,7 +6,6 @@ placement:
 tasks:
   logspout:
     image: "gliderlabs/logspout"
-    version: "latest"
     command: "syslog://splunk-syslog.service.consul:8514"
     allow_docker_sock: true
 

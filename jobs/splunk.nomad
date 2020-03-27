@@ -86,13 +86,15 @@ job "splunk" {
                 port = "http"
                 tags = [
                     "traefik.enable=true",
-                    "traefik.http.routers.splunk-splunk-server-http.rule=Host(`splunk.srnd.org`)",
-                    "traefik.http.routers.splunk-splunk-server.rule=Host(`splunk.srnd.org`)",
+                    "traefik.http.routers.splunk-splunk-server-http.rule=Host(`splunk.srnd.cloud`)",
+                    "traefik.http.routers.splunk-splunk-server-http.middlewares=internal-ip@file",
+                    "traefik.http.routers.splunk-splunk-server.rule=Host(`splunk.srnd.cloud`)",
                     "traefik.http.routers.splunk-splunk-server.tls=true",
-                    "traefik.http.routers.splunk-splunk-server.tls.certresolver=srnd-org",
-                    "traefik.http.routers.splunk-splunk-server.tls.domains[0].main=*.srnd.org",
-                    "traefik.http.routers.splunk-splunk-server.tls.domains[0].sans=srnd.org",
+                    "traefik.http.routers.splunk-splunk-server.tls.certresolver=srnd-cloud",
+                    "traefik.http.routers.splunk-splunk-server.tls.domains[0].main=*.srnd.cloud",
+                    "traefik.http.routers.splunk-splunk-server.tls.domains[0].sans=srnd.cloud",
                     "traefik.http.services.splunk-splunk-server.loadbalancer.sticky=true",
+                    "traefik.http.routers.splunk-splunk-server.middlewares=internal-ip@file",
 
                     "traefik.tags=service",
                     "traefik.frontend.rule=Host:splunk.srnd.org"

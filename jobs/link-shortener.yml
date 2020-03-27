@@ -4,7 +4,7 @@ datacenters: [ srnd ]
 tasks:
   link-shortener:
     image: "yourls"
-    version: "1.7.4-apache"
+    version: "1.7.5-apache"
     resources:
       memory: 64
 

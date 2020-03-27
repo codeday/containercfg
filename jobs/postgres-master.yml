@@ -1,6 +1,9 @@
 job: postgres-master
 datacenters: [ srnd ]
 
+deployment:
+  canaries: 0
+
 tasks:
   postgres-master:
     image: "bitnami/postgresql"

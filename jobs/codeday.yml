@@ -4,7 +4,6 @@ datacenters: [ srnd ]
 tasks:
   codeday:
     image: "srnd/codeday"
-    version: "latest"
 
     env:
       APP_DEBUG: false

@@ -1,0 +1,30 @@
+job: discord
+datacenters: [ srnd ]
+
+deployment:
+  canaries: 0
+
+tasks:
+  johnpeter-discord:
+    image: srnd/johnpeter-discord
+
+    resources:
+      memory: 100
+
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: /local/serviceAccount.json
+
+    vault:
+      policies:
+        - johnpeterdiscord
+
+      env:
+        johnpeterdiscord:
+            BOT_TOKEN: BOT_TOKEN
+            CLEVERBOT_API_KEY: CLEVERBOT_API_KEY
+            RAYGUN_KEY: RAYGUN_KEY
+
+      files:
+        johnpeterdiscord:
+          serviceAccount.json:
+            contents: "{{- .Data.data.serviceAccount -}}"

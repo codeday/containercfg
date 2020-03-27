@@ -1,0 +1,42 @@
+job: backup-fileshare
+datacenters: [ srnd ]
+
+placement:
+  type: batch
+  crontab: 30 7 * * * *
+
+tasks:
+  backup-fileshare:
+    image: restic/restic
+    resources:
+      memory: 512
+
+    args:
+      - -v
+      - backup
+      - /data
+
+    env:
+      RESTIC_PASSWORD_FILE: /local/password.txt
+      HOSTNAME: backup-fileshare
+
+    vault:
+      policies:
+        - backup
+      env:
+        backup:
+          AWS_ACCESS_KEY_ID: aws_access_key_id
+          AWS_SECRET_ACCESS_KEY: aws_access_key
+      files:
+        backup:
+          password.txt:
+            env: false
+            contents: "{{- .Data.data.restic_password -}}"
+          repository.env:
+            env: true
+            contents: "RESTIC_REPOSITORY={{ .Data.data.restic_repository }}/fileshare"
+
+    volumes:
+      raw:
+        - from: "/fileshare"
+          mountpoint: "/data"
