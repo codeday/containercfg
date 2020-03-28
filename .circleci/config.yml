@@ -1,0 +1,34 @@
+version: 2.1
+workflows:
+  run:
+    jobs:
+      - run:
+          filters:
+            branches:
+              only: master
+          context: Nomad Run
+  plan:
+    jobs:
+      - plan:
+          filters:
+            branches:
+              ignore: master
+          context: Nomad Plan
+
+jobs:
+  plan:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: yarn install -g @srnd/vagabond
+      - run: cd jobs && vagabond plan-all
+  run:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: yarn install -g @srnd/vagabond
+      - run: cd jobs && vagabond plan-all
