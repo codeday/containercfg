@@ -101,7 +101,11 @@ EOF
               [http.routers.nomad-ci-get]
                 service = "nomad"
                 middlewares = ["strip-nomad-ci-prefix"]
-                rule = "Method(`GET`) && Host(`nomad-ci.codeday.cloud`) && Path(`/{{ .Data.data.nomad_ci_key_get }}/v1/job/{job:[a-zA-Z0-9\\-_]+}{plan:(/plan)?}`)"
+                rule = "Method(`GET`) && Host(`nomad-ci.codeday.cloud`) && Path(`/{{ .Data.data.nomad_ci_key_get }}/v1/job/{job:[a-zA-Z0-9\\-_]+}`)"
+              [http.routers.nomad-ci-plan]
+                service = "nomad"
+                middlewares = ["strip-nomad-ci-prefix"]
+                rule = "Method(`POST`) && Host(`nomad-ci.codeday.cloud`) && Path(`/{{ .Data.data.nomad_ci_key_get }}/v1/job/{job:[a-zA-Z0-9\\-_]+}/plan`)"
               [http.routers.nomad-ci-post]
                 service = "nomad"
                 middlewares = ["strip-nomad-ci-prefix"]
@@ -131,7 +135,7 @@ EOF
               [http.middlewares.redirect-scheme.redirectScheme]
                 scheme = "https"
               [http.middlewares.strip-nomad-ci-prefix.stripPrefix]
-                prefixes = ["/{{ .Data.data.nomad_ci_key }}"]
+                prefixes = ["/{{ .Data.data.nomad_ci_key_get }}", "/{{ .Data.data.nomad_ci_key_post }}"]
               [http.middlewares.internal-ip.ipWhiteList]
                 sourceRange = ["10.0.0.0/8", "157.245.248.45", "172.17.0.1/16"]
           {{ end }}

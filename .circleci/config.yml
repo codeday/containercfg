@@ -2,7 +2,7 @@ version: 2.1
 workflows:
   run:
     jobs:
-      - run:
+      - plan:
           filters:
             branches:
               only: master
@@ -20,15 +20,7 @@ jobs:
     docker:
       - image: circleci/node:latest
     steps:
-      - checkout
+      #- checkout
       - setup_remote_docker
-      - run: yarn install -g @srnd/vagabond
-      - run: cd jobs && vagabond plan-all
-  run:
-    docker:
-      - image: circleci/node:latest
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run: yarn install -g @srnd/vagabond
-      - run: cd jobs && vagabond plan-all
+      - run: yarn global add @srnd/vagabond
+      - run: cd jobs && $(yarn global bin)/vagabond plan-all
