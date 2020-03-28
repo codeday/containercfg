@@ -20,7 +20,7 @@ jobs:
     docker:
       - image: circleci/node:latest
     steps:
-      #- checkout
+      - checkout
       - setup_remote_docker
       - run: yarn global add @srnd/vagabond
       - run: cd jobs && $(yarn global bin)/vagabond plan-all
