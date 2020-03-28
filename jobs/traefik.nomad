@@ -189,6 +189,12 @@ EOF
             [certificatesResolvers.srnd-cloud.acme.dnsChallenge]
               provider = "ns1"
 
+          [certificatesResolvers.codeday-to.acme]
+            storage = "/acme/codeday-to.json"
+            email = "team@srnd.org"
+            [certificatesResolvers.codeday-to.acme.dnsChallenge]
+              provider = "ns1"
+
           [certificatesResolvers.codeday-cloud.acme]
             storage = "/acme/codeday-cloud.json"
             email = "team@srnd.org"

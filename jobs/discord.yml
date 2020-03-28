@@ -32,7 +32,11 @@ tasks:
   matterbridge:
     image: 42wim/matterbridge
 
-    valut:
+    args:
+      - -conf
+      - /local/matterbridge.toml
+
+    vault:
       policies:
         - matterbridge
 

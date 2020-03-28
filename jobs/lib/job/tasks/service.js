@@ -1,15 +1,11 @@
-const getTags = (port, taskName, jobName) => {
-  const { lb, scheme } = port;
+const getRouterTags = (name, taskName, jobName, scheme, lb) => {
   const tags = [];
-  const service = `${jobName}-${taskName}-${port.name}`;
+  const domainName = lb.domain.replace(/\./g, '-');
+  const service = `${jobName}-${taskName}-${name}-${domainName}`;
   const serviceTls = `${service}-tls`;
 
-  const hostRule = (Array.isArray(lb.domain) ? lb.domain : [lb.domain])
-    .map((domain) => `Host(\`${domain}\`)`)
-    .join(' || ');
-
+  const hostRule = `Host(\`${lb.domain}\`)`;
   tags.push(`traefik.http.routers.${service}.rule=${hostRule}`);
-  tags.push(`traefik.enable=true`);
 
   if (scheme === 'https') tags.push(`traefik.http.services.${service}.loadbalancer.server.scheme=https`);
   if (lb.https_only) tags.push(`traefik.http.routers.${service}.middlewares=redirect-scheme@file`);
@@ -27,6 +23,13 @@ const getTags = (port, taskName, jobName) => {
     );
   }
 
+  return tags;
+}
+
+const getServiceTags = (name, taskName, jobName, lb) => {
+  if (!lb) return [];
+  const tags = [];
+  const service = `${taskName}-${jobName}-${name}`;
   if (lb.sticky) {
     tags.push(
       `traefik.http.services.${service}.loadBalancer.sticky=true`,
@@ -37,7 +40,6 @@ const getTags = (port, taskName, jobName) => {
   } else {
     tags.push(`traefik.http.services.${service}.loadBalancer.sticky=false`);
   }
-
   return tags;
 }
 
@@ -59,7 +61,13 @@ module.exports = (task, jobName) => {
       CanaryTags: [ "traefik.enable=false" ],
       Tags: [
         `scheme=${port.scheme || 'http'}`,
-        ...(port.lb ? getTags(port, task.name, jobName) : []),
+        (port.lb && port.lb ? 'traefik.enable=true' : 'traefik.enable=false'),
+        ...getServiceTags(port.name, task.name, jobName, port.lb),
+        ...(port.lb ? (
+            (Array.isArray(port.lb) ? port.lb : [port.lb])
+              .map((lb) => getRouterTags(port.name, task.name, jobName, port.scheme, lb))
+              .reduce((a, b) => [...a, ...b], [])
+          ) : []),
         ...(port.tags || []),
       ]
     }))
