@@ -1,25 +1,27 @@
 const getPlacementConstraints = (placement) => {
-  if (!placement) return []; // TODO(@tylermenezes) Figure out what format this should be in
+  if (!placement) return [];
   const constraints = [];
 
   if (placement.type === 'unique') constraints.push({
-    Operator: 'distinct_hosts',
-    Value: true,
+    Operand: 'distinct_hosts',
   });
 
   if (placement.os_type) constraints.push({
-    Attribute: '${attr.kernel.name}',
-    Value: placement.os_type,
+    LTarget: '${attr.kernel.name}',
+    Operand: '==',
+    RTarget: placement.os_type,
   });
 
   if (placement.os) constraints.push({
-    Attribute: '${attr.os.name}',
-    Value: placement.os,
+    LTarget: '${attr.os.name}',
+    Operand: '==',
+    RTarget: placement.os,
   });
 
   if (placement.os_version) constraints.push({
-    Attribute: '${attr.os.version}',
-    Value: placement.os_version,
+    LTarget: '${attr.os.version}',
+    Operand: '>=',
+    RTarget: placement.os_version,
   });
 
   return constraints;

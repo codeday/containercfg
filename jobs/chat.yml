@@ -39,3 +39,18 @@ tasks:
       pushproxy:
         inner: 8066
         outer: 8066
+
+  plugin-trusty:
+    image: tjhorner/mattermost-trusty
+    version: latest
+    resources:
+      memory: 64
+
+    vault:
+      policies:
+        - mattermost-trusty
+      env:
+        mattermost-trusty:
+          COMMAND_TOKEN: command_token
+          TRUSTY_TOKEN: trusty_token
+          USER_WHITELIST: user_whitelist

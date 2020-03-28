@@ -1,6 +1,9 @@
 job: minecraft
 datacenters: [ srnd ]
 
+deployment:
+  canaries: 0
+
 tasks:
   minecraft:
     image: "itzg/minecraft-server"
@@ -9,7 +12,7 @@ tasks:
 
     resources:
       cpu: 7000
-      memory: 15250
+      memory: 15150
 
     volumes:
       share:
@@ -20,7 +23,7 @@ tasks:
           mountpoint: "/data"
 
     env:
-      MEMORY: 8G
+      MEMORY: 7G
       MAX_MEMORY: 15G
       EULA: "TRUE"
       GUI: "FALSE"
