@@ -26,7 +26,7 @@ jobs:
       - run:
           command: |-
             cd jobs
-            $(yarn global bin)/vagabond render-all > render.json
+            $(yarn global bin)/vagabond render-all > ../spec.json
             $(yarn global bin)/vagabond plan-all
       - store_artifacts:
           path: render.json
@@ -41,9 +41,12 @@ jobs:
       - run:
           command: |-
             cd jobs
-            $(yarn global bin)/vagabond render-all > render.json
+            $(yarn global bin)/vagabond render-all > ../spec.json
             $(yarn global bin)/vagabond plan-all
+            echo ""
+            echo "!!! Running !!!"
+            echo ""
             $(yarn global bin)/vagabond run-all
       - store_artifacts:
-          path: render.json
-          destination: render.json
+          path: spec.json
+          destination: spec.json
