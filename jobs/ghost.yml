@@ -47,9 +47,9 @@ tasks:
       http:
         inner: 2368
         tags:
-          - traefik.http.middlewares.redirect-ghost-index.redirectregex.regex=^http(s)?://([a-zA-Z0-9_\\-\\.]+)/(\\?.*)?$
+          - traefik.http.middlewares.redirect-ghost-index.redirectregex.regex=^http(s)?://([a-zA-Z0-9_\-\.]+)/(\?.*)?$
           - traefik.http.middlewares.redirect-ghost-index.redirectregex.replacement=http${1}://${2}/ghost
-          - traefik.http.middlewares.redirect-ghost-viewsite.redirectregex.regex=^http(s)?://([a-zA-Z0-9_\\-\\.]+)/private/\\?r=(/|%2F)$
+          - traefik.http.middlewares.redirect-ghost-viewsite.redirectregex.regex=^http(s)?://([a-zA-Z0-9_\-\.]+)/private/\?r=(/|%2F)$
           - traefik.http.middlewares.redirect-ghost-viewsite.redirectregex.replacement=https://www.codeday.org/
         lb:
           domain: ghost.codeday.org

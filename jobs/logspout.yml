@@ -3,6 +3,9 @@ datacenters: [ srnd ]
 placement:
   type: all
 
+deployment:
+  canaries: 0
+
 tasks:
   logspout:
     image: "gliderlabs/logspout"

@@ -151,6 +151,18 @@ EOF
             [certificatesResolvers.srnd-cloud.acme.dnsChallenge]
               provider = "ns1"
 
+          [certificatesResolvers.codeday-cloud.acme]
+            storage = "/acme/codeday-cloud.json"
+            email = "team@srnd.org"
+            [certificatesResolvers.codeday-cloud.acme.dnsChallenge]
+              provider = "ns1"
+
+          [certificatesResolvers.codeday-xyz.acme]
+            storage = "/acme/codeday-xyz.json"
+            email = "team@srnd.org"
+            [certificatesResolvers.codeday-xyz.acme.dnsChallenge]
+              provider = "ns1"
+
           [certificatesresolvers.codeday-vip.acme]
             storage = "/acme/codeday-vip.json"
             email = "team@srnd.org"
@@ -161,13 +173,13 @@ EOF
             storage = "/acme/playcodecup-com.json"
             email = "team@srnd.org"
             [certificatesResolvers.playcodecup-com.acme.dnsChallenge]
-              provider = "cloudflare"
+              provider = "ns1"
 
           [certificatesresolvers.codecupchallenge-com.acme]
             storage = "/acme/codecupchallenge-com.json"
             email = "team@srnd.org"
             [certificatesresolvers.codecupchallenge-com.acme.dnschallenge]
-              provider = "cloudflare"
+              provider = "ns1"
 EOF
 
         destination = "local/traefik.toml"
