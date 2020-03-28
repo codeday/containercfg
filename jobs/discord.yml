@@ -28,3 +28,15 @@ tasks:
         johnpeterdiscord:
           serviceAccount.json:
             contents: "{{- .Data.data.serviceAccount -}}"
+
+  matterbridge:
+    image: 42wim/matterbridge
+
+    valut:
+      policies:
+        - matterbridge
+
+      files:
+        matterbridge:
+          matterbridge.toml:
+            contents: "{{- .Data.data.config -}}"
