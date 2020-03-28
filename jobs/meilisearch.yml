@@ -26,7 +26,7 @@ tasks:
           mountpoint: "/data.ms"
 
     resources:
-      memory: 350
+      memory: 300
 
     ports:
       meilisearch:
