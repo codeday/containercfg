@@ -21,8 +21,10 @@ tasks:
       http:
         inner: 8000
         lb:
-          domain: chat.srnd.org
-          cert: srnd.org
+          - domain: chat.srnd.org
+            cert: srnd.org
+          - domain: chat.codeday.org
+            cert: codeday.org
 
   pushproxy:
     image: jostyee/docker-mattermost-push-proxy

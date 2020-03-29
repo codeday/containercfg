@@ -21,7 +21,10 @@ tasks:
       http:
         inner: 3000
         lb:
-          domain: deploy.srnd.cloud
-          middleware:
-            - internal-ip@file
+          - domain: deploy.srnd.cloud
+            middleware:
+              - internal-ip@file
+          - domain: deploy.codeday.cloud
+            middleware:
+              - internal-ip@file
 
