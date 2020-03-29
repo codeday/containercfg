@@ -27,7 +27,7 @@ job "statsd" {
 
             config {
                 image = "statsd/statsd:latest"
-                
+
                 port_map {
                     statsd = 8125
                 }
@@ -53,12 +53,6 @@ job "statsd" {
             service {
                 name = "statsd"
                 port = "statsd"
-
-                check {
-                type     = "tcp"
-                interval = "10s"
-                timeout  = "2s"
-                }
             }
         }
     }

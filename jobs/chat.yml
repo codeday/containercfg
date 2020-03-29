@@ -25,6 +25,7 @@ tasks:
             cert: srnd.org
           - domain: chat.codeday.org
             cert: codeday.org
+            https_only: true
 
   pushproxy:
     image: jostyee/docker-mattermost-push-proxy

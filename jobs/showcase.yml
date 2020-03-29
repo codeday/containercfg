@@ -1,5 +1,5 @@
 job: showcase
-datacenters: [ srnd ]
+datacenters: [srnd]
 
 tasks:
   showcase:
@@ -58,5 +58,7 @@ tasks:
       http:
         inner: 80
         lb:
-          domain: showcase.srnd.org
-          cert: srnd.org
+          - domain: showcase.srnd.org
+            cert: srnd.org
+          - domain: showcase.codeday.org
+            cert: codeday.org

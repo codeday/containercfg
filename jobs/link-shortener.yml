@@ -1,5 +1,5 @@
 job: link-shortener
-datacenters: [ srnd ]
+datacenters: [srnd]
 
 tasks:
   link-shortener:
@@ -20,15 +20,12 @@ tasks:
 
     env:
       YOURLS_DB_HOST: mysql-server.service.consul
-      YOURLS_SITE: https://srnd.to
+      YOURLS_SITE: https://codeday.to
       YOURLS_DB_PREFIX: yourls_
 
     ports:
       http:
         inner: 80
         lb:
-          - domain: srnd.to
-            cert: srnd.to
           - domain: codeday.to
             cert: codeday.to
-

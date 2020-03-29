@@ -1,0 +1,24 @@
+job: redirect
+datacenters: [srnd]
+
+deployment:
+  canaries: 0
+
+tasks:
+  redirect:
+    image: "srnd/docker-redirect-many"
+
+    env:
+      REDIRECT_SRND_TO: srnd.to:codeday.to
+
+    resources:
+      memory: 50
+
+    ports:
+      redirect:
+        inner: 80
+        lb:
+          - domain: redirector.codeday.xyz
+            cert: codeday.xyz
+          - domain: srnd.to
+            cert: srnd.to
