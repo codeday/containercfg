@@ -29,7 +29,7 @@ tasks:
 
   pushproxy:
     image: jostyee/docker-mattermost-push-proxy
-    version: latest
+
     resources:
       memory: 64
 
@@ -45,7 +45,7 @@ tasks:
 
   plugin-trusty:
     image: tjhorner/mattermost-trusty
-    version: latest
+
     resources:
       memory: 64
 
@@ -57,3 +57,32 @@ tasks:
           COMMAND_TOKEN: command_token
           TRUSTY_TOKEN: trusty_token
           USER_WHITELIST: user_whitelist
+
+  plugin-matterhook:
+    image: tjhorner/matterhook
+
+    resources:
+      memory: 64
+
+    vault:
+      policies:
+        - mattermost-matterhook
+      env:
+        mattermost-matterhook:
+          MATTERMOST_HOOK_URL: MATTERMOST_HOOK_URL
+      files:
+        mattermost-matterhook:
+          hooks.json:
+            contents: "{{- .Data.data.hooks -}}"
+
+    volumes:
+      raw:
+        - from: local/hooks.json
+          mountpoint: /app/hooks.json
+
+    ports:
+      http:
+        inner: 3000
+        lb:
+          - domain: matterhook.codeday.xyz
+            cert: codeday.xyz
