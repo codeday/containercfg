@@ -1,0 +1,67 @@
+job: ghost
+datacenters: [ srnd ]
+
+tasks:
+  ghost:
+    image: "ghost"
+    version: "3.12.0"
+
+    env:
+      NODE_ENV: production
+      database__client: mysql
+      database__connection__host: mysql-server.service.consul
+      database__connection__port: 3306
+      database__connection__database: ghost
+      mail__transport: SMTP
+      mail__options__service: Postmark
+      mail__options__host: smtp.postmarkapp.com
+      mail__from: SRND <team@codeday.org>
+      mail__options__port: 465
+      mail__options__secureConnection: true
+      privacy__useTinfoil: true
+      storage__active: s3
+      url: https://ghost.codeday.org
+      storage__s3__region: us-west-1
+      storage__s3__bucket: f3.codeday.org
+      storage__s3__assetHost: https://f3.codeday.org
+      storage__s3__signatureVersion: v4
+
+
+
+    vault:
+      policies:
+        - ghost
+      env:
+        ghost:
+          database__connection__user: MYSQL_USERNAME
+          database__connection__password: MYSQL_PASSWORD
+          mail__options__auth__user: SMTP_USERNAME
+          mail__options__auth__pass: SMTP_PASSWORD
+          storage__s3__accessKeyId: AWS_ACCESS_KEY_ID
+          storage__s3__secretAccessKey: AWS_SECRET_ACCESS_KEY
+
+    resources:
+      memory: 256
+
+    ports:
+      http:
+        inner: 2368
+        tags:
+          - traefik.http.middlewares.redirect-ghost-index.redirectregex.regex=^http(s)?://([a-zA-Z0-9_\-\.]+)/(\?.*)?$
+          - traefik.http.middlewares.redirect-ghost-index.redirectregex.replacement=http${1}://${2}/ghost
+          - traefik.http.middlewares.redirect-ghost-viewsite.redirectregex.regex=^http(s)?://([a-zA-Z0-9_\-\.]+)/private/\?r=(/|%2F)$
+          - traefik.http.middlewares.redirect-ghost-viewsite.redirectregex.replacement=https://www.codeday.org/
+        lb:
+          domain: ghost.codeday.org
+          cert: codeday.org
+          middleware:
+            - redirect-ghost-viewsite@consulcatalog
+            - redirect-ghost-index@consulcatalog
+
+    volumes:
+      artifact:
+        - source: https://f1.srnd.org/ops/ghost-adapters.zip
+          destination: local
+      raw:
+        - from: local/adapters
+          mountpoint: /var/lib/ghost/content/adapters/

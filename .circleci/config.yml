@@ -1,0 +1,52 @@
+version: 2.1
+workflows:
+  plan:
+    jobs:
+      - plan:
+          filters:
+            branches:
+              ignore: master
+          context: Nomad Plan
+  run:
+    jobs:
+      - run:
+          filters:
+            branches:
+              only: master
+          context: Nomad Run
+
+jobs:
+  plan:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: yarn global add @srnd/vagabond
+      - run:
+          command: |-
+            cd jobs
+            $(yarn global bin)/vagabond render-all > ../spec.json
+            $(yarn global bin)/vagabond plan-all
+      - store_artifacts:
+          path: render.json
+          destination: render.json
+  run:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: yarn global add @srnd/vagabond
+      - run:
+          command: |-
+            cd jobs
+            $(yarn global bin)/vagabond render-all > ../spec.json
+            $(yarn global bin)/vagabond plan-all
+            echo ""
+            echo "!!! Running !!!"
+            echo ""
+            $(yarn global bin)/vagabond run-all
+      - store_artifacts:
+          path: spec.json
+          destination: spec.json

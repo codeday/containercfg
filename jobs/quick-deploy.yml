@@ -1,10 +1,9 @@
-job: nomad-deployment-manager
+job: quick-deploy
 datacenters: [ srnd ]
 
 tasks:
-  nomad-deployment-manager:
+  quick-deploy:
     image: "srnd/nomad-deployment-manager"
-    version: "latest"
     resources:
       memory: 128
 
@@ -22,7 +21,10 @@ tasks:
       http:
         inner: 3000
         lb:
-          domain: deploy.srnd.cloud
-          middleware:
-            - internal-ip@file
+          - domain: deploy.srnd.cloud
+            middleware:
+              - internal-ip@file
+          - domain: deploy.codeday.cloud
+            middleware:
+              - internal-ip@file
 

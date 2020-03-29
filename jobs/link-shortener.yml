@@ -4,7 +4,7 @@ datacenters: [ srnd ]
 tasks:
   link-shortener:
     image: "yourls"
-    version: "1.7.4-apache"
+    version: "1.7.5-apache"
     resources:
       memory: 64
 
@@ -27,5 +27,8 @@ tasks:
       http:
         inner: 80
         lb:
-          domain: srnd.to
-          cert: srnd.to
+          - domain: srnd.to
+            cert: srnd.to
+          - domain: codeday.to
+            cert: codeday.to
+

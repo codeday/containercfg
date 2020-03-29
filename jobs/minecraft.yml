@@ -1,16 +1,18 @@
 job: minecraft
 datacenters: [ srnd ]
 
+deployment:
+  canaries: 0
+
 tasks:
   minecraft:
     image: "itzg/minecraft-server"
-    version: "latest"
     args:
       - "--noconsole"
 
     resources:
-      cpu: 17500
-      memory: 63000
+      cpu: 7000
+      memory: 15150
 
     volumes:
       share:
@@ -21,19 +23,19 @@ tasks:
           mountpoint: "/data"
 
     env:
-      MEMORY: 60G
-      MAX_MEMORY: 60G
+      MEMORY: 7G
+      MAX_MEMORY: 15G
       EULA: "TRUE"
       GUI: "FALSE"
       TYPE: PAPER
-      VERSION: "1.15.2"
+      VERSION: "1.14.4"
       SERVER_NAME: CodeDay
       MOTD: Everyday is CodeDay if you believe in magic.
       MAX_PLAYERS: 144
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "FALSE"
       ENABLE_COMMAND_BLOCK: "FALSE"
       SPAWN_PROTECTION: 0
-      ALLOW_NETHER: "FALSE"
+      ALLOW_NETHER: "TRUE"
 
     vault:
       policies:

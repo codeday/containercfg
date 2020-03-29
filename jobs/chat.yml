@@ -4,7 +4,7 @@ datacenters: [ srnd ]
 tasks:
   chat:
     image: srnd/mattermost
-    version: latest
+
     resources:
       memory: 512
 
@@ -21,8 +21,10 @@ tasks:
       http:
         inner: 8000
         lb:
-          domain: chat.srnd.org
-          cert: srnd.org
+          - domain: chat.srnd.org
+            cert: srnd.org
+          - domain: chat.codeday.org
+            cert: codeday.org
 
   pushproxy:
     image: jostyee/docker-mattermost-push-proxy
@@ -39,3 +41,18 @@ tasks:
       pushproxy:
         inner: 8066
         outer: 8066
+
+  plugin-trusty:
+    image: tjhorner/mattermost-trusty
+    version: latest
+    resources:
+      memory: 64
+
+    vault:
+      policies:
+        - mattermost-trusty
+      env:
+        mattermost-trusty:
+          COMMAND_TOKEN: command_token
+          TRUSTY_TOKEN: trusty_token
+          USER_WHITELIST: user_whitelist

@@ -3,10 +3,12 @@ datacenters: [ srnd ]
 placement:
   type: all
 
+deployment:
+  canaries: 0
+
 tasks:
   logspout:
     image: "gliderlabs/logspout"
-    version: "latest"
     command: "syslog://splunk-syslog.service.consul:8514"
     allow_docker_sock: true
 
