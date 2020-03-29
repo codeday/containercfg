@@ -1,5 +1,5 @@
 job: chat
-datacenters: [ srnd ]
+datacenters: [srnd]
 
 tasks:
   chat:
@@ -21,8 +21,6 @@ tasks:
       http:
         inner: 8000
         lb:
-          - domain: chat.srnd.org
-            cert: srnd.org
           - domain: chat.codeday.org
             cert: codeday.org
             https_only: true

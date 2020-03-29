@@ -10,6 +10,7 @@ tasks:
 
     env:
       REDIRECT_SRND_TO: srnd.to:codeday.to
+      REDIRECT_CHAT_SRND_ORG: chat.srnd.org:chat.codeday.org
 
     resources:
       memory: 50
@@ -20,5 +21,7 @@ tasks:
         lb:
           - domain: redirector.codeday.xyz
             cert: codeday.xyz
+          - domain: chat.srnd.org
+            cert: srnd.org
           - domain: srnd.to
             cert: srnd.to
