@@ -23,6 +23,8 @@ tasks:
             BOT_TOKEN: BOT_TOKEN
             CLEVERBOT_API_KEY: CLEVERBOT_API_KEY
             RAYGUN_KEY: RAYGUN_KEY
+            CONTENTFUL_ACCESS_TOKEN: CONTENTFUL_ACCESS_TOKEN
+            CONTENTFUL_SPACE_ID: CONTENTFUL_SPACE_ID
 
       files:
         johnpeterdiscord:
