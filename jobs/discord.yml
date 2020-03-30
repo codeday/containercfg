@@ -1,8 +1,5 @@
 job: discord
-datacenters: [ srnd ]
-
-deployment:
-  canaries: 0
+datacenters: [srnd]
 
 tasks:
   johnpeter-discord:
@@ -20,11 +17,11 @@ tasks:
 
       env:
         johnpeterdiscord:
-            BOT_TOKEN: BOT_TOKEN
-            CLEVERBOT_API_KEY: CLEVERBOT_API_KEY
-            RAYGUN_KEY: RAYGUN_KEY
-            CONTENTFUL_ACCESS_TOKEN: CONTENTFUL_ACCESS_TOKEN
-            CONTENTFUL_SPACE_ID: CONTENTFUL_SPACE_ID
+          BOT_TOKEN: BOT_TOKEN
+          CLEVERBOT_API_KEY: CLEVERBOT_API_KEY
+          RAYGUN_KEY: RAYGUN_KEY
+          CONTENTFUL_ACCESS_TOKEN: CONTENTFUL_ACCESS_TOKEN
+          CONTENTFUL_SPACE_ID: CONTENTFUL_SPACE_ID
 
       files:
         johnpeterdiscord:
