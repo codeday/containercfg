@@ -11,6 +11,11 @@ tasks:
     env:
       GOOGLE_APPLICATION_CREDENTIALS: /local/serviceAccount.json
 
+    volumes:
+      share:
+        - fileshare: johnpeter-discord
+          mountpoint: /app/tourney_data
+
     vault:
       policies:
         - johnpeterdiscord
