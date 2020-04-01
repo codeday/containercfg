@@ -3,7 +3,7 @@ datacenters: [ srnd ]
 
 tasks:
   codeday-posters:
-    image: "srnd/posters"
+    image: "codeday/posters"
 
     ports:
       http:
