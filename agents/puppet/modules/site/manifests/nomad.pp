@@ -7,12 +7,21 @@ class site::nomad {
     ensure => present,
   }
 
+  cron { "docker prune nightly":
+    command => "/usr/bin/docker image prune -a --force",
+    user    => "root",
+    hour    => 2,
+    minute  => 0,
+    require => Class["docker"],
+  }
+
   file { "/root/.docker":
     ensure => directory,
     owner => "root",
     group => "root",
     mode => "0770",
   }
+
   file { "/root/.docker/config.json":
     ensure => file,
     content => template("site/docker-config.json.erb"),
