@@ -28,6 +28,7 @@ tasks:
           DISCORD_REDIRECT_URI: DISCORD_REDIRECT_URI
     ports:
       https:
+        scheme: https
         inner: 8000
         lb:
           domain: discord0.codeday.xyz
