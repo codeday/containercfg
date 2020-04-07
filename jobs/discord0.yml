@@ -27,7 +27,7 @@ tasks:
           DISCORD_CLIENT_SECRET: DISCORD_CLIENT_SECRET
           DISCORD_REDIRECT_URI: DISCORD_REDIRECT_URI
     ports:
-      http:
+      https:
         inner: 8000
         lb:
           domain: discord0.codeday.xyz
