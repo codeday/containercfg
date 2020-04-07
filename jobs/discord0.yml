@@ -2,7 +2,7 @@ job: discord0
 datacenters: [ srnd ]
 
 tasks:
-  codeday-posters:
+  discord0:
     image: "srnd/discord0"
 
     vault:
