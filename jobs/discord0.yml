@@ -1,0 +1,34 @@
+job: discord0
+datacenters: [ srnd ]
+
+tasks:
+  discord0:
+    image: "srnd/discord0"
+
+    vault:
+      policies:
+        - discord0
+
+      env:
+        discord0:
+          API_CLIENT_ID: API_CLIENT_ID
+          API_CLIENT_SECRET: API_CLIENT_SECRET
+          AUTH_ACCESS_TOKEN_URL: AUTH_ACCESS_TOKEN_URL
+          AUTH_API_BASE_URL: AUTH_API_BASE_URL
+          AUTH_AUTHORIZE_URL: AUTH_AUTHORIZE_URL
+          AUTH_CLIENT_ID: AUTH_CLIENT_ID
+          AUTH_CLIENT_SECRET: AUTH_CLIENT_SECRET
+          AUTH_DOMAIN: AUTH_DOMAIN
+          CALLBACK_URL: CALLBACK_URL
+          DISCORD_ACCESS_TOKEN_URL: DISCORD_ACCESS_TOKEN_URL
+          DISCORD_API_BASE_URL: DISCORD_API_BASE_URL
+          DISCORD_AUTHORIZE_URL: DISCORD_AUTHORIZE_URL
+          DISCORD_CLIENT_ID: DISCORD_CLIENT_ID
+          DISCORD_CLIENT_SECRET: DISCORD_CLIENT_SECRET
+          DISCORD_REDIRECT_URI: DISCORD_REDIRECT_URI
+    ports:
+      https:
+        inner: 8000
+        lb:
+          domain: discord0.codeday.xyz
+          cert: codeday.xyz
