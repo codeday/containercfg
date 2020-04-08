@@ -1,0 +1,21 @@
+job: vcodeday-projects
+datacenters: [srnd]
+
+tasks:
+  vcodeday-projects:
+    image: "codeday/display-csv"
+
+    env:
+      CSV_URL: https://f1.srnd.org/virtualcodeday/2020-spring/projects_ext.csv?
+      TITLE_COLUMN: Name
+      TITLE: Virtual CodeDay 2020 Projects
+
+    resources:
+      memory: 150
+
+    ports:
+      http:
+        inner: 80
+        lb:
+          - domain: virtual-codeday-spring-2020-projects.codeday.org
+            cert: codeday.org
