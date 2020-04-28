@@ -1,0 +1,34 @@
+job: engagement
+datacenters: [srnd]
+
+tasks:
+  main:
+    image: srnd/engage-a-tron
+
+    resources:
+      memory: 256
+      cpu: 200
+
+    ports:
+      http:
+        inner: 8000
+        lb:
+          - domain: enagement-api.srnd.org
+            cert: srnd.org
+          - domain: enagement-api.codeday.org
+            cert: codeday.org
+            https_only: true
+
+    env:
+      DB_HOST: postgres-master-pg.service.consul
+
+    vault:
+      policies:
+        - engage-a-tron
+      env:
+        engage-a-tron:
+          API_SECRET: API_SECRET
+          BOT_TOKEN: BOT_TOKEN
+          DB_PASSWORD: DB_PASSWORD
+          DB_USERNAME: DB_USERNAME
+
