@@ -34,3 +34,4 @@ tasks:
         lb:
           domain: account.codeday.xyz
           cert: codeday.xyz
+          https_only: true

@@ -7,7 +7,7 @@ tasks:
     version: "8b599a98e49879cad77e14cc5052e1e4723ae049"
 
     resources:
-      memory: 128
+      memory: 256
 
     env:
       PICFIT_CONFIG_PATH: /local/config.json
