@@ -1,3 +1,5 @@
+const { strToNs } = require('../../time');
+
 const getRouterTags = (name, taskName, jobName, scheme, lb) => {
   const tags = [];
   const domainName = lb.domain.replace(/\./g, '-');
@@ -64,6 +66,23 @@ const dedupTags = (tags) => {
     .map((k) => `${k}=${hash[k]}`);
 }
 
+const getChecks = (jobName, taskName, portName, check) => (typeof check === 'undefined' ? [] : [{
+  Name: `${jobName}_${taskName}_${portName}`,
+  Type: 'http',
+  PortLabel: portName,
+  Method: (check || {}).method || "GET",
+  Path: (check || {}).path || "/",
+  Interval: strToNs((check || {}).interval || "1m"),
+  Timeout: strToNs((check || {}).timeout || "10s"),
+  CheckRestart: {
+    Limit: (check || {}).failLimit || 3,
+    Grace: strToNs((check || {}).failGrace || (check || {}).interval || "1m"),
+  },
+  Header: {
+    Host: [ (check || {}).host || 'localhost' ],
+  },
+}]);
+
 module.exports = (task, jobName) => {
   if (!task.ports) return [];
   return Object.keys(task.ports)
@@ -73,6 +92,7 @@ module.exports = (task, jobName) => {
       PortLabel: port.name,
       AddresssMode: 'auto',
       CanaryTags: [ "traefik.enable=false" ],
+      Checks: getChecks(jobName, task.name, port.name, port.check),
       Tags: dedupTags([
         `scheme=${port.scheme || 'http'}`,
         (port.lb && port.lb ? 'traefik.enable=true' : 'traefik.enable=false'),

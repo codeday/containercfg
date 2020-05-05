@@ -8,6 +8,7 @@ tasks:
     ports:
       http:
         inner: 8000
+        check:
         lb:
           domain: posters.codeday.org
           cert: codeday.org

@@ -37,6 +37,7 @@ tasks:
     ports:
       codecup:
         inner: 8000
+        check:
         lb:
           domain: playcodecup.com
           cert: playcodecup.com

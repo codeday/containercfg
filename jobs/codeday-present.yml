@@ -24,6 +24,7 @@ tasks:
     ports:
       http:
         inner: 8000
+        check:
         lb:
           domain: present.codeday.org
           cert: codeday.org

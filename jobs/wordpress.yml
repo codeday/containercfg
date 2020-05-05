@@ -31,6 +31,9 @@ tasks:
     ports:
       http:
         inner: 80
+        check:
+          host: 'wp.codeday.org'
+          path: '/wp-cron.php'
         lb:
           domain: wp.codeday.org
           cert: codeday.org

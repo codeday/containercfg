@@ -31,6 +31,8 @@ tasks:
     ports:
       http:
         inner: 3000
+        check:
+          path: "/api/health"
         lb:
           domain: account.codeday.xyz
           cert: codeday.xyz
