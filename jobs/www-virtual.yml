@@ -1,0 +1,29 @@
+job: www-virtual
+datacenters: [ srnd ]
+
+tasks:
+  www-virtual:
+    image: "codeday/www-virtual"
+
+    resources:
+      memory: 256
+
+    env:
+      APP_URL: https://virtual.codeday.org/
+
+    vault:
+      policies:
+        - www-virtual
+      env:
+        www-virtual:
+          CONTENTFUL_SPACE_ID: CONTENTFUL_SPACE_ID
+          CONTENTFUL_TOKEN: CONTENTFUL_TOKEN
+
+    ports:
+      http:
+        inner: 3000
+        check:
+        lb:
+          domain: virtual.codeday.org
+          cert: codeday.org
+          https_only: true

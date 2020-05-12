@@ -91,7 +91,7 @@ module.exports = (task, jobName) => {
       Name: getName(jobName, task.name, port.name),
       PortLabel: port.name,
       AddresssMode: 'auto',
-      CanaryTags: [ "traefik.enable=false" ],
+      CanaryTags: [ "canary=true" ],
       Checks: getChecks(jobName, task.name, port.name, port.check),
       Tags: dedupTags([
         `scheme=${port.scheme || 'http'}`,
