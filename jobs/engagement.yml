@@ -13,11 +13,9 @@ tasks:
       http:
         inner: 8000
         lb:
-          - domain: enagement-api.srnd.org
-            cert: srnd.org
-          - domain: enagement-api.codeday.org
-            cert: codeday.org
-            https_only: true
+          - domain: enagement-api.codeday.cloud
+            middleware:
+              - internal-ip@file
 
     env:
       DB_HOST: postgres-master-pg.service.consul
