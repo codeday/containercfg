@@ -1,0 +1,37 @@
+job: elastic-test
+datacenters: [ srnd ]
+
+tasks:
+  elastic-test:
+    image: "elasticsearch"
+    version: "7.6.2"
+    
+    resources:
+      memory: 700
+
+    env:
+      discovery.type: single-node
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+
+    ports:
+      elastic-1:
+        inner: 9200
+        lb:
+          - domain: elastic-test.srnd.org
+            cert: srnd.org
+          - domain: elastic-test.codeday.org
+            cert: codeday.org
+            https_only: true
+      elastic-2:
+        inner: 9300
+        lb:
+          - domain: elastic-test-2.srnd.org
+            cert: srnd.org
+          - domain: elastic-test-2.codeday.org
+            cert: codeday.org
+            https_only: true
+
+    volumes:
+      host:
+        - volume: elastic
+          mountpoint: /usr/share/elasticsearch/data
