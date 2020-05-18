@@ -32,3 +32,23 @@ tasks:
         johnpeterdiscord:
           serviceAccount.json:
             contents: "{{- .Data.data.serviceAccount -}}"
+
+  discord-authbot:
+    image: codeday/discord-authbot
+
+    resources:
+      memory: 100
+
+    vault:
+      policies:
+        - discord-authbot
+
+      env:
+        discord-authbot:
+          BOT_TOKEN: BOT_TOKEN
+          ALERT_CHANNEL: ALERT_CHANNEL
+          AUTH_CLIENT_ID: AUTH_CLIENT_ID
+          AUTH_CLIENT_SECRET: AUTH_CLIENT_SECRET
+          AUTH_DOMAIN: AUTH_DOMAIN
+          ROLE_STUDENT: ROLE_STUDENT
+          ROLE_VOLUNTEER: ROLE_VOLUNTEER
