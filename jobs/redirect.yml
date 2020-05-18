@@ -10,6 +10,7 @@ tasks:
 
     env:
       REDIRECT_SRND_TO: srnd.to:codeday.to
+      REDIRECT_ACCOUNT_CODEDAY_ORG: account.codeday.org:account.codeday.xyz
 
     resources:
       memory: 50
@@ -22,3 +23,5 @@ tasks:
             cert: codeday.xyz
           - domain: srnd.to
             cert: srnd.to
+          - domain: account.codeday.org
+            cert: codeday.org

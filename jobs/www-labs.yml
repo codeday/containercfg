@@ -1,0 +1,18 @@
+job: www-labs
+datacenters: [ srnd ]
+
+tasks:
+  www-labs:
+    image: "codeday/www-labs"
+
+    resources:
+      memory: 512
+
+    ports:
+      http:
+        inner: 3000
+        check:
+        lb:
+          domain: labs.codeday.org
+          cert: codeday.org
+          https_only: true

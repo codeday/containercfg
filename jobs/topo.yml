@@ -1,0 +1,18 @@
+job: topo
+datacenters: [ srnd ]
+
+tasks:
+  topo:
+    image: "codeday/topo"
+
+    resources:
+      memory: 128
+
+    ports:
+      http:
+        inner: 80
+        check:
+        lb:
+          domain: topo.codeday.org
+          cert: codeday.org
+          https_only: true

@@ -138,6 +138,11 @@ EOF
                 prefixes = ["/{{ .Data.data.nomad_ci_key_get }}", "/{{ .Data.data.nomad_ci_key_post }}"]
               [http.middlewares.internal-ip.ipWhiteList]
                 sourceRange = ["10.0.0.0/8", "157.245.248.45", "172.17.0.1/16"]
+              [http.middlewares.strip-headers.headers.customResponseHeaders]
+                Server = "Apache Tomcat"
+                X-Powered-By = "Code"
+              [http.middlewares.cache-forever.headers.customResponseHeaders]
+                Cache-Control = "public,max-age=31557600,immutable"
           {{ end }}
         EOF
         destination = "local/providers.toml"

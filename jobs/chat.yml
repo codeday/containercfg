@@ -20,6 +20,8 @@ tasks:
     ports:
       http:
         inner: 8000
+        check:
+          path: /api/v4/config/client?format=old
         lb:
           - domain: chat.srnd.org
             cert: srnd.org

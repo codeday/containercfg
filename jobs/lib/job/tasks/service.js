@@ -1,3 +1,5 @@
+const { strToNs } = require('../../time');
+
 const getRouterTags = (name, taskName, jobName, scheme, lb) => {
   const tags = [];
   const domainName = lb.domain.replace(/\./g, '-');
@@ -5,7 +7,9 @@ const getRouterTags = (name, taskName, jobName, scheme, lb) => {
   const serviceTls = `${service}-tls`;
 
   const hostRule = `Host(\`${lb.domain}\`)`;
-  tags.push(`traefik.http.routers.${service}.rule=${hostRule}`);
+  tags.push(
+    `traefik.http.routers.${service}.rule=${hostRule}`,
+  );
 
   if (scheme === 'https') tags.push(`traefik.http.services.${service}.loadbalancer.server.scheme=https`);
   if (lb.https_only) tags.push(`traefik.http.routers.${service}.middlewares=redirect-scheme@file`);
@@ -50,6 +54,35 @@ const getName = (jobName, taskName, portName) => {
   return result.join('-');
 }
 
+const dedupTags = (tags) => {
+  const hash = tags
+    .reduce((a, b) => {
+      const [ k, v ] = b.split('=', 2);
+      a[k] = v;
+      return a;
+    }, {});
+
+  return Object.keys(hash)
+    .map((k) => `${k}=${hash[k]}`);
+}
+
+const getChecks = (jobName, taskName, portName, check) => (typeof check === 'undefined' ? [] : [{
+  Name: `${jobName}_${taskName}_${portName}`,
+  Type: 'http',
+  PortLabel: portName,
+  Method: (check || {}).method || "GET",
+  Path: (check || {}).path || "/",
+  Interval: strToNs((check || {}).interval || "1m"),
+  Timeout: strToNs((check || {}).timeout || "10s"),
+  CheckRestart: {
+    Limit: (check || {}).failLimit || 3,
+    Grace: strToNs((check || {}).failGrace || (check || {}).interval || "1m"),
+  },
+  Header: {
+    Host: [ (check || {}).host || 'localhost' ],
+  },
+}]);
+
 module.exports = (task, jobName) => {
   if (!task.ports) return [];
   return Object.keys(task.ports)
@@ -58,8 +91,9 @@ module.exports = (task, jobName) => {
       Name: getName(jobName, task.name, port.name),
       PortLabel: port.name,
       AddresssMode: 'auto',
-      CanaryTags: [ "traefik.enable=false" ],
-      Tags: [
+      CanaryTags: [ "canary=true" ],
+      Checks: getChecks(jobName, task.name, port.name, port.check),
+      Tags: dedupTags([
         `scheme=${port.scheme || 'http'}`,
         (port.lb && port.lb ? 'traefik.enable=true' : 'traefik.enable=false'),
         ...getServiceTags(port.name, task.name, jobName, port.lb),
@@ -69,7 +103,7 @@ module.exports = (task, jobName) => {
               .reduce((a, b) => [...a, ...b], [])
           ) : []),
         ...(port.tags || []),
-      ]
+      ])
     }))
 
 }

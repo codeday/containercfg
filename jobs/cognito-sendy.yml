@@ -1,0 +1,19 @@
+job: cognito-sendy
+datacenters: [ srnd ]
+
+tasks:
+  cognito-sendy:
+    image: "codeday/cognito-sendy"
+
+    resources:
+      memory: 64
+
+    ports:
+      http:
+        inner: 80
+        check:
+          path: "/health"
+        lb:
+          domain: cognito-sendy.codeday.org
+          cert: codeday.org
+          https_only: true
