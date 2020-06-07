@@ -17,6 +17,8 @@ tasks:
       node.name: elastic01
       network.host: 0.0.0.0
       discovery.type: single-node
+      http.cors.enabled: true
+      http.cors.allow-origin: "http://www.gridshore.nl"
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
 
     ports:
