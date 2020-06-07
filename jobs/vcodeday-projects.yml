@@ -20,13 +20,13 @@ tasks:
           - domain: virtual-codeday-spring-2020-projects.codeday.org
             cert: codeday.org
 
-  tmo-projects:
+  vcodeday-projects-2:
     image: "codeday/display-csv"
 
     env:
-      CSV_URL: https://f1.srnd.org/virtualcodeday/2020-tmo/tmo_projects.csv
+      CSV_URL: https://f1.srnd.org/virtualcodeday/2020-june/projects.csv
       TITLE_COLUMN: Name
-      TITLE: T-Mobile Bring Your Kid To Work Day Projects
+      TITLE: Virtual CodeDay June 2020 Projects
 
     resources:
       memory: 50
@@ -35,5 +35,5 @@ tasks:
       http:
         inner: 80
         lb:
-          - domain: tmo-2020-projects.codeday.org
+          - domain: virtual-codeday-june-2020-projects.codeday.org
             cert: codeday.org

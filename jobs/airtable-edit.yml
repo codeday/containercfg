@@ -1,0 +1,25 @@
+job: airtable-edit
+datacenters: [ srnd ]
+
+tasks:
+  airtable-edit:
+    image: "codeday/airtable-edit"
+
+    resources:
+      memory: 256
+
+    vault:
+      policies:
+        - airtable-edit
+      env:
+        airtable-edit:
+          APP_SECRET: APP_SECRET
+          AIRTABLE_KEY: AIRTABLE_KEY
+
+    ports:
+      http:
+        inner: 3000
+        lb:
+          domain: form-edit.codeday.org
+          cert: codeday.org
+          https_only: true

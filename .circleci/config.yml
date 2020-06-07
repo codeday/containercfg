@@ -3,17 +3,7 @@ workflows:
   plan:
     jobs:
       - plan:
-          filters:
-            branches:
-              ignore: master
           context: Nomad Plan
-  run:
-    jobs:
-      - run:
-          filters:
-            branches:
-              only: master
-          context: Nomad Run
 
 jobs:
   plan:

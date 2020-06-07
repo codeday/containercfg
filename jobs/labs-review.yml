@@ -1,0 +1,26 @@
+job: labs-review
+datacenters: [ srnd ]
+
+tasks:
+  labs-review:
+    image: "codeday/labs-review"
+
+    resources:
+      memory: 256
+
+    vault:
+      policies:
+        - labs-review
+      env:
+        labs-review:
+          APP_SECRET: APP_SECRET
+          APP_PASSWORD: APP_PASSWORD
+          AIRTABLE_KEY: AIRTABLE_KEY
+
+    ports:
+      http:
+        inner: 3000
+        lb:
+          domain: labs-review.codeday.org
+          cert: codeday.org
+          https_only: true

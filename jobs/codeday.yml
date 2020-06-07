@@ -40,7 +40,6 @@ tasks:
     ports:
       http:
         inner: 80
-        check:
         lb:
           domain: www.codeday.org
           cert: codeday.org
