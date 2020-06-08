@@ -37,3 +37,21 @@ tasks:
         lb:
           - domain: virtual-codeday-june-2020-projects.codeday.org
             cert: codeday.org
+
+  minecraft-building-tournament:
+    image: "codeday/display-csv"
+
+    env:
+      CSV_URL: https://f1.srnd.org/codeday/tourney/minecraft-submission/submissions.csv
+      TITLE_COLUMN: Name
+      TITLE: Virtual CodeDay Minecraft Building Tournament
+
+    resources:
+      memory: 50
+
+    ports:
+      http:
+        inner: 80
+        lb:
+          - domain: virtual-codeday-minecraft-building-tournament.codeday.org
+            cert: codeday.org
