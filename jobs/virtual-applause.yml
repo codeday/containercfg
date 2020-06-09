@@ -1,0 +1,19 @@
+job: virtual-applause
+datacenters: [srnd]
+
+tasks:
+  virtual-applause:
+    image: oohwooh/virtual-applause
+
+    resources:
+      memory: 100
+
+    vault:
+      policies:
+        - virtual-applause
+
+      env:
+        virtual-applause:
+          TOKEN_1: TOKEN_1
+          TOKEN_2: TOKEN_2
+          TOKEN_3: TOKEN_3
