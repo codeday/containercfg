@@ -6,7 +6,7 @@ tasks:
     image: oohwooh/virtual-applause
 
     resources:
-      memory: 100
+      memory: 500
 
     vault:
       policies:
