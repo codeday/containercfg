@@ -14,6 +14,4 @@ tasks:
 
       env:
         virtual-applause:
-          TOKEN_1: TOKEN_1
-          TOKEN_2: TOKEN_2
-          TOKEN_3: TOKEN_3
+          BOT_TOKEN: BOT_TOKEN
