@@ -10,4 +10,4 @@ tasks:
       - --consul-addr=m.codeday.cloud:8500
       - --watch-events
       - --watch-checks
-      - --log-level=debug
+      - --log-level=info
