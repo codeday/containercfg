@@ -3,7 +3,7 @@ datacenters: [ srnd ]
 
 tasks:
   discord0:
-    image: "srndacaleph/consul-alerts"
+    image: "acaleph/consul-alerts"
 
     args:
       - start
