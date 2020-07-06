@@ -11,4 +11,4 @@ tasks:
       - --watch-events
       - --watch-checks
       - --log-level=info
-      - --datacenter=srnd
+      - --consul-dc=srnd
