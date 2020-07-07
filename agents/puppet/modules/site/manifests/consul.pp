@@ -1,5 +1,5 @@
 class site::consul {
-  $consul_version = "1.6.2"
+  $consul_version = "1.8.0"
 
   archive { "consul":
     ensure => present,

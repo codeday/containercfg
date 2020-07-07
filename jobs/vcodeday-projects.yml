@@ -24,7 +24,7 @@ tasks:
     image: "codeday/display-csv"
 
     env:
-      CSV_URL: https://f1.srnd.org/virtualcodeday/2020-june/projects.csv
+      CSV_URL: https://f1.srnd.org/virtualcodeday/2020-june/projects-awards.csv
       TITLE_COLUMN: Name
       TITLE: Virtual CodeDay June 2020 Projects
 

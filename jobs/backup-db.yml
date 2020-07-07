@@ -3,17 +3,18 @@ datacenters: [ srnd ]
 
 placement:
   type: batch
-  crontab: 0 7 * * * *
+  crontab: 0 */6 * * * *
 
 tasks:
   backup-db:
     image: srnd/docker-dump
     resources:
-      memory: 512
+      memory: 50
 
     env:
       MYSQL_HOST: mysql-server.service.consul
       PGSQL_HOST: postgres-master-pg.service.consul
+      ELASTIC_HOST: http://elastic.service.consul:9200/mentors_index
 
     vault:
       policies:

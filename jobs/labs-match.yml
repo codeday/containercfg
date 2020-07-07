@@ -1,0 +1,30 @@
+job: labs-match
+datacenters: [ srnd ]
+
+tasks:
+  labs-match:
+    image: "codeday/labs-match-portal"
+
+    resources:
+      memory: 256
+
+    env:
+      MATCH_URL: http://labs-elastic-match.codeday.cloud
+
+    vault:
+      policies:
+        - labs-match
+      env:
+        labs-match:
+          MATCH_SECRET: MATCH_SECRET
+          AIRTABLE_KEY: AIRTABLE_KEY
+          AIRTABLE_BASE: AIRTABLE_BASE
+          AIRTABLE_TABLE: AIRTABLE_TABLE
+
+    ports:
+      http:
+        inner: 3000
+        lb:
+          domain: labs-match.codeday.org
+          cert: codeday.org
+          https_only: true

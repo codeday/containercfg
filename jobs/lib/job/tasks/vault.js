@@ -10,7 +10,7 @@ module.exports.getTemplates = (task) => {
       SourcePath: '',
       DestPath: `local/${file.fileName}`,
       EmbeddedTmpl: `{{- with secret "kv/data/${file.key}" -}}${file.contents}{{ end }}`,
-      ChangeMode: 'restart',
+      ChangeMode: 'noop',
       ChangeSignal: '',
       Perms: '0644',
       LeftDelim: '{{',
