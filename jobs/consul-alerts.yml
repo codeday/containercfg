@@ -1,0 +1,14 @@
+job: consul-alerts
+datacenters: [ srnd ]
+
+tasks:
+  consul-alerts:
+    image: "acaleph/consul-alerts"
+
+    args:
+      - start
+      - --consul-addr=m.codeday.cloud:8500
+      - --watch-events
+      - --watch-checks
+      - --log-level=info
+      - --consul-dc=srnd
