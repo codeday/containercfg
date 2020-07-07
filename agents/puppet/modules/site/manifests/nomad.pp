@@ -1,5 +1,5 @@
 class site::nomad {
-  $nomad_version = "0.10.2"
+  $nomad_version = "0.11.3"
 
   class { "site::host_volumes": }
 
