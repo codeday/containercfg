@@ -16,7 +16,7 @@ class site::std {
 
   package { "zsh":
     ensure => latest,
-    require => Exec["/usr/bin/apt-get update"],
+    require => Exec["apt-get update"],
   }
 
   package { ["zip", "unzip"]:
