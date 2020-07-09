@@ -1,7 +1,5 @@
 class site::std {
-  exec { "apt-get update":
-    command => "/usr/bin/apt-get update",
-  }
+  exec { "/usr/bin/apt-get update": }
 
   class { "sudo": }
   sudo::conf { 'sudo':
@@ -16,7 +14,7 @@ class site::std {
 
   package { "zsh":
     ensure => latest,
-    require => Exec["apt-get update"],
+    require => Exec["/usr/bin/apt-get update"],
   }
 
   package { ["zip", "unzip"]:
