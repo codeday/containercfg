@@ -19,6 +19,7 @@ client = {
   options = {
     "docker.auth.config" = "/root/.docker/config.json"
     "docker.auth.helper" = "gcr"
+    "docker.volumes.enabled" = true
   }
   meta {
     "nomad_volumes" = "<%= @host_volumes.keys.sort_by!{ |m| m.downcase}.join(',') %>"
