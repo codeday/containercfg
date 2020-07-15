@@ -1,0 +1,29 @@
+job: gql-server
+datacenters: [srnd]
+
+tasks:
+  gql-server:
+    image: "codeday/gql-server"
+
+    resources:
+      memory: 100
+      memory_limit: 256
+      cpu: 200
+
+    vault:
+      policies:
+        - gql-server
+      env:
+        gql-server:
+          AUTH0_CLIENT_ID: AUTH0_CLIENT_ID
+          AUTH0_CLIENT_SECRET: AUTH0_CLIENT_SECRET
+          AUTH0_DOMAIN: AUTH0_DOMAIN
+          CONTENTFUL_TOKEN: CONTENTFUL_TOKEN
+          TOKEN_SECRET: TOKEN_SECRET
+
+    ports:
+      http:
+        inner: 4000
+        lb:
+          domain: graph.codeday.org
+          cert: codeday.org

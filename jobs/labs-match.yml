@@ -6,7 +6,8 @@ tasks:
     image: "codeday/labs-match-portal"
 
     resources:
-      memory: 256
+      memory_limit: 256
+      memory: 100
 
     env:
       MATCH_URL: http://labs-elastic-match.codeday.cloud

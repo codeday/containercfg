@@ -1,0 +1,19 @@
+job: blog
+datacenters: [ srnd ]
+
+tasks:
+  blog:
+    image: "codeday/blog"
+
+    resources:
+      memory_limit: 512
+      memory: 100
+
+    ports:
+      http:
+        inner: 3000
+        check:
+        lb:
+          domain: blog.codeday.org
+          cert: codeday.org
+          https_only: true

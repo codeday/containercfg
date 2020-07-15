@@ -31,6 +31,7 @@ module.exports = (vars) => {
             ...dockerMount,
           ],
           mounts: getTmpfsMountsFor(task),
+          ...(task.resources.memory_limit ? { memory_hard_limit: task.resources.memory_limit } : {}),
         },
         VolumeMounts: getVolumeMountsFor(task),
         Artifacts: getArtifactsFor(task),

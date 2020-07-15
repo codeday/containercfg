@@ -3,7 +3,7 @@ datacenters: [ srnd ]
 
 placement:
   type: batch
-  crontab: 0 */6 * * * *
+  crontab: 0 5 * * * *
 
 tasks:
   backup-db:

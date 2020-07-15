@@ -1,0 +1,77 @@
+job: errors
+datacenters: [ srnd ]
+
+tasks:
+  errors:
+    image: "codeday/errors"
+
+    resources:
+      memory_limit: 256
+      memory: 50
+
+    ports:
+      http:
+        inner: 3000
+        tags:
+          - traefik.http.routers.error.rule=HostRegexp(`{host:.+}`)
+          - traefik.http.routers.error.priority=1
+          - traefik.http.routers.error-codeday-org-tls.rule=HostRegexp(`{subdomain:[a-z\\-]+}.codeday.org`)
+          - traefik.http.routers.error-codeday-org-tls.tls=true
+          - traefik.http.routers.error-codeday-org-tls.priority=1
+          - traefik.http.routers.error-codeday-org-tls.tls.certresolver=codeday-org
+          - traefik.http.routers.error-codeday-org-tls.tls.domains[0].main=*.codeday.org
+          - traefik.http.routers.error-codeday-org-tls.tls.domains[0].sans=codeday.org
+          - traefik.http.routers.error-codeday-xyz-tls.rule=HostRegexp(`{subdomain:[a-z\\-]+}.codeday.xyz`)
+          - traefik.http.routers.error-codeday-xyz-tls.tls=true
+          - traefik.http.routers.error-codeday-xyz-tls.priority=1
+          - traefik.http.routers.error-codeday-xyz-tls.tls.certresolver=codeday-xyz
+          - traefik.http.routers.error-codeday-xyz-tls.tls.domains[0].main=*.codeday.xyz
+          - traefik.http.routers.error-codeday-xyz-tls.tls.domains[0].sans=codeday.xyz
+          - traefik.http.routers.error-codeday-vip-tls.rule=HostRegexp(`{subdomain:[a-z\\-]+}.codeday.vip`)
+          - traefik.http.routers.error-codeday-vip-tls.tls=true
+          - traefik.http.routers.error-codeday-vip-tls.priority=1
+          - traefik.http.routers.error-codeday-vip-tls.tls.certresolver=codeday-vip
+          - traefik.http.routers.error-codeday-vip-tls.tls.domains[0].main=*.codeday.vip
+          - traefik.http.routers.error-codeday-vip-tls.tls.domains[0].sans=codeday.vip
+          - traefik.http.routers.error-codeday-to-tls.rule=HostRegexp(`{subdomain:[a-z\\-]+}.codeday.to`)
+          - traefik.http.routers.error-codeday-to-tls.tls=true
+          - traefik.http.routers.error-codeday-to-tls.priority=1
+          - traefik.http.routers.error-codeday-to-tls.tls.certresolver=codeday-to
+          - traefik.http.routers.error-codeday-to-tls.tls.domains[0].main=*.codeday.to
+          - traefik.http.routers.error-codeday-to-tls.tls.domains[0].sans=codeday.to
+          - traefik.http.routers.error-codeday-cloud-tls.rule=HostRegexp(`{subdomain:[a-z\\-]+}.codeday.cloud`)
+          - traefik.http.routers.error-codeday-cloud-tls.tls=true
+          - traefik.http.routers.error-codeday-cloud-tls.priority=1
+          - traefik.http.routers.error-codeday-cloud-tls.tls.certresolver=codeday-cloud
+          - traefik.http.routers.error-codeday-cloud-tls.tls.domains[0].main=*.codeday.cloud
+          - traefik.http.routers.error-codeday-cloud-tls.tls.domains[0].sans=codeday.cloud
+          - traefik.http.routers.error-srnd-org-tls.rule=HostRegexp(`{subdomain:[a-z\\-]+}.srnd.org`)
+          - traefik.http.routers.error-srnd-org-tls.tls=true
+          - traefik.http.routers.error-srnd-org-tls.priority=1
+          - traefik.http.routers.error-srnd-org-tls.tls.certresolver=srnd-org
+          - traefik.http.routers.error-srnd-org-tls.tls.domains[0].main=*.srnd.org
+          - traefik.http.routers.error-srnd-org-tls.tls.domains[0].sans=srnd.org
+          - traefik.http.routers.error-srnd-to-tls.rule=HostRegexp(`{subdomain:[a-z\\-]+}.srnd.to`)
+          - traefik.http.routers.error-srnd-to-tls.tls=true
+          - traefik.http.routers.error-srnd-to-tls.priority=1
+          - traefik.http.routers.error-srnd-to-tls.tls.certresolver=srnd-to
+          - traefik.http.routers.error-srnd-to-tls.tls.domains[0].main=*.srnd.to
+          - traefik.http.routers.error-srnd-to-tls.tls.domains[0].sans=srnd.to
+          - traefik.http.routers.error-srnd-cloud-tls.rule=HostRegexp(`{subdomain:[a-z\\-]+}.srnd.cloud`)
+          - traefik.http.routers.error-srnd-cloud-tls.tls=true
+          - traefik.http.routers.error-srnd-cloud-tls.priority=1
+          - traefik.http.routers.error-srnd-cloud-tls.tls.certresolver=srnd-cloud
+          - traefik.http.routers.error-srnd-cloud-tls.tls.domains[0].main=*.srnd.cloud
+          - traefik.http.routers.error-srnd-cloud-tls.tls.domains[0].sans=srnd.cloud
+          - traefik.http.routers.error-playcodecup-com-tls.rule=HostRegexp(`{subdomain:[a-z\\-]+}.playcodecup.com`)
+          - traefik.http.routers.error-playcodecup-com-tls.tls=true
+          - traefik.http.routers.error-playcodecup-com-tls.priority=1
+          - traefik.http.routers.error-playcodecup-com-tls.tls.certresolver=playcodecup-com
+          - traefik.http.routers.error-playcodecup-com-tls.tls.domains[0].main=*.playcodecup.com
+          - traefik.http.routers.error-playcodecup-com-tls.tls.domains[0].sans=playcodecup.com
+          - traefik.http.routers.error-codecupchallenge-com-tls.rule=HostRegexp(`{subdomain:[a-z\\-]+}.codecupchallenge.com`)
+          - traefik.http.routers.error-codecupchallenge-com-tls.tls=true
+          - traefik.http.routers.error-codecupchallenge-com-tls.priority=1
+          - traefik.http.routers.error-codecupchallenge-com-tls.tls.certresolver=codecupchallenge-com
+          - traefik.http.routers.error-codecupchallenge-com-tls.tls.domains[0].main=*.codecupchallenge.com
+          - traefik.http.routers.error-codecupchallenge-com-tls.tls.domains[0].sans=codecupchallenge.com"

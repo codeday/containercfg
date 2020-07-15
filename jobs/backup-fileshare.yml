@@ -3,7 +3,7 @@ datacenters: [ srnd ]
 
 placement:
   type: batch
-  crontab: 30 */6 * * * *
+  crontab: 30 5 * * * *
 
 tasks:
   backup-fileshare:

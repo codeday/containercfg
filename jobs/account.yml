@@ -6,7 +6,8 @@ tasks:
     image: "codeday/account"
 
     resources:
-      memory: 256
+      memory_limit: 512
+      memory: 100
 
     vault:
       policies:

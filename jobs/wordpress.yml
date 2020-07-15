@@ -6,7 +6,8 @@ tasks:
     image: "codeday/wp"
 
     resources:
-      memory: 256
+      memory_limit: 512
+      memory: 50
 
     env:
       WORDPRESS_DB_HOST: mysql-server.service.consul

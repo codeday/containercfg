@@ -6,7 +6,8 @@ tasks:
     image: "codeday/airtable-edit"
 
     resources:
-      memory: 256
+      memory_limit: 256
+      memory: 100
 
     vault:
       policies:
