@@ -30,6 +30,9 @@ def vault_response(key, token)
 end
 
 def vault_login()
+  if (File.exists?('/etc/vault.token'))
+    return File.read('/etc/vault.token').strip
+  end
   metadata = get_url_json('http://169.254.169.254/metadata/instance?api-version=2019-08-15')
   subscription_id = metadata['compute']['subscriptionId']
   vm_name = metadata['compute']['name']
