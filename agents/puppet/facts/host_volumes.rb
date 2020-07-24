@@ -13,6 +13,9 @@ end
 
 Facter.add('host_volumes') do
   setcode do
+    if (File.exists?('/etc/volumes.json'))
+      return JSON.parse(File.read('/etc/volumes.json'))
+    end
     metadata = get_url_json('http://169.254.169.254/metadata/instance?api-version=2019-08-15')
     name = metadata['compute']['name']
     group = metadata['compute']['resourceGroupName']
