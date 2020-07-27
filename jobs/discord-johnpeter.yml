@@ -3,7 +3,7 @@ datacenters: [srnd]
 
 tasks:
   johnpeter-discord:
-    image: srnd/johnpeter-discord
+    image: codeday/johnpeter-discord
 
     resources:
       memory: 100
