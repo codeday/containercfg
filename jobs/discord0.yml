@@ -3,7 +3,7 @@ datacenters: [ srnd ]
 
 tasks:
   discord0:
-    image: "srnd/discord0"
+    image: codeday/discord0
 
     vault:
       policies:

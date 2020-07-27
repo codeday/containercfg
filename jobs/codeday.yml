@@ -3,7 +3,7 @@ datacenters: [ srnd ]
 
 tasks:
   codeday:
-    image: "srnd/codeday"
+    image: codeday/www
 
     env:
       APP_DEBUG: false
