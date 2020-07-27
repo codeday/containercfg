@@ -1,6 +1,9 @@
 job: www-virtual
 datacenters: [ srnd ]
 
+deployment:
+  healthy_deadline: 5m
+
 tasks:
   www-virtual:
     image: "codeday/www-virtual"
@@ -25,6 +28,7 @@ tasks:
         inner: 3000
         check:
         lb:
+          sticky: true
           domain: virtual.codeday.org
           cert: codeday.org
           https_only: true

@@ -1,6 +1,9 @@
 job: account
 datacenters: [ srnd ]
 
+deployment:
+  healthy_deadline: 5m
+
 tasks:
   account:
     image: "codeday/account"
@@ -35,6 +38,7 @@ tasks:
         check:
           path: "/api/health"
         lb:
+          sticky: true
           domain: account.codeday.xyz
           cert: codeday.xyz
           https_only: true
