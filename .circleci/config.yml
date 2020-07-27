@@ -40,3 +40,8 @@ jobs:
       - store_artifacts:
           path: spec.json
           destination: spec.json
+      - slack/status:
+          webhook: ${DISCORD_WEBHOOK}
+
+orbs:
+    slack: circleci/slack@3.4.2
