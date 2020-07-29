@@ -30,7 +30,7 @@ client = {
   }
   meta {
     "nomad_volumes" = "<%= @host_volumes.keys.sort_by!{ |m| m.downcase}.join(',') %>"
-    <% @nomad_meta.each do |k, v| %>
+    <% @nomad_env.each do |k, v| %>
     "<%= k %>" = "<%= v %>"
     <% end %>
   }
