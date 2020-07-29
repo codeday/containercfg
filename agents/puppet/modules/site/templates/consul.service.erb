@@ -8,7 +8,7 @@ After=network-online.target
 Type=notify
 User=consul
 Group=consul
-ExecStart=/usr/local/bin/consul agent -client=127.0.0.1 -bind=<%= @networking['interfaces']['eth0']['ip'] %> -config-dir=/etc/consul.d/
+ExecStart=/usr/local/bin/consul agent -client=127.0.0.1 -bind=<%= @private_interface['ip'] %> -config-dir=/etc/consul.d/
 ExecReload=/usr/local/bin/consul reload
 KillMode=process
 Restart=on-failure

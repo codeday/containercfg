@@ -1,6 +1,12 @@
 datacenter = "srnd"
 data_dir = "/opt/nomad"
 
+advertise {
+  http = "<%= @private_interface['ip'] %>"
+  rpc = "<%= @private_interface['ip'] %>"
+  serf = "<%= @private_interface['ip'] %>"
+}
+
 vault {
   enabled = true
   address = "http://vault.srnd.cloud:8200"
@@ -16,6 +22,7 @@ telemetry {
 
 client = {
   enabled = true
+  network_interface = "<%= @private_interface['name'] %>"
   options = {
     "docker.auth.config" = "/root/.docker/config.json"
     "docker.auth.helper" = "gcr"
@@ -23,6 +30,9 @@ client = {
   }
   meta {
     "nomad_volumes" = "<%= @host_volumes.keys.sort_by!{ |m| m.downcase}.join(',') %>"
+    <% @nomad_meta.each do |k, v| %>
+    "<%= k %>" = "<%= v %>"
+    <% end %>
   }
   host_volume "acme" {
     path     = "/acme"
