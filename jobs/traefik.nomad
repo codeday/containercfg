@@ -137,7 +137,7 @@ EOF
               [http.middlewares.strip-nomad-ci-prefix.stripPrefix]
                 prefixes = ["/{{ .Data.data.nomad_ci_key_get }}", "/{{ .Data.data.nomad_ci_key_post }}"]
               [http.middlewares.internal-ip.ipWhiteList]
-                sourceRange = ["10.0.0.0/8", "157.245.248.45", "172.17.0.1/16"]
+                sourceRange = ["10.0.0.0/8", "157.245.248.45", "172.17.0.1/16", "100.64.0.0/10"]
               [http.middlewares.strip-headers.headers.customResponseHeaders]
                 Server = "Apache Tomcat"
                 X-Powered-By = "Code"
