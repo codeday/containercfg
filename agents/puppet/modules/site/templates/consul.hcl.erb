@@ -3,5 +3,5 @@ data_dir = "/opt/consul"
 encrypt = "<%= @vault['consul_encrypt'] %>"
 retry_join = ["<%= @vault['consul_retry_join'] %>"]
 performance {
-  raft_multiplier = 1
+  raft_multiplier = 10
 }

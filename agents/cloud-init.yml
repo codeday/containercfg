@@ -9,6 +9,12 @@ packages:
   - jq
 
 write_files:
+  - path: /etc/nomad.env
+    owner: root
+    permissions: 0660
+    content: |
+      host=azure
+      speed=gbps
   - path: /opt/apply_puppet.sh
     owner: root
     permissions: 0775
