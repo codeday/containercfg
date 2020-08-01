@@ -36,7 +36,6 @@ tasks:
         inner: 3000
         check:
         lb:
-          sticky: true
           domain: labs.codeday.org
           cert: codeday.org
           https_only: true
