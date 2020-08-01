@@ -44,6 +44,10 @@ module.exports = (vars) => {
             ReservedPorts: getNetworkPorts(task).filter((port) => port.Value !== 0),
           }],
         },
+        LogConfig: {
+          MaxFiles: 2,
+          MaxFileSizeMB: 5,
+        },
         EphemeralDisk: {
           Sticky: false,
           SizeMB: task.resources && task.resources.disk || 100,

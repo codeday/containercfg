@@ -9,13 +9,18 @@ const getRouterTags = (name, taskName, jobName, scheme, lb) => {
   const hostRule = `Host(\`${lb.domain}\`)`;
   tags.push(
     `traefik.http.routers.${service}.rule=${hostRule}`,
+    `traefik.http.middlewares.${service}-add-info.headers.customresponseheaders.X-Job=${jobName}`,
+    `traefik.http.middlewares.${service}-add-info.headers.customresponseheaders.X-Task=${taskName}`,
+    `traefik.http.middlewares.${service}-add-info.headers.customresponseheaders.X-Service=${name}`,
   );
 
-  if (scheme === 'https') tags.push(`traefik.http.services.${service}.loadbalancer.server.scheme=https`);
-  if (lb.https_only) tags.push(`traefik.http.routers.${service}.middlewares=redirect-scheme@file`);
+  let middleware = [...(lb.middleware || []), `${service}-add-info`];
 
-  if (lb.middleware) tags.push(`traefik.http.routers.${service}.middlewares=${lb.middleware.join(',')}`);
-  if (lb.middleware && lb.cert) tags.push(`traefik.http.routers.${serviceTls}.middlewares=${lb.middleware.join(',')}`);
+  if (scheme === 'https') tags.push(`traefik.http.services.${service}.loadbalancer.server.scheme=https`);
+  if (lb.https_only) middleware = [ ...middleware, 'redirect-scheme@file' ];
+
+  tags.push(`traefik.http.routers.${service}.middlewares=${middleware.join(',')}`);
+  if (lb.cert) tags.push(`traefik.http.routers.${serviceTls}.middlewares=${middleware.join(',')}`);
 
   if (lb.cert) {
     tags.push(

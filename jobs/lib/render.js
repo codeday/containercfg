@@ -10,6 +10,7 @@ module.exports = (vars) => {
   const Type = getType(vars);
   const Update = getUpdate(vars);
   const Volumes = getVolumes(vars);
+  const Tasks = getTasks(vars);
 
   return {
     ID: vars.job,
@@ -34,7 +35,12 @@ module.exports = (vars) => {
         Mode: 'fail',
       },
       Volumes,
-      Tasks: getTasks(vars),
+      EphemeralDisk: {
+        Sticky: false,
+        SizeMb: (Tasks.length * 5 * 2 * 2) + 250, // Log storage + 250mb
+        Migrate: false,
+      },
+      Tasks,
     }]
   }
 }

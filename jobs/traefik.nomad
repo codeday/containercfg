@@ -11,6 +11,11 @@ job "traefik" {
     canary = 0
   }
 
+  constraint {
+    attribute = "${meta.speed}"
+    value     = "gbps"
+  }
+
   group "traefik" {
     count = 1
 
@@ -20,8 +25,19 @@ job "traefik" {
       source    = "acme"
     }
 
+    ephemeral_disk {
+      migrate = true
+      size    = "25"
+      sticky  = true
+    }
+
     task "traefik" {
       driver = "docker"
+
+      logs {
+        max_files     = 2
+        max_file_size = 5
+      }
 
       volume_mount {
         volume      = "acme"
