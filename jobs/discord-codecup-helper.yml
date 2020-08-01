@@ -1,0 +1,18 @@
+job: discord-codecup-helper
+datacenters: [srnd]
+
+tasks:
+  johnpeter-discord:
+    image: codeday/codecup-discord-helper
+    
+    resources:
+      memory: 100
+    
+    volumes:
+      share:
+        - fileshare: discord-codecup-helper
+          mountpoint: /app/tourney_data
+
+    vault:
+      policies:
+        - discord-codecup-helper
