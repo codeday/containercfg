@@ -2,17 +2,23 @@ job: discord-codecup-helper
 datacenters: [srnd]
 
 tasks:
-  johnpeter-discord:
+  discord-codecup-helper:
     image: codeday/codecup-discord-helper
-    
+
     resources:
       memory: 100
     
-    volumes:
-      share:
-        - fileshare: discord-codecup-helper
-          mountpoint: /app/tourney_data
-
     vault:
       policies:
         - discord-codecup-helper
+      
+    env:
+      discord-codecup-helper:
+        PREFIX: PREFIX
+        STATUS: STATUS
+        COMMAND_CHANNEL: COMMAND_CHANNEL
+        UPDATE_CHANNEL: UPDATE_CHANNEL
+        BOT_TOKEN: BOT_TOKEN
+        CTFD_USERNAME: CTFD_USERNAME
+        CTFD_PASSWORD: CTFD_PASSWORD
+        CODECUP_LOGIN_URL: CODECUP_LOGIN_URL
