@@ -1,0 +1,146 @@
+{   
+    "Job": {
+        "ID": "luminati-proxy",
+        "Region": "global",
+        "Datacenters": [
+          "srnd"
+        ],
+        "Type": "service",
+        "Constraints": [
+            {"LTarget": "${node.unique.name}",
+            "RTarget": "westin1srnd",
+            "Operand": "="}
+        ],
+        "Update": {
+          "MaxParallel": 1,
+          "HealthCheck": "task_states",
+          "HealthyDeadline": 180000000000,
+          "MinHealthyTime": 10000000000,
+          "ProgressDeadline": 600000000000,
+          "Canary": 1,
+          "AutoPromote": true,
+          "AutoRevert": true
+        },
+        "Periodic": null,
+        "TaskGroups": [
+          {
+            "Name": "luminati-proxy",
+            "Count": 1,
+            "RestartPolicy": {
+              "Attempts": 2,
+              "Interval": 1800000000000,
+              "Delay": 15000000000,
+              "Mode": "fail"
+            },
+            "Volumes": {},
+            "Tasks": [
+              {
+                "Name": "luminati-proxy",
+                "Driver": "docker",
+                "Config": {
+                  "dns_servers": [
+                    "169.254.1.1"
+                  ],
+                  "image": "luminati/luminati-proxy:latest",
+                  "args": [
+                      "luminati"
+                  ],
+                  "port_map": [
+                    {
+                      "webconsole": 22999,
+                      "dropin": 22999,
+                      "proxy": 24000
+                    }
+                  ],
+                  "cap_add": [],
+                  "volumes": [
+                    "/fileshare/luminati-proxy:/root"
+                  ],
+                  "mounts": []
+                },
+                "VolumeMounts": [],
+                "Artifacts": [],
+                "Resources": {
+                  "CPU": 1000,
+                  "MemoryMB": 1000,
+                  "Mode": "",
+                  "Networks": [
+                    {
+                      "DynamicPorts": [],
+                      "ReservedPorts": [
+                        {
+                          "Label": "webconsole",
+                          "Value": 22999,
+                          "To": 0
+                        },
+                        {
+                          "Label": "dropin",
+                          "Value": 22555,
+                          "To": 0
+                        },
+                        {
+                          "Label": "proxy",
+                          "Value": 24000,
+                          "To": 0
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "EphemeralDisk": {
+                  "Sticky": false,
+                  "SizeMB": 100,
+                  "Migrate": false
+                },
+                "Env": {
+                  "IMAGE_TAG": "latest"
+                },
+                "Templates": [],
+                "Services": [
+                  {
+                    "Name": "luminati-proxy-webconsole",
+                    "PortLabel": "webconsole",
+                    "AddresssMode": "auto",
+                    "CanaryTags": [
+                      "canary=true"
+                    ],
+                    "Checks": [],
+                    "Tags": [
+                      "scheme=http",
+                      "traefik.enable=false"
+                    ]
+                  },
+                  {
+                    "Name": "luminati-proxy-dropin",
+                    "PortLabel": "dropin",
+                    "AddresssMode": "auto",
+                    "CanaryTags": [
+                      "canary=true"
+                    ],
+                    "Checks": [],
+                    "Tags": [
+                      "scheme=http",
+                      "traefik.enable=false"
+                    ]
+                  },
+                  {
+                    "Name": "luminati-proxy-proxy",
+                    "PortLabel": "proxy",
+                    "AddresssMode": "auto",
+                    "CanaryTags": [
+                      "canary=true"
+                    ],
+                    "Checks": [],
+                    "Tags": [
+                      "scheme=http",
+                      "traefik.enable=false"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "count": 1
+          }
+        ]
+      }
+}

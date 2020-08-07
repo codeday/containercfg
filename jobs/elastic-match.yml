@@ -1,0 +1,28 @@
+job: elastic-match
+datacenters: [ srnd ]
+
+deployment:
+  canaries: 0
+
+tasks:
+  elastic:
+    image: codeday/labs-elastic-match
+
+    resources:
+      memory: 200
+
+    vault:
+      policies:
+        - elastic-match
+      env:
+        elastic-match:
+          ELASTICSEARCH_URL: ELASTICSEARCH_URL
+          JWT_KEY: JWT_KEY
+
+    ports:
+      labs-elastic-match:
+        inner: 5000
+        lb:
+          - domain: labs-elastic-match.codeday.cloud
+            middleware:
+              - internal-ip@file

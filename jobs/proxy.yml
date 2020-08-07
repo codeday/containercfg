@@ -1,0 +1,29 @@
+job: luminati-proxy
+datacenters: [srnd]
+
+tasks: 
+  luminati-proxy: 
+    image: luminati/luminati-proxy
+    args: 
+      - "luminati"
+
+    resources:
+      memory: 500
+      cpu: 200
+
+    volumes:
+      share:
+        - fileshare: luminati-proxy
+          mountpoint: /root
+    
+    ports:
+      webconsole:
+        inner: 22999
+        outer: 22999
+      dropin:
+        inner: 22555
+        outer: 22555
+      proxy:
+        inner: 24000
+        outer: 24000
+  
