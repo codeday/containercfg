@@ -20,6 +20,8 @@ job "redis" {
         port_map {
           db = 6379
         }
+        command = "sh"
+        args = ["-c", "rm -f /data/dump.rdb && redis-server --save ''"]
         volumes = [
           "/fileshare/redis:/data"
         ]

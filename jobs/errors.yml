@@ -77,4 +77,4 @@ tasks:
           - traefik.http.routers.error-codecupchallenge-com-tls.priority=1
           - traefik.http.routers.error-codecupchallenge-com-tls.tls.certresolver=codecupchallenge-com
           - traefik.http.routers.error-codecupchallenge-com-tls.tls.domains[0].main=*.codecupchallenge.com
-          - traefik.http.routers.error-codecupchallenge-com-tls.tls.domains[0].sans=codecupchallenge.com"
+          - traefik.http.routers.error-codecupchallenge-com-tls.tls.domains[0].sans=codecupchallenge.com
