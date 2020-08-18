@@ -47,7 +47,7 @@ client = {
   <% end %>
   <% @custom_volumes.each do |tag, mountpoint| %>
     host_volume "<%= tag %>" {
-      path = "/data-disks/<%= tag %>"
+      path = "<%= mountpoint %>"
       read_only = false
     }
   <% end %>
