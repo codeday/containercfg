@@ -22,6 +22,12 @@ tasks:
         www-virtual:
           CONTENTFUL_SPACE_ID: CONTENTFUL_SPACE_ID
           CONTENTFUL_TOKEN: CONTENTFUL_TOKEN
+          CALENDAR_ID: CALENDAR_ID
+          MYSQL_DATABASE: MYSQL_DATABASE
+          MYSQL_HOST: MYSQL_HOST
+          MYSQL_PASSWORD: MYSQL_PASSWORD
+          MYSQL_USER: MYSQL_USER
+          API_KEY: API_KEY
 
     ports:
       http:

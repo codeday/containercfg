@@ -24,6 +24,19 @@ const getPlacementConstraints = (placement) => {
     RTarget: placement.os_version,
   });
 
+  if (placement.os) constraints.push({
+    LTarget: '${meta.host}',
+    Operand: '==',
+    RTarget: placement.host_dc,
+  });
+
+  if (placement.os) constraints.push({
+    LTarget: '${meta.speed}',
+    Operand: '==',
+    RTarget: placement.speed,
+  });
+
+
   return constraints;
 }
 

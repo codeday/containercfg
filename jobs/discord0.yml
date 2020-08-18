@@ -31,5 +31,5 @@ tasks:
       https:
         inner: 8000
         lb:
-          domain: discord0.codeday.xyz
-          cert: codeday.xyz
+          domain: discord0.codeday.org
+          cert: codeday.org

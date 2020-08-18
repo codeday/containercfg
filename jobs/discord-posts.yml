@@ -1,0 +1,30 @@
+job: discord-posts
+datacenters: [srnd]
+
+tasks:
+
+  discord-posts:
+    image: codeday/discord-posts
+
+    resources:
+      memory: 100
+      memory_limit: 500
+
+    vault:
+      policies:
+        - discord-posts
+      env:
+        discord-posts:
+          DATABASE_URL: DATABASE_URL
+          DISCORD_APPROVER_ROLE: DISCORD_APPROVER_ROLE
+          DISCORD_BOT_TOKEN: DISCORD_BOT_TOKEN
+          DISCORD_CHANNEL: DISCORD_CHANNEL
+          UPLOADER_BASE: UPLOADER_BASE
+
+    ports:
+      http:
+        inner: 5000
+        lb:
+          - domain: discord-posts.codeday.cloud
+            middleware:
+              - internal-ip@file

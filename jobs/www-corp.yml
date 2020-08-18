@@ -1,0 +1,25 @@
+job: www-corp
+datacenters: [ srnd ]
+
+deployment:
+  healthy_deadline: 5m
+
+tasks:
+  www-corp:
+    image: "codeday/www-corp"
+
+    resources:
+      memory_limit: 512
+      memory: 100
+
+    env:
+      APP_URL: https://www.codeday.org/
+
+    ports:
+      http:
+        inner: 3000
+        check:
+        lb:
+          domain: www.codeday.org
+          cert: codeday.org
+          https_only: true

@@ -23,6 +23,7 @@ telemetry {
 client = {
   enabled = true
   network_interface = "<%= @private_interface['name'] %>"
+  network_speed = 1000
   options = {
     "docker.auth.config" = "/root/.docker/config.json"
     "docker.auth.helper" = "gcr"

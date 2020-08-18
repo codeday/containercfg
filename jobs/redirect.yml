@@ -11,6 +11,7 @@ tasks:
     env:
       REDIRECT_SRND_TO: srnd.to:codeday.to
       REDIRECT_ACCOUNT_CODEDAY_ORG: account.codeday.org:account.codeday.xyz
+      REDIRECT_DISCORD: discord0.codeday.xyz:discord0.codeday.org
 
     resources:
       memory: 50

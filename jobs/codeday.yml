@@ -7,7 +7,7 @@ tasks:
 
     env:
       APP_DEBUG: false
-      APP_URL: https://www.codeday.org/
+      APP_URL: https://old.codeday.org/
       SHOWCASE_API_BASE: https://showcase.srnd.org/
       SESSION_COOKIE: codeday_www
       CLEAR_API_BASE: https://clear.codeday.org/api
@@ -41,5 +41,5 @@ tasks:
       http:
         inner: 80
         lb:
-          domain: www.codeday.org
+          domain: old.codeday.org
           cert: codeday.org
