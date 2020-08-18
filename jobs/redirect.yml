@@ -12,6 +12,7 @@ tasks:
       REDIRECT_SRND_TO: srnd.to:codeday.to
       REDIRECT_ACCOUNT_CODEDAY_ORG: account.codeday.org:account.codeday.xyz
       REDIRECT_DISCORD: discord0.codeday.xyz:discord0.codeday.org
+      REDIRECT_BIG_DATA: big-data.codeday.org:codeday.org/edu/big-data-challenge
 
     resources:
       memory: 50
@@ -25,4 +26,8 @@ tasks:
           - domain: srnd.to
             cert: srnd.to
           - domain: account.codeday.org
+            cert: codeday.org
+          - domain: discord0.codeday.xyz
+            cert: codeday.xyz
+          - domain: big-data.codeday.org
             cert: codeday.org
