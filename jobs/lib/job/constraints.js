@@ -30,10 +30,10 @@ const getPlacementConstraints = (placement) => {
     RTarget: placement.host_dc,
   });
 
-  if (placement.os) constraints.push({
+  constraints.push({
     LTarget: '${meta.speed}',
     Operand: '==',
-    RTarget: placement.speed,
+    RTarget: placement.speed || 'gbps',
   });
 
 
