@@ -46,6 +46,7 @@ tasks:
 
     env:
       GOOGLE_APPLICATION_CREDENTIALS: /local/google_creds.json
+      MAX_SIZE: 250
 
     vault:
       policies:
