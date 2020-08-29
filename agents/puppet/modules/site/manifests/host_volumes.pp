@@ -35,4 +35,10 @@ class site::host_volumes {
       refreshonly => true,
     }
   }
+
+  $::custom_volumes.each |String $tag, String $dir| {
+    file { "$dir":
+      ensure => directory,
+    }
+  }
 }

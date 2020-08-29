@@ -14,6 +14,7 @@ if [ $# -ge 1 ]; then
     --name $NAME \
     --tags role=nomad-agent \
     --image UbuntuLTS \
+	--os-disk-size-gb 50 \
     --size ${SIZE:-Standard_D2_v3} \
     --admin-username srnd \
     --subscription 49f7105a-6649-48da-b7fd-97c41104d914 \
@@ -32,6 +33,7 @@ else
     --name $NAME \
     --tags role=nomad-agent \
     --image UbuntuLTS \
+	--os-disk-size-gb 50 \
     --size Standard_D2_v3 \
     --admin-username srnd \
     --subscription 49f7105a-6649-48da-b7fd-97c41104d914 \
