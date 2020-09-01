@@ -1,0 +1,18 @@
+job: si-images
+datacenters: [srnd]
+
+tasks:
+  si-images:
+    image: "codeday/si-images"
+
+    resources:
+      memory: 70
+      memory_limit: 256
+      cpu: 50
+
+    ports:
+      http:
+        inner: 5000
+        lb:
+          domain: si-images.codeday.org
+          cert: codeday.org
