@@ -9,6 +9,7 @@ tasks:
     image: "srnd/docker-redirect-many"
 
     env:
+      REDIRECT_WWW_SRND_ORG: www.srnd.org:www.codeday.org
       REDIRECT_SRND_TO: srnd.to:codeday.to
       REDIRECT_ACCOUNT_CODEDAY_ORG: account.codeday.org:account.codeday.xyz
       REDIRECT_DISCORD: discord0.codeday.xyz:discord0.codeday.org
@@ -23,6 +24,8 @@ tasks:
         lb:
           - domain: redirector.codeday.xyz
             cert: codeday.xyz
+          - domain: www.srnd.org
+            cert: srnd.org
           - domain: srnd.to
             cert: srnd.to
           - domain: account.codeday.org

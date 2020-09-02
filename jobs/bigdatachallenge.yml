@@ -1,0 +1,42 @@
+job: bigdatachallenge
+datacenters: [ srnd ]
+
+tasks:
+  bigdatachallenge:
+    image: "srnd/ctfd"
+    version: "1.2"
+    resources:
+      cpu: 200
+      memory: 200
+
+    volumes:
+      share:
+        - fileshare: bigdatachallenge-uploads
+          mountpoint: /var/uploads
+      tmpfs:
+        - /var/log/CTFd
+        - /opt/CTFd/logs
+
+    vault:
+      policies:
+        - bigdatachallenge
+      env:
+        bigdatachallenge:
+          DATABASE_URL: DATABASE_URL
+          MAILGUN_KEY: MAILGUN_KEY
+          PUBNUB_SUB: PUBNUB_SUB
+          SECRET: SECRET
+
+    env:
+      UPLOAD_FOLDER: /var/uploads
+      WORKERS: 1
+      ACCESS_LOG: "-"
+      ERROR_LOG: "-"
+
+    ports:
+      codecup:
+        inner: 8000
+        lb:
+          domain: play-data-challenge.codeday.org
+          cert: codeday.org
+          sticky: true
