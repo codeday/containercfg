@@ -2,41 +2,6 @@ job: uploads
 datacenters: [srnd]
 
 tasks:
-  picfit:
-    image: "codeday/picfit"
-    version: "8b599a98e49879cad77e14cc5052e1e4723ae049"
-
-    resources:
-      memory: 256
-
-    env:
-      PICFIT_CONFIG_PATH: /local/config.json
-      GIN_MODE: release
-
-    vault:
-      policies:
-        - picfit
-      files:
-        picfit:
-          config.json:
-            contents: '{{ .Data.data.picfit }}'
-          google_creds.json:
-            contents: '{{ .Data.data.google }}'
-
-    ports:
-      http:
-        inner: 3001
-        lb:
-          domain: img.codeday.org
-          cert: codeday.org
-        tags:
-          - traefik.http.middlewares.img-codeday-prefix-fit.replacepathregex.regex=^/(.*)$
-          - traefik.http.middlewares.img-codeday-prefix-fit.replacepathregex.replacement=/display/thumbnail/${1}
-          - traefik.http.routers.uploads-picfit-http-img-codeday-org.middlewares=img-codeday-prefix-fit@consulcatalog,strip-headers@file,cache-forever@file
-          - traefik.http.routers.uploads-picfit-http-img-codeday-org-tls.middlewares=img-codeday-prefix-fit@consulcatalog,strip-headers@file,cache-forever@file
-          - traefik.http.routers.uploads-picfit-http-img-codeday-org.rule=Host(`img.codeday.org`) && Path(`/{size:[12]?[0-9]{0,3}x[12]?[0-9]{0,3}}/{path:([a-zA-Z0-9_\- \/\.]|%20)+}`)
-          - traefik.http.routers.uploads-picfit-http-img-codeday-org-tls.rule=Host(`img.codeday.org`) && Path(`/{size:[12]?[0-9]{0,3}x[12]?[0-9]{0,3}}/{path:([a-zA-Z0-9_\- \/\.]|%20)+}`)
-
   uploader:
     image: "codeday/uploader"
 
