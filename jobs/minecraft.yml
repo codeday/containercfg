@@ -4,6 +4,9 @@ datacenters: [ srnd ]
 deployment:
   canaries: 0
 
+placement:
+  speed:
+
 tasks:
   minecraft:
     image: "itzg/minecraft-server"
@@ -12,23 +15,22 @@ tasks:
 
     resources:
       cpu: 7000
-      memory: 15150
+      memory: 25150
 
     volumes:
-      share:
-        - fileshare: minecraft-plugins
-          mountpoint: /plugins
       host:
         - volume: minecraft
           mountpoint: "/data"
+        - volume: minecraft-plugins
+          mountpoint: /data/plugins
 
     env:
-      MEMORY: 7G
-      MAX_MEMORY: 15G
+      MEMORY: 10G
+      MAX_MEMORY: 24G
       EULA: "TRUE"
       GUI: "FALSE"
       TYPE: PAPER
-      VERSION: "1.14.4"
+      VERSION: "1.16.1"
       SERVER_NAME: CodeDay
       MOTD: Everyday is CodeDay if you believe in magic.
       MAX_PLAYERS: 144
@@ -36,6 +38,8 @@ tasks:
       ENABLE_COMMAND_BLOCK: "FALSE"
       SPAWN_PROTECTION: 0
       ALLOW_NETHER: "TRUE"
+      IMAGE_TAG: "latest"
+
 
     vault:
       policies:
@@ -48,3 +52,9 @@ tasks:
       minecraft:
         inner: 25565
         outer: 25565
+        tags:
+          - traefik.tcp.routers.minecraft.entrypoints=minecraft
+          - traefik.enable=true
+          - traefik.tcp.routers.minecraft.rule=HostSNI(`*`)
+          - traefik.tcp.services.minecraft.loadbalancer.terminationdelay=-1
+          - traefik.tcp.services.minecraft.loadbalancer.server.port=2556

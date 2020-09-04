@@ -1,0 +1,155 @@
+{
+    "Job":{
+      "ID": "minecraft",
+      "Region": "global",
+      "Datacenters": [
+        "srnd"
+      ],
+      "Type": "service",
+      "Constraints": [],
+      "Update": {
+        "MaxParallel": 1,
+        "HealthCheck": "task_states",
+        "HealthyDeadline": 180000000000,
+        "MinHealthyTime": 10000000000,
+        "ProgressDeadline": 600000000000,
+        "Canary": 0,
+        "AutoPromote": false,
+        "AutoRevert": true
+      },
+      "Periodic": null,
+      "TaskGroups": [
+        {
+          "Name": "minecraft",
+          "Count": 1,
+          "RestartPolicy": {
+            "Attempts": 2,
+            "Interval": 1800000000000,
+            "Delay": 15000000000,
+            "Mode": "fail"
+          },
+          "Volumes": {
+            "minecraft-minecraft": {
+              "Name": "minecraft-minecraft",
+              "Type": "host",
+              "Source": "minecraft",
+              "ReadOnly": false
+            },
+            "minecraft-minecraft-plugins": {
+              "Name": "minecraft-minecraft-plugins",
+              "Type": "host",
+              "Source": "minecraft-plugins",
+              "ReadOnly": false
+            }
+          },
+          "EphemeralDisk": {
+            "Sticky": false,
+            "SizeMb": 270,
+            "Migrate": false
+          },
+          "Tasks": [
+            {
+              "Name": "minecraft",
+              "Driver": "docker",
+              "Config": {
+                "dns_servers": [
+                  "169.254.1.1"
+                ],
+                "image": "itzg/minecraft-server:latest",
+                "args": [
+                  "--noconsole"
+                ],
+                "port_map": [
+                  {
+                    "minecraft": 25565
+                  }
+                ],
+                "cap_add": [],
+                "volumes": [],
+                "mounts": []
+              },
+              "VolumeMounts": [
+                {
+                  "Volume": "minecraft-minecraft",
+                  "Destination": "/data",
+                  "ReadOnly": false
+                },
+                {
+                  "Volume": "minecraft-minecraft-plugins",
+                  "Destination": "/plugins",
+                  "ReadOnly": false
+                }
+              ],
+              "Artifacts": [],
+              "Resources": {
+                "CPU": 7000,
+                "MemoryMB": 25150,
+                "Mode": "",
+                "Networks": [
+                  {
+                    "IP": "205.234.70.34",
+                    "DynamicPorts": [],
+                    "ReservedPorts": [
+                      {
+                        "Label": "minecraft",
+                        "Value": 25565,
+                        "To": 0,
+                        "host_interface": "public"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "LogConfig": {
+                "MaxFiles": 2,
+                "MaxFileSizeMB": 5
+              },
+              "EphemeralDisk": {
+                "Sticky": false,
+                "SizeMB": 100,
+                "Migrate": false
+              },
+              "Env": {
+                "MEMORY": "10G",
+                "MAX_MEMORY": "24G",
+                "EULA": "TRUE",
+                "GUI": "FALSE",
+                "TYPE": "PAPER",
+                "VERSION": "1.16.1",
+                "SERVER_NAME": "CodeDay",
+                "MOTD": "Everyday is CodeDay if you believe in magic.",
+                "MAX_PLAYERS": "144",
+                "ANNOUNCE_PLAYER_ACHIEVEMENTS": "FALSE",
+                "ENABLE_COMMAND_BLOCK": "FALSE",
+                "SPAWN_PROTECTION": "0",
+                "ALLOW_NETHER": "TRUE",
+                "IMAGE_TAG": "latest"
+              },
+              "Vault": {
+                "Policies": [
+                  "minecraft"
+                ],
+                "Env": true,
+                "ChangeMode": "signal",
+                "ChangeSignal": "SIGHUP"
+              },
+              "Templates": [
+                {
+                  "SourcePath": "",
+                  "DestPath": "local/secrets.env",
+                  "EmbeddedTmpl": "{{- with secret \"kv/data/minecraft\" -}}OPS={{ .Data.data.ops }}{{ end }}",
+                  "ChangeMode": "noop",
+                  "ChangeSignal": "",
+                  "Perms": "0644",
+                  "LeftDelim": "{{",
+                  "RightDelim": "}}",
+                  "Envvars": true
+                }
+              ]
+            }
+          ],
+          "count": 1
+        }
+      ]
+    }
+}

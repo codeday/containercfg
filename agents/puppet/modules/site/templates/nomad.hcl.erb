@@ -35,6 +35,9 @@ client = {
     "<%= k %>" = "<%= v %>"
     <% end %>
   }
+  host_network "public" {
+    interface = "eno1"
+  }
   host_volume "acme" {
     path     = "/acme"
     read_only = false
