@@ -14,6 +14,7 @@ tasks:
       REDIRECT_ACCOUNT_CODEDAY_ORG: account.codeday.org:account.codeday.xyz
       REDIRECT_DISCORD: discord0.codeday.xyz:discord0.codeday.org
       REDIRECT_BIG_DATA: big-data.codeday.org:codeday.org/edu/big-data-challenge
+      REDIRECT_SALESFORCE: salesforce.codeday.org:codeday.my.salesforce.com
 
     resources:
       memory: 50
@@ -33,4 +34,6 @@ tasks:
           - domain: discord0.codeday.xyz
             cert: codeday.xyz
           - domain: big-data.codeday.org
+            cert: codeday.org
+          - domain: salesforce.codeday.org
             cert: codeday.org
