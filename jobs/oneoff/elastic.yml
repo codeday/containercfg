@@ -17,8 +17,6 @@ tasks:
       node.name: elastic01
       network.host: 0.0.0.0
       discovery.type: single-node
-      http.cors.enabled: true
-      http.cors.allow-origin: "http://www.gridshore.nl"
       ES_JAVA_OPTS: "-Xms512m -Xmx512m"
 
     ports:
@@ -30,3 +28,22 @@ tasks:
       host:
         - volume: elastic
           mountpoint: /usr/share/elasticsearch/data
+
+  elastic-testing:
+    image: "elasticsearch"
+    version: "7.6.2"
+
+    resources:
+      memory: 1024
+
+    env:
+      cluster.name: codeday-test
+      node.name: elastic01-test
+      network.host: 0.0.0.0
+      discovery.type: single-node
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+
+    ports:
+      elastic:
+        inner: 9200
+        outer: 9201
