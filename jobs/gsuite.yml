@@ -1,0 +1,43 @@
+job: gsuite
+datacenters: [ srnd ]
+
+tasks:
+  gsuite:
+    image: "codeday/auth0-google"
+
+    resources:
+      memory_limit: 256
+      memory: 100
+
+    vault:
+      policies:
+        - gsuite
+      env:
+        gsuite:
+          GOOGLE_ADMIN_USER: GOOGLE_ADMIN_USER
+          GOOGLE_CUSTOMER_ID: GOOGLE_CUSTOMER_ID
+          GOOGLE_DOMAIN: GOOGLE_DOMAIN
+          GOOGLE_ORG: GOOGLE_ORG
+          AUTH0_CLIENT_ID: AUTH0_CLIENT_ID
+          AUTH0_CLIENT_SECRET: AUTH0_CLIENT_SECRET
+          AUTH0_DOMAIN: AUTH0_DOMAIN
+          APP_SECRET: APP_SECRET
+          APP_URL: APP_URL
+
+      files:
+        gsuite:
+          "google.json":
+            contents: "{{- .Data.data.google_account -}}"
+    volumes:
+      raw:
+        - from: local/google.json
+          mountpoint: /app/.secrets/google.json
+
+    ports:
+      http:
+        inner: 5000
+        lb:
+          sticky: true
+          domain: gsuite.codeday.org
+          cert: codeday.org
+          https_only: true
