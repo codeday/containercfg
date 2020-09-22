@@ -23,7 +23,33 @@ tasks:
       dropin:
         inner: 22555
         outer: 22555
-      proxy:
+      proxy-1:
         inner: 24000
         outer: 24000
-  
+      proxy-2:
+        inner: 24001
+        outer: 24001
+      proxy-3:
+        inner: 24002
+        outer: 24002
+      proxy-4:
+        inner: 24003
+        outer: 24003
+      proxy-5:
+        inner: 24004
+        outer: 24004
+      proxy-6:
+        inner: 24005
+        outer: 24005
+      proxy-7:
+        inner: 24006
+        outer: 24006
+      proxy-8:
+        inner: 24007
+        outer: 24007
+      proxy-9:
+        inner: 24008
+        outer: 24008
+      proxy-10:
+        inner: 24009
+        outer: 24009

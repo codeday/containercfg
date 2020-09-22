@@ -87,14 +87,12 @@
                 "Mode": "",
                 "Networks": [
                   {
-                    "IP": "205.234.70.34",
                     "DynamicPorts": [],
                     "ReservedPorts": [
                       {
                         "Label": "minecraft",
                         "Value": 25565,
-                        "To": 0,
-                        "host_interface": "public"
+                        "To": 0
                       }
                     ]
                   }
@@ -145,6 +143,25 @@
                   "RightDelim": "}}",
                   "Envvars": true
                 }
+              ]
+            }
+          ],
+          "Services": [
+            {
+              "Name": "minecraft",
+              "PortLabel": "minecraft",
+              "AddresssMode": "auto",
+              "CanaryTags": [
+                "canary=true"
+              ],
+              "Checks": [],
+              "Tags": [
+                "traefik.entryPoints.minecraft.address=:25565",
+                "traefik.tcp.routers.minecraft.entrypoints=minecraft",
+                "traefik.enable=true",
+                "traefik.tcp.routers.minecraft.rule=HostSNI(`*`)",
+                "traefik.tcp.services.minecraft.loadbalancer.terminationdelay=-1",
+                "traefik.tcp.services.minecraft.loadbalancer.server.port=25565"
               ]
             }
           ],
