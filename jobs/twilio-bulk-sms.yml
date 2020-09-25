@@ -1,0 +1,24 @@
+job: twilio-bulk-sms
+datacenters: [srnd]
+
+tasks:
+  main:
+    image: codeday/twilio-bulk-sms
+
+    resources:
+      memory: 256
+      cpu: 100
+
+    ports:
+      http:
+        inner: 80
+        lb:
+          - domain: sms.codeday.org
+    vault:
+      policies:
+        - twilio-bulk-sms
+      env:
+        engage-a-tron:
+        TWILIO_ACCOUNT_SID: TWILIO_ACCOUNT_SID
+        TWILIO_AUTH_TOKEN: TWILIO_AUTH_TOKEN
+        TWILIO_NOTIFY_SERVICE_SID: TWILIO_NOTIFY_SERVICE_SID
