@@ -3,7 +3,7 @@ datacenters: [ srnd ]
 
 tasks:
   email:
-    image: https://docker.pkg.github.com/srnd/sendy/sendy
+    image: srnd/sendy
     resources:
       memory: 128
 
@@ -23,5 +23,7 @@ tasks:
       http:
         inner: 80
         lb:
-          domain: email.srnd.org
-          cert: srnd.org
+          - domain: email.srnd.org
+            cert: srnd.org
+          - domain: email.codeday.org
+            cert: codeday.org
