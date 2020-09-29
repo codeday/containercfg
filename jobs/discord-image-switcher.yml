@@ -1,0 +1,19 @@
+job: discord-image-switcher
+datacenters: [srnd]
+
+tasks:
+
+  discord-image-switcher:
+    image: codeday/discord-image-switcher
+
+    resources:
+      memory_limit: 512
+      memory: 70
+
+    vault:
+      policies:
+        - discord-image-switcher
+
+      env:
+        discord-image-switcher:
+          DISCORD_TOKEN: DISCORD_TOKEN
