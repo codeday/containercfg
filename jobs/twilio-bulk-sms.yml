@@ -13,15 +13,14 @@ tasks:
       http:
         inner: 80
         lb:
-          - domain: sms.codeday.org
+          domain: sms.codeday.org
     vault:
       policies:
         - twilio-bulk-sms
-        - postgres
       env:
         twilio-bulk-sms:
           TWILIO_ACCOUNT_SID: TWILIO_ACCOUNT_SID
           TWILIO_AUTH_TOKEN: TWILIO_AUTH_TOKEN
           TWILIO_NOTIFY_SERVICE_SID: TWILIO_NOTIFY_SERVICE_SID
-        postgres:
-          DB_PASSWORD: POSTGRESQL_PASSWORD
+          DB_PASSWORD: DB_PASSWORD
+          DB_USERNAME: DB_USERNAME
