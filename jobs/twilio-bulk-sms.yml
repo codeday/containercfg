@@ -17,8 +17,11 @@ tasks:
     vault:
       policies:
         - twilio-bulk-sms
+        - postgres
       env:
-        engage-a-tron:
-        TWILIO_ACCOUNT_SID: TWILIO_ACCOUNT_SID
-        TWILIO_AUTH_TOKEN: TWILIO_AUTH_TOKEN
-        TWILIO_NOTIFY_SERVICE_SID: TWILIO_NOTIFY_SERVICE_SID
+        twilio-bulk-sms:
+          TWILIO_ACCOUNT_SID: TWILIO_ACCOUNT_SID
+          TWILIO_AUTH_TOKEN: TWILIO_AUTH_TOKEN
+          TWILIO_NOTIFY_SERVICE_SID: TWILIO_NOTIFY_SERVICE_SID
+        postgres:
+          DB_PASSWORD: POSTGRESQL_PASSWORD
