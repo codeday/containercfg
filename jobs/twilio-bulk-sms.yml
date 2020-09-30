@@ -2,7 +2,7 @@ job: twilio-bulk-sms
 datacenters: [srnd]
 
 tasks:
-  main:
+  twilio-bulk-sms:
     image: codeday/twilio-bulk-sms
 
     resources:
