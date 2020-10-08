@@ -26,7 +26,7 @@ class site::std {
   }
 
   exec { "tailscale up":
-    command => "tailscale up -authkey ${::vault['tailscale_key']} -advertise-routes ${::private_interface['ip']}/32",
+    command => "tailscale up -authkey ${::vault['tailscale_key']} -advertise-routes ${::private_interface['ip']}/32 --accept-dns=false",
     path => "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
     unless => "ip addr | grep tailscale | grep inet",
     require => Service["tailscaled"],
