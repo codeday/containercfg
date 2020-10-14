@@ -1,0 +1,35 @@
+job: grafana
+datacenters: [srnd]
+
+tasks:
+  grafana:
+    image: "grafana/grafana"
+
+    resources:
+      memory: 100
+      memory_limit: 256
+      cpu: 100
+    volumes:
+      share:
+        - fileshare: grafana-storage
+          mountpoint: /var/lib/grafana
+
+    ports:
+      http:
+        inner: 3000
+        lb:
+          domain: grafana.codeday.org
+          cert: codeday.org
+
+    vault:
+      policies:
+        - grafana
+      env:
+        grafana:
+          GF_DATABASE_PASSWORD: postgres_pw
+          GF_DATABASE_USER: postgres_user
+
+    env:
+      GF_DATABASE_TYPE: postgres
+      GF_DATABASE_HOST: postgres-master-pg.service.consul
+      GF_DATABASE_NAME: grafana
