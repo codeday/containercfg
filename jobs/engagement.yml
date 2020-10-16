@@ -3,7 +3,7 @@ datacenters: [srnd]
 
 tasks:
   main:
-    image: srnd/engage-a-tron
+    image: codeday/engage-a-tron
 
     resources:
       memory: 256
