@@ -74,8 +74,6 @@ tasks:
     ports:
       http:
         inner: 80
-        check:
-          path: /api/regions
         lb:
           domain: clear.codeday.org
           cert: codeday.org
