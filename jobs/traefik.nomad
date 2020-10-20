@@ -247,6 +247,12 @@ EOF
             email = "team@srnd.org"
             [certificatesresolvers.codecupchallenge-com.acme.dnschallenge]
               provider = "ns1"
+
+          [certificatesresolvers.bigdatachallenge-org.acme]
+            storage = "/acme/bigdatachallenge-org.json"
+            email = "team@srnd.org"
+            [certificatesresolvers.bigdatachallenge-org.acme.dnschallenge]
+              provider = "ns1"
 EOF
 
         destination = "local/traefik.toml"

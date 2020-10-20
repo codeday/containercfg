@@ -37,6 +37,13 @@ tasks:
       codecup:
         inner: 8000
         lb:
-          domain: play-data-challenge.codeday.org
-          cert: codeday.org
-          sticky: true
+          - domain: play-data-challenge.codeday.org
+            cert: codeday.org
+            sticky: true
+          - domain: bigdatachallenge.org
+            cert: bigdatachallenge.org
+            sticky: true
+          - domain: www.bigdatachallenge.org
+            cert: bigdatachallenge.org
+            sticky: true
+
