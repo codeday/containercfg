@@ -1,0 +1,34 @@
+job: rctf-leaderboard # !!!IMPORTANT: DOES NOT SCALE! Count must be 1. To add load balancing, scale the `rctf-frontend` task not this one
+datacenters: [ srnd ]
+
+tasks:
+  rctf-leaderboard:
+    image: "redpwn/rctf"
+    version: "master"
+    resources:
+      cpu: 200
+      memory: 200
+    ports:
+      http:
+        inner: 80
+        lb:
+          domain: rctf.codeday.org
+          cert: codeday.org
+    env:
+      PORT: 80
+      RCTF_CONF_PATH: /local/conf.d/
+      RCTF_INSTANCE_TYPE: leaderboard
+    vault:
+      policies:
+        - rctf
+      env:
+        rctf:
+          RCTF_DATABASE_PASSWORD: POSTGRES_PASSWORD
+      files:
+        rctf:
+          conf.d/conf.yaml:
+            contents: "{{- .Data.data.conf -}}"
+      volumes:
+        raw:
+          - from: local/conf.d/conf.yaml
+            mountpoint: /app/conf.d/conf.yaml
