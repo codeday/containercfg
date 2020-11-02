@@ -1,0 +1,46 @@
+job: rctf-leaderboard # !!!IMPORTANT: DOES NOT SCALE! Count must be 1. To add load balancing, scale the `rctf-frontend` task not this one
+datacenters: [ srnd ]
+
+tasks:
+  rctf-leaderboard:
+    image: "redpwn/rctf"
+    version: "master"
+    resources:
+      cpu: 200
+      memory: 200
+    ports:
+      http:
+        inner: 80
+        tags:
+          - scheme=http,
+          - traefik.enable=true,
+          - traefik.http.services.rctf-leaderboard-rctf-leaderboard-http.loadBalancer.sticky=false,
+          - traefik.http.routers.rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org.rule=Host(`rctf.codeday.org`) && PathPrefix(`/api/v1/leaderboard`, `/api/v1/challs`),
+          - traefik.http.middlewares.rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org-add-info.headers.customresponseheaders.X-Job=rctf-leaderboard,
+          - traefik.http.middlewares.rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org-add-info.headers.customresponseheaders.X-Task=rctf-leaderboard,
+          - traefik.http.middlewares.rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org-add-info.headers.customresponseheaders.X-Service=http,
+          - traefik.http.routers.rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org.middlewares=rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org-add-info,
+          - traefik.http.routers.rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org-tls.middlewares=rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org-add-info,
+          - traefik.http.routers.rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org-tls.rule=Host(`rctf.codeday.org`) && PathPrefix(`/api/v1/leaderboard`, `/api/v1/challs`),
+          - traefik.http.routers.rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org-tls.tls=true,
+          - traefik.http.routers.rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org-tls.tls.certresolver=codeday-org,
+          - traefik.http.routers.rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org-tls.tls.domains[0].main=*.codeday.org,
+          - traefik.http.routers.rctf-leaderboard-rctf-leaderboard-http-rctf-codeday-org-tls.tls.domains[0].sans=codeday.org
+    env:
+      PORT: 80
+      RCTF_CONF_PATH: /local/conf.d/
+      RCTF_INSTANCE_TYPE: leaderboard
+    vault:
+      policies:
+        - rctf
+      env:
+        rctf:
+          RCTF_DATABASE_PASSWORD: POSTGRES_PASSWORD
+      files:
+        rctf:
+          conf.d/conf.yaml:
+            contents: "{{- .Data.data.conf -}}"
+      volumes:
+        raw:
+          - from: local/conf.d/conf.yaml
+            mountpoint: /app/conf.d/conf.yaml
