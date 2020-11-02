@@ -1,0 +1,29 @@
+job: showcase-gql
+datacenters: [srnd]
+
+tasks:
+
+  showcase-gql:
+    image: codeday/showcase-gql
+
+    resources:
+      memory: 100
+      memory_limit: 500
+
+    vault:
+      policies:
+        - showcasegql
+      env:
+        showcasegql:
+          DATABASE_URL: DATABASE_URL
+          UPLOADER_BASE: UPLOADER_BASE
+          JWT_SECRET: JWT_SECRET
+          JWT_AUDIENCE: JWT_AUDIENCE
+
+    ports:
+      http:
+        inner: 5000
+        lb:
+          - domain: showcase-gql.codeday.cloud
+            middleware:
+              - internal-ip@file
