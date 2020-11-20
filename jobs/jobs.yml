@@ -1,0 +1,36 @@
+job: jobs
+datacenters: [ srnd ]
+
+deployment:
+  healthy_deadline: 5m
+
+tasks:
+  jobs:
+    image: "codeday/jobs"
+
+    resources:
+      memory_limit: 512
+      memory: 100
+
+    vault:
+      policies:
+        - jobs
+      env:
+        jobs:
+          GQL_SECRET: GQL_SECRET
+          AUTH0_CLIENT_ID: AUTH0_CLIENT_ID
+          AUTH0_CLIENT_SECRET: AUTH0_CLIENT_SECRET
+          AUTH0_DOMAIN: AUTH0_DOMAIN
+          APP_SECRET: APP_SECRET
+
+    env:
+      NEXTAUTH_URL: https://jobs.codeday.org
+
+    ports:
+      http:
+        inner: 3000
+        check:
+        lb:
+          domain: jobs.codeday.org
+          cert: codeday.org
+          https_only: true

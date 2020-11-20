@@ -17,6 +17,7 @@ tasks:
       REDIRECT_SALESFORCE: salesforce.codeday.org:codeday.my.salesforce.com
       REDIRECT_MAIL: mail.codeday.org:mail.google.com/a/srnd.org
       REDIRECT_DRIVE: drive.codeday.org:drive.google.com/a/srnd.org
+      REDIRECT_OLD: old.codeday.org:event.codeday.org
 
     resources:
       memory: 50
@@ -42,4 +43,6 @@ tasks:
           - domain: mail.codeday.org
             cert: codeday.org
           - domain: drive.codeday.org
+            cert: codeday.org
+          - domain: old.codeday.org
             cert: codeday.org
