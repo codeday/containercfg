@@ -30,17 +30,16 @@ tasks:
       EULA: "TRUE"
       GUI: "FALSE"
       TYPE: PAPER
-      VERSION: "1.16.1"
+      VERSION: "1.16.4"
       SERVER_NAME: CodeDay
-      MOTD: Everyday is CodeDay if you believe in magic.
-      MAX_PLAYERS: 144
+      MOTD: "\u00a78               \u2588\u2588\u2588\u00a7d\u00a7l CodeDay \u00a78\u2588\u2588\u2588\u00a7r\n\u00a78      \u2588\u2588\u2588\u00a7f Largest \u00a7b\u00a7lSpleef \u00a7fBattle is \u00a7f\u00a7lLIVE\u00a7f! \u00a78\u2588\u2588\u2588"
+      MAX_PLAYERS: 250
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "FALSE"
       ENABLE_COMMAND_BLOCK: "FALSE"
       SPAWN_PROTECTION: 0
       ALLOW_NETHER: "TRUE"
       IMAGE_TAG: "latest"
-
-
+      ICON: "https://f1.codeday.org/logo_heartonly_ff686b.png"
     vault:
       policies:
         - minecraft
