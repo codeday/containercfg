@@ -18,11 +18,13 @@ tasks:
           CALENDAR_community:  CALENDAR_community
           CALENDAR_partners: CALENDAR_partners
           CALENDAR_virtualcodeday: CALENDAR_virtualcodeday
+          CALENDAR_labs: CALENDAR_labs
 
     env:
       CALENDAR_community_NAME: Community
       CALENDAR_partners_NAME: Partners
       CALENDAR_virtualcodeday_NAME: Virtual CodeDay
+      CALENDAR_labs_NAME: CodeDay Labs
 
     ports:
       http:
