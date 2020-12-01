@@ -6,8 +6,8 @@ tasks:
     image: "codeday/gql-server"
 
     resources:
-      memory: 100
-      memory_limit: 256
+      memory: 256
+      memory_limit: 2048
       cpu: 200
 
     vault:
