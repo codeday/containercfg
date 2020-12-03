@@ -1,0 +1,40 @@
+job: www-showcase
+datacenters: [ srnd ]
+
+deployment:
+  healthy_deadline: 5m
+
+tasks:
+  www-showcase:
+    image: "codeday/www-showcase"
+
+    resources:
+      memory_limit: 512
+      memory: 100
+
+    vault:
+      policies:
+        - www-showcase
+      env:
+        www-showcase:
+          AUTH0_CLIENT_ID: AUTH0_CLIENT_ID
+          AUTH0_CLIENT_SECRET: AUTH0_CLIENT_SECRET
+          AUTH0_DOMAIN: AUTH0_DOMAIN
+          SHOWCASE_AUDIENCE: SHOWCASE_AUDIENCE
+          SHOWCASE_SECRET: SHOWCASE_SECRET
+
+    env:
+      NEXTAUTH_URL: https://new-showcase.codeday.org
+      SHOWCASE_EVENT_GROUP: virtual-2020-dec
+      SHOWCASE_PROGRAM: virtual
+      SHOWCASE_ALLOW_CREATE: true
+      SHOWCASE_AVAILABLE_SUBEVENTS: pacific-northwest,midwest,east,non-us
+
+    ports:
+      http:
+        inner: 3000
+        check:
+        lb:
+          domain: new-showcase.codeday.org
+          cert: codeday.org
+          https_only: true
