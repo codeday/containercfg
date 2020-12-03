@@ -1,0 +1,30 @@
+job: pack
+datacenters: [ srnd ]
+
+tasks:
+  pack:
+    image: codeday/pack
+
+    vault:
+      policies:
+        - pack
+
+      env:
+        pack:
+          AUTH0_DOMAIN: AUTH0_DOMAIN
+          AUTH0_CLIENT_ID: AUTH0_CLIENT_ID
+          AUTH0_CLIENT_SECRET: AUTH0_CLIENT_SECRET
+          GITHUB_SCHOOL_ID: GITHUB_SCHOOL_ID
+          GITHUB_SECRET_KEY: GITHUB_SECRET_KEY
+          APP_SECRET: APP_SECRET
+
+    env:
+      APP_URL: https://pack.codeday.org
+
+    ports:
+      https:
+        inner: 3000
+        lb:
+          domain: pack.codeday.org
+          cert: codeday.org
+          https_only: true
