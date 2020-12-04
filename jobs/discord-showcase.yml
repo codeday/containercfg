@@ -1,0 +1,21 @@
+job: discord-showcase
+datacenters: [srnd]
+
+tasks:
+  discord-showcase:
+    image: codeday/discord-showcase
+
+    resources:
+      memory: 200
+
+    vault:
+      policies:
+        - discord-showcase
+      env:
+        discord-showcase:
+          DB_DB: DB_DB
+          DB_PASSWORD: DB_PASSWORD
+          DB_USERNAME: DB_USERNAME
+          DB_HOST: DB_HOST
+          BOT_TOKEN: BOT_TOKEN
+          GQL_SHOWCASE_SECRET: GQL_SHOWCASE_SECRET
