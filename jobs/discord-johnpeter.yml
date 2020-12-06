@@ -34,6 +34,7 @@ tasks:
           MYSQL_PASS: MYSQL_PASS
           MYSQL_USER: MYSQL_USER
           ROLE_STUDENT: ROLE_STUDENT
+          ROLE_GOLD: ROLE_GOLD
           DB_HOST: DB_HOST
           DB_DB: DB_DB
           DB_USERNAME: DB_USERNAME
