@@ -62,12 +62,6 @@ EOF
       service {
         name = "mysql-server"
         port = "db"
-
-        check {
-          type     = "tcp"
-          interval = "10s"
-          timeout  = "2s"
-        }
       }
     }
   }

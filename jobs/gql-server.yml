@@ -6,9 +6,9 @@ tasks:
     image: "codeday/gql-server"
 
     resources:
-      memory: 256
+      memory: 512
       memory_limit: 2048
-      cpu: 200
+      cpu: 600
 
     vault:
       policies:
@@ -24,6 +24,9 @@ tasks:
           APOLLO_GRAPH_VARIANT: APOLLO_GRAPH_VARIANT
           APOLLO_SCHEMA_REPORTING: APOLLO_SCHEMA_REPORTING
           DISCORD_BOT_TOKEN: DISCORD_BOT_TOKEN
+          TWITCH_CHANNEL: TWITCH_CHANNEL
+          TWITCH_CLIENT_ID: TWITCH_CLIENT_ID
+          TWITCH_CLIENT_SECRET: TWITCH_CLIENT_SECRET
 
     ports:
       http:
