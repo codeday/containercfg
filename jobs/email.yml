@@ -3,7 +3,7 @@ datacenters: [ srnd ]
 
 tasks:
   email:
-    image: srnd/sendy
+    image: tylermenezes/sendy
     resources:
       memory: 128
 
