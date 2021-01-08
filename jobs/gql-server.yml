@@ -10,6 +10,9 @@ tasks:
       memory_limit: 2048
       cpu: 600
 
+    env:
+      UPLOADER_URL: http://upload.codeday.cloud
+
     vault:
       policies:
         - gql-server
