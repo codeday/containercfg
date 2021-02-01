@@ -41,6 +41,6 @@ tasks:
           path: "/api/health"
         lb:
           sticky: true
-          domain: account.codeday.xyz
-          cert: codeday.xyz
+          domain: account.codeday.org
+          cert: codeday.org
           https_only: true
