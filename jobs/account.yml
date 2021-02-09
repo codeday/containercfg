@@ -33,6 +33,7 @@ tasks:
           CONTENTFUL_TOKEN: CONTENTFUL_TOKEN
           VOLUNTEER_CODE: VOLUNTEER_CODE
           MENTOR_CODE: MENTOR_CODE
+          GRAPH_SECRET: GRAPH_SECRET
 
     ports:
       http:
