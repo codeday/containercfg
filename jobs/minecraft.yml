@@ -49,12 +49,11 @@ tasks:
 
     ports:
       minecraft:
-        - "25565:25565"
-        - "19132:25565"
-        - "19132:19132"
-      tags:
-        - traefik.tcp.routers.minecraft.entrypoints=minecraft
-        - traefik.enable=true
-        - traefik.tcp.routers.minecraft.rule=HostSNI(`*`)
-        - traefik.tcp.services.minecraft.loadbalancer.terminationdelay=-1
-        - traefik.tcp.services.minecraft.loadbalancer.server.port=2556
+        inner: 25565
+        outer: 25565
+        tags:
+          - traefik.tcp.routers.minecraft.entrypoints=minecraft
+          - traefik.enable=true
+          - traefik.tcp.routers.minecraft.rule=HostSNI(`*`)
+          - traefik.tcp.services.minecraft.loadbalancer.terminationdelay=-1
+          - traefik.tcp.services.minecraft.loadbalancer.server.port=2556
