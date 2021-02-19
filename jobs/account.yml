@@ -34,6 +34,8 @@ tasks:
           VOLUNTEER_CODE: VOLUNTEER_CODE
           MENTOR_CODE: MENTOR_CODE
           GRAPH_SECRET: GRAPH_SECRET
+    env:
+      NEXTAUTH_URL: https://account.codeday.org
 
     ports:
       http:
