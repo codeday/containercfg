@@ -6,7 +6,7 @@ tasks:
     image: codeday/johnpeter-discord
 
     resources:
-      memory: 100
+      memory: 300
 
     volumes:
       share:
