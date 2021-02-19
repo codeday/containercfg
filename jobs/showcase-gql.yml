@@ -7,7 +7,7 @@ tasks:
     image: codeday/showcase-gql
 
     resources:
-      memory: 100
+      memory: 300
       memory_limit: 500
 
     vault:
