@@ -1,0 +1,24 @@
+job: wheel-of-fun
+datacenters: [ srnd ]
+
+deployment:
+  healthy_deadline: 5m
+
+tasks:
+  wheel-of-fun:
+    image: "codeday/wheel-of-fun"
+
+    resources:
+      memory_limit: 512
+      memory: 100
+
+    env:
+      NEXT_PUBLIC_TWITCH_CHANNEL: codeday_org
+
+    ports:
+      http:
+        inner: 3000
+        lb:
+          domain: wheel-of-fun.codeday.org
+          cert: codeday.org
+          https_only: true
