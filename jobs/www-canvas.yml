@@ -15,13 +15,6 @@ tasks:
     env:
       APP_URL: https://canvas.codeday.org/
 
-    vault:
-      policies:
-        - www-canvas
-      env:
-        www-canvas:
-          insert keys here...
-
     ports:
       http:
         inner: 3000
