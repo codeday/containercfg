@@ -1,0 +1,22 @@
+job: sticker-cannon
+datacenters: [ srnd ]
+
+tasks:
+  discord0:
+    image: codeday/sticker-cannon
+    resources:
+      cpu: 100
+
+    vault:
+      policies:
+        - sticker-cannon
+
+      env:
+        sticker-cannon:
+          DATABASE_URL: DATABASE_URL
+    ports:
+      https:
+        inner: 3000
+        lb:
+          domain: sticker-cannon.codeday.org
+          cert: codeday.org
