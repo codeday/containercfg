@@ -1,0 +1,23 @@
+job: tshirt-cannon
+datacenters: [ srnd ]
+
+tasks:
+  discord0:
+    image: codeday/tshirt-cannon
+    resources:
+      cpu: 100
+
+    vault:
+      policies:
+        - tshirt-cannon
+
+      env:
+        tshirt-cannon:
+          SHIPSTATION_API_KEY: SHIPSTATION_API_KEY
+          SHIPSTATION_API_SECRET: SHIPSTATION_API_SECRET
+    ports:
+      https:
+        inner: 80
+        lb:
+          domain: tshirt-cannon.codeday.org
+          cert: codeday.org
