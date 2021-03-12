@@ -1,0 +1,20 @@
+job: discord-maechapman
+datacenters: [srnd]
+
+tasks:
+  discord-maechapman:
+    image: codeday/discord-maechapman
+
+    resources:
+      memory: 100
+
+    vault:
+      policies:
+        - discord-maechapman
+      env:
+        discord-maechapman:
+          BOT_TOKEN: BOT_TOKEN
+      files:
+        discord-maechapman:
+          src/serviceAccount.json:
+            contents: "{{- .Data.data.SERVICE_ACCOUNT_JSON -}}"
