@@ -16,5 +16,5 @@ tasks:
           BOT_TOKEN: BOT_TOKEN
       files:
         discord-maechapman:
-          src/serviceAccount.json:
+          src/service_account.json:
             contents: "{{- .Data.data.SERVICE_ACCOUNT_JSON -}}"
