@@ -56,4 +56,4 @@ tasks:
           - traefik.enable=true
           - traefik.tcp.routers.minecraft.rule=HostSNI(`*`)
           - traefik.tcp.services.minecraft.loadbalancer.terminationdelay=-1
-          - traefik.tcp.services.minecraft.loadbalancer.server.port=2556
+          - traefik.tcp.services.minecraft.loadbalancer.server.port=25565

@@ -26,6 +26,7 @@ tasks:
       http:
         inner: 3000
         check:
+          failGrace: 4m
         lb:
           domain: www.codeday.org
           cert: codeday.org

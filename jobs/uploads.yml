@@ -6,6 +6,7 @@ tasks:
     image: "codeday/uploader"
 
     resources:
+      memory_limit: 256
       memory: 64
       cpu: 100
 

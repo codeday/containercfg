@@ -1,0 +1,50 @@
+job: zoom-dewatermark
+datacenters: [ srnd ]
+
+deployment:
+  healthy_deadline: 5m
+
+tasks:
+  zoom-dewatermark:
+    image: "jrottenberg/ffmpeg"
+
+    resources:
+      memory_limit: 512
+      memory: 100
+
+    args:
+      - "-i"
+      - "rtmp://codeday.cloud/live/zoom-2jaJGzLLGjrL"
+      - "-i"
+      - "https://f1.codeday.org/obs/ZoomComposite.png"
+      - "-filter_complex"
+      - "[1][0]scale2ref[i][m];[m][i]blend=all_mode='overlay'[v]"
+      - "-map"
+      - "[v]"
+      - "-map"
+      - "0:a?"
+      - "-c:v"
+      - "libx264"
+      - "-preset"
+      - "veryfast"
+      - "-b:v"
+      - "3000k"
+      - "-maxrate"
+      - "3000k"
+      - "-bufsize"
+      - "6000k"
+      - "-pix_fmt"
+      - "yuv420p"
+      - "-g"
+      - "50"
+      - "-c:a"
+      - "aac"
+      - "-b:a"
+      - "160k"
+      - "-ac"
+      - "2"
+      - "-ar"
+      - "44100"
+      - "-f"
+      - "flv"
+      - "rtmp://codeday.cloud/live/test2"

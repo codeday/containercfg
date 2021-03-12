@@ -1,0 +1,26 @@
+job: www-canvas
+datacenters: [ srnd ]
+
+deployment:
+  healthy_deadline: 5m
+
+tasks:
+  www-canvas:
+    image: "codeday/docker-canvas"
+
+    resources:
+      memory_limit: 8192
+      memory: 512
+
+    env:
+      APP_URL: https://canvas.codeday.org/
+
+    ports:
+      http:
+        inner: 3000
+        check:
+          failGrace: 4m
+        lb:
+          domain: canvas.codeday.org
+          cert: codeday.org
+          https_only: true

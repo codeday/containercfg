@@ -1,12 +1,12 @@
-job: obs
+job: wheel-of-fun
 datacenters: [ srnd ]
 
 deployment:
   healthy_deadline: 5m
 
 tasks:
-  obs:
-    image: "codeday/obs"
+  wheel-of-fun:
+    image: "codeday/wheel-of-fun"
 
     resources:
       memory_limit: 512
@@ -19,6 +19,6 @@ tasks:
       http:
         inner: 3000
         lb:
-          domain: obs.codeday.org
+          domain: wheel-of-fun.codeday.org
           cert: codeday.org
           https_only: true
