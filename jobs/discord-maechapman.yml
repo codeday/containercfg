@@ -16,5 +16,9 @@ tasks:
           BOT_TOKEN: BOT_TOKEN
       files:
         discord-maechapman:
-          src/service_account.json:
+          service_account.json:
             contents: "{{- .Data.data.SERVICE_ACCOUNT_JSON -}}"
+    volumes:
+      raw:
+        - from: local/service_account.json
+          mountpoint: /app/src/service_account.json
