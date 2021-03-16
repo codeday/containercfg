@@ -21,6 +21,7 @@ tasks:
       env:
         www-corp:
           STRIPE_SECRET_KEY: STRIPE_SECRET_KEY
+          ACCOUNT_SECRET: ACCOUNT_SECRET
 
     ports:
       http:
