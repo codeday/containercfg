@@ -20,9 +20,8 @@ tasks:
         tags:
           - traefik.tcp.routers.factorio.entrypoints=factorio
           - traefik.enable=true
-          - traefik.tcp.routers.factorio.rule=HostSNI(`*`)
           - traefik.tcp.services.factorio.loadbalancer.terminationdelay=-1
-          - traefik.tcp.services.factorio.loadbalancer.server.port=34197
+          - traefik.tcp.services.factorio.loadbalancer.server.port=34197/udp
 #
 #      udp:
 #        inner: 34197
