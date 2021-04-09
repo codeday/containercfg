@@ -1,0 +1,36 @@
+job: factorio
+datacenters: [ srnd ]
+
+tasks:
+  factorio:
+    image: "factoriotools/factorio"
+    version: "stable"
+    resources:
+      cpu: 500
+      memory: 1000
+
+    volumes:
+      host:
+        - volume: factorio
+          mountpoint: /factorio/
+    ports:
+      factorio:
+        inner: 34197
+        outer: 34197
+        tags:
+          - traefik.tcp.routers.factorio.entrypoints=factorio
+          - traefik.enable=true
+          - traefik.tcp.routers.factorio.rule=HostSNI(`*`)
+          - traefik.tcp.services.factorio.loadbalancer.terminationdelay=-1
+          - traefik.tcp.services.factorio.loadbalancer.server.port=34197
+#
+#      udp:
+#        inner: 34197
+#        outer: 34197
+#        lb:
+#          domain: factorio.codeday.org
+#      tcp:
+#        inner: 27015
+#        outer: 27015
+#        lb:
+#          domain: factorio.codeday.org
