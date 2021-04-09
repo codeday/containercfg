@@ -183,6 +183,8 @@ EOF
               address = ":443"
             [entryPoints.minecraft]
               address = ":25565"
+            [entryPoints.factorio]
+              address = ":34197"
 
           [api]
             insecure = true
