@@ -90,6 +90,10 @@ EOF
           port "api" {
             static = 8080
           }
+
+          port "factorio" {
+            static = 34197
+          }
         }
       }
 
