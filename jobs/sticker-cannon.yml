@@ -2,7 +2,7 @@ job: sticker-cannon
 datacenters: [ srnd ]
 
 tasks:
-  discord0:
+  sticker-cannon:
     image: codeday/sticker-cannon
     resources:
       cpu: 100
