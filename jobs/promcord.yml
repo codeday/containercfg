@@ -1,0 +1,28 @@
+job: promcord
+datacenters: [ srnd ]
+
+deployment:
+  canaries: 0
+
+tasks:
+  promcord:
+    image: "biospheere/promcord"
+
+    resources:
+      memory: 256
+
+    vault:
+      policies:
+        - promcord
+      env:
+        promcord:
+          DISCORD_TOKEN: DISCORD_TOKEN
+
+    ports:
+      http:
+        inner: 8080
+        lb:
+          - domain: promcord.codeday.cloud
+            middleware:
+              - internal-ip@file
+
