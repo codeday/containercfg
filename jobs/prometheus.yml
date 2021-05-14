@@ -1,0 +1,37 @@
+job: prometheus
+datacenters: [ srnd ]
+
+deployment:
+  canaries: 0
+
+tasks:
+  prometheus:
+    image: "prom/prometheus"
+    args:
+      - --config.file=/local/prometheus.yml
+
+    resources:
+      memory: 256
+      memory_limit: 1024
+
+    vault:
+      policies:
+        - prometheus
+      files:
+        prometheus:
+          prometheus.yml:
+            contents: "{{- .Data.data.yml -}}"
+
+    volumes:
+      host:
+        - volume: prometheus
+          mountpoint: /prometheus
+
+    ports:
+      http:
+        inner: 9090
+        lb:
+          - domain: prometheus.codeday.cloud
+            middleware:
+              - internal-ip@file
+
