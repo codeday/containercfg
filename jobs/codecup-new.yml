@@ -1,0 +1,17 @@
+job: codecup-new
+datacenters: [ srnd ]
+
+tasks:
+  codecup-new:
+    image: "codeday/www-codecup"
+    resources:
+      cpu: 200
+      memory: 200
+
+    ports:
+      codecup-new:
+        inner: 80
+        check:
+        lb:
+          domain: new.playcodecup.com
+          cert: playcodecup.com
