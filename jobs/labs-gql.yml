@@ -1,0 +1,32 @@
+job: labs-gql
+datacenters: [srnd]
+
+tasks:
+
+  labs-gql:
+    image: codeday/labs-gql
+
+    resources:
+      memory: 100
+      memory_limit: 500
+
+    vault:
+      policies:
+        - labsgql
+      env:
+        labsgql:
+          DATABASE_URL: DATABASE_URL
+          AUTH_SECRET: AUTH_SECRET
+          AUTH_AUDIENCE: AUTH_AUDIENCE
+          EMAIL_HOST: EMAIL_HOST
+          EMAIL_PORT: EMAIL_PORT
+          EMAIL_USER: EMAIL_USER
+          EMAIL_PASS: EMAIL_PASS
+
+    ports:
+      http:
+        inner: 5000
+        lb:
+          - domain: labs-gql.codeday.cloud
+            middleware:
+              - internal-ip@file
