@@ -1,0 +1,23 @@
+job: discord-sting
+datacenters: [srnd]
+
+tasks:
+
+  discord-sting:
+    image: codeday/discord-sting
+
+    resources:
+      memory_limit: 400
+      memory: 100
+
+    vault:
+      policies:
+        - discord-sting
+
+      env:
+        discord-sting:
+          SELF_TOKEN: SELF_TOKEN
+          BOT_TOKEN: BOT_TOKEN
+          MODERATION_GUILD: MODERATION_GUILD
+          MODERATION_CHANNEL: MODERATION_CHANNEL
+          ATTRACT_CHANNEL: ATTRACT_CHANNEL

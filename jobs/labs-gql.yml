@@ -22,6 +22,7 @@ tasks:
           EMAIL_PORT: EMAIL_PORT
           EMAIL_USER: EMAIL_USER
           EMAIL_PASS: EMAIL_PASS
+          ELASTIC_URL: ELASTIC_URL
 
     ports:
       http:
