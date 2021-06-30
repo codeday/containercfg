@@ -19,6 +19,15 @@ tasks:
           CALENDAR_partners: CALENDAR_partners
           CALENDAR_virtualcodeday: CALENDAR_virtualcodeday
           CALENDAR_labs: CALENDAR_labs
+          DATABASE_URL: DATABASE_URL
+          TWILIO_ACCOUNT_SID: TWILIO_ACCOUNT_SID
+          TWILIO_AUTH_TOKEN: TWILIO_AUTH_TOKEN
+          TWILIO_PHONE: TWILIO_PHONE
+          EMAIL_FROM: EMAIL_FROM
+          EMAIL_HOST: EMAIL_HOST
+          EMAIL_PORT: EMAIL_PORT
+          EMAIL_USER: EMAIL_USER
+          EMAIL_PASS: EMAIL_PASS
 
     env:
       CALENDAR_community_NAME: Community

@@ -23,6 +23,8 @@ tasks:
           EMAIL_USER: EMAIL_USER
           EMAIL_PASS: EMAIL_PASS
           ELASTIC_URL: ELASTIC_URL
+          ELASTIC_INDEX: ELASTIC_INDEX
+          GEOCODIO_API_KEY: GEOCODIO_API_KEY
 
     ports:
       http:
