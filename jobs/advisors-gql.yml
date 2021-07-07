@@ -1,0 +1,34 @@
+job: advisors-gql
+datacenters: [srnd]
+
+tasks:
+
+  advisors-gql:
+    image: codeday/advisors-gql
+
+    resources:
+      memory: 100
+      memory_limit: 500
+
+    vault:
+      policies:
+        - advisors-gql
+      env:
+        advisors-gql:
+          DATABASE_URL: DATABASE_URL
+          EMAIL_FROM: EMAIL_FROM
+          EMAIL_HOST: EMAIL_HOST
+          EMAIL_PORT: EMAIL_PORT
+          EMAIL_USER: EMAIL_USER
+          EMAIL_PASS: EMAIL_PASS
+          AUTH_SECRET: AUTH_SECRET
+          AUTH_AUDIENCE: AUTH_AUDIENCE
+          UPLOADER_BASE: UPLOADER_BASE
+
+    ports:
+      http:
+        inner: 5000
+        lb:
+          - domain: advisors-gql.codeday.cloud
+            middleware:
+              - internal-ip@file
