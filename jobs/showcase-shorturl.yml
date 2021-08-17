@@ -1,0 +1,17 @@
+job: showcase-shorturl
+datacenters: [ srnd ]
+
+tasks:
+  showcase-shorturl:
+    image: codeday/showcase-shorturl
+
+    env:
+      APP_URL: https://codeday.sh
+
+    ports:
+      https:
+        inner: 3000
+        lb:
+          domain: codeday.sh
+          cert: codeday.sh
+          https_only: true

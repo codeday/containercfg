@@ -1,8 +1,8 @@
-job: gql-server
+job: gql
 datacenters: [srnd]
 
 tasks:
-  gql-server:
+  gql:
     image: "codeday/gql-server"
 
     resources:

@@ -246,6 +246,12 @@ EOF
             [certificatesresolvers.codecupchallenge-com.acme.dnschallenge]
               provider = "ns1"
 
+          [certificatesresolvers.codeday-sh.acme]
+            storage = "/acme/codeday-sh.json"
+            email = "team@srnd.org"
+            [certificatesresolvers.codeday-sh.acme.dnschallenge]
+              provider = "ns1"
+
           [certificatesresolvers.bigdatachallenge-org.acme]
             storage = "/acme/bigdatachallenge-org.json"
             email = "team@srnd.org"
