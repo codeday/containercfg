@@ -1,0 +1,27 @@
+job: clear-gql
+datacenters: [srnd]
+
+tasks:
+  clear-gql:
+    image: codeday/clear-gql
+
+    resources:
+      memory: 100
+      memory_limit: 500
+
+    vault:
+      policies:
+        - clear-gql
+      env:
+        clear-gql:
+          AUTH_AUDIENCE: AUTH_AUDIENCE
+          AUTH_SECRET: AUTH_SECRET
+          DATABASE_URL: DATABASE_URL
+
+    ports:
+      http:
+        inner: 5000
+        lb:
+          - domain: clear-gql.codeday.cloud
+            middleware:
+              - internal-ip@file
