@@ -17,6 +17,7 @@ tasks:
           AUTH_AUDIENCE: AUTH_AUDIENCE
           AUTH_SECRET: AUTH_SECRET
           DATABASE_URL: DATABASE_URL
+          STRIPE_SECRET_KEY: STRIPE_SECRET_KEY
 
     ports:
       http:
