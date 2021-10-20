@@ -1,0 +1,21 @@
+job: gotenberg
+datacenters: [ srnd ]
+
+tasks:
+  gotenberg:
+    image: gotenberg/gotenberg
+    version: 7
+
+    resources:
+      memory: 1024
+      memory_limit: 2048
+      cpu: 500
+
+    ports:
+      http:
+        inner: 3000
+        lb:
+          domain: gotenberg.codeday.cloud
+          cert: codeday.cloud
+          middleware:
+            - internal-ip@file

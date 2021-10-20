@@ -25,6 +25,9 @@ tasks:
           AUTH_AUDIENCE: AUTH_AUDIENCE
           UPLOADER_BASE: UPLOADER_BASE
 
+    env:
+      GOTENBERG_BASE: http://gotenberg.codeday.cloud
+
     ports:
       http:
         inner: 5000
