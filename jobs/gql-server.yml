@@ -35,6 +35,8 @@ tasks:
           ROLE_CODES: ROLE_CODES
           SYSLOG_PORT: SYSLOG_PORT
           SYSLOG_HOST: SYSLOG_HOST
+          MAXMIND_ACCOUNT: MAXMIND_ACCOUNT
+          MAXMIND_KEY: MAXMIND_KEY
 
     ports:
       http:
