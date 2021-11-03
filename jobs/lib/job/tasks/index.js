@@ -36,7 +36,7 @@ module.exports = (vars) => {
         VolumeMounts: getVolumeMountsFor(task),
         Artifacts: getArtifactsFor(task),
         Resources: {
-          CPU: task.resources && task.resources.cpu || 100,
+          CPU: task.resources && task.resources.cpu || 300,
           MemoryMB: task.resources && task.resources.memory || 256,
           Mode: task.host_network ? 'host' : '',
           Networks: [{

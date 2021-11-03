@@ -19,6 +19,7 @@ tasks:
           CALENDAR_partners: CALENDAR_partners
           CALENDAR_virtualcodeday: CALENDAR_virtualcodeday
           CALENDAR_labs: CALENDAR_labs
+          CALENDAR_webinars: CALENDAR_webinars
           DATABASE_URL: DATABASE_URL
           TWILIO_ACCOUNT_SID: TWILIO_ACCOUNT_SID
           TWILIO_AUTH_TOKEN: TWILIO_AUTH_TOKEN
@@ -34,6 +35,7 @@ tasks:
       CALENDAR_partners_NAME: Partners
       CALENDAR_virtualcodeday_NAME: Virtual CodeDay
       CALENDAR_labs_NAME: CodeDay Labs
+      CALENDAR_webinars_NAME: Webinars
 
     ports:
       http:
