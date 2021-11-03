@@ -9,6 +9,9 @@ tasks:
       memory: 100
       memory_limit: 500
 
+    env:
+      UPLOADER_URL: http://upload.codeday.cloud
+
     vault:
       policies:
         - clear-gql
