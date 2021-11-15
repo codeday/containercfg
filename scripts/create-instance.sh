@@ -12,15 +12,15 @@ echo "Creating VM..."
 if [ $# -ge 1 ]; then
   az vm create \
     --name $NAME \
+    --resource-group srnd-nomad \
     --tags role=nomad-agent \
     --image UbuntuLTS \
-	--os-disk-size-gb 50 \
+	  --os-disk-size-gb 256 \
     --size ${SIZE:-Standard_D2_v3} \
     --admin-username srnd \
     --subscription 49f7105a-6649-48da-b7fd-97c41104d914 \
     --location northcentralus \
     --ssh-key-value id_rsa.pub \
-    --resource-group srnd-nomad \
     --availability-set SRND-NOMAD-AGENT \
     --vnet-name srnd-nomad-vnet \
     --subnet default \
@@ -31,15 +31,15 @@ if [ $# -ge 1 ]; then
 else
   az vm create \
     --name $NAME \
+    --resource-group srnd-nomad \
     --tags role=nomad-agent \
     --image UbuntuLTS \
-	--os-disk-size-gb 50 \
+    --os-disk-size-gb 256 \
     --size Standard_D2_v3 \
     --admin-username srnd \
     --subscription 49f7105a-6649-48da-b7fd-97c41104d914 \
     --location northcentralus \
     --ssh-key-value id_rsa.pub \
-    --resource-group srnd-nomad \
     --availability-set SRND-NOMAD-AGENT \
     --vnet-name srnd-nomad-vnet \
     --subnet default \
@@ -54,5 +54,6 @@ echo "Assigning permissions..."
 ASSIGNED_IDENTITY=$(az vm identity show --name $NAME --resource-group srnd-nomad | jq -r ".principalId")
 az role assignment create \
   --role Reader \
+  --assignee-principal-type ServicePrincipal
   --assignee-object-id $ASSIGNED_IDENTITY \
   --scope /subscriptions/49f7105a-6649-48da-b7fd-97c41104d914
