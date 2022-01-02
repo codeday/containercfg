@@ -1,0 +1,16 @@
+# fly.toml file generated for codeday-gotenberg on 2021-11-18T11:03:58-05:00
+
+app = "codeday-gotenberg"
+
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[build]
+  image = "gotenberg/gotenberg"
+
+[env]
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true

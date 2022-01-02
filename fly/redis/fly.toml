@@ -1,0 +1,16 @@
+# fly.toml file generated for codeday-redis on 2021-11-18T16:15:26-05:00
+
+app = "codeday-redis"
+
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[build]
+  image = "redis"
+
+[env]
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
