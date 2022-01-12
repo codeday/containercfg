@@ -1,0 +1,16 @@
+# fly.toml file generated for codeday-mysql on 2022-01-12T10:16:12-05:00
+
+app = "codeday-mysql"
+
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[build]
+  image = "mysql:5.7"
+
+[env]
+
+[mounts]
+source="codeday_wp"
+destination="/var/lib/mysql"
