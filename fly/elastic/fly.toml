@@ -1,0 +1,21 @@
+# fly.toml file generated for codeday-redis on 2022-03-16T15:34:41-04:00
+
+app = "codeday-elastic"
+
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[build]
+  image = "docker.elastic.co/elasticsearch/elasticsearch:8.2.2"
+
+[env]
+  "discovery.type" = "single-node"
+   "node.name" = "codeday-elastic"
+   "bootstrap.memory_lock" = "true"
+   "ES_JAVA_OPTS" = "-Xms512m -Xmx512m"
+   "xpack.security.enabled" = "false"
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true

@@ -12,5 +12,5 @@ processes = []
 [env]
 
 [mounts]
-source="codeday_wp"
+source="codeday_mysql"
 destination="/var/lib/mysql"

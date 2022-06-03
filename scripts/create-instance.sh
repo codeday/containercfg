@@ -54,6 +54,6 @@ echo "Assigning permissions..."
 ASSIGNED_IDENTITY=$(az vm identity show --name $NAME --resource-group srnd-nomad | jq -r ".principalId")
 az role assignment create \
   --role Reader \
-  --assignee-principal-type ServicePrincipal
+  --assignee-principal-type ServicePrincipal \
   --assignee-object-id $ASSIGNED_IDENTITY \
   --scope /subscriptions/49f7105a-6649-48da-b7fd-97c41104d914

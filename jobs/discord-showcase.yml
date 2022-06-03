@@ -1,6 +1,9 @@
 job: discord-showcase
 datacenters: [srnd]
 
+placement:
+  speed:
+
 tasks:
   discord-showcase:
     image: codeday/discord-showcase
@@ -19,8 +22,16 @@ tasks:
           DB_HOST: DB_HOST
           BOT_TOKEN: BOT_TOKEN
           GQL_SHOWCASE_SECRET: GQL_SHOWCASE_SECRET
+          DISCORD_BOT_TOKEN: DISCORD_BOT_TOKEN
+          SHOWCASE_SECRET: SHOWCASE_SECRET
+          DATABASE_URL: DATABASE_URL
 
     env:
+      DEBUG: "showcase*"
+      DISCORD_CLIENT_ID: "779581519567257600"
+      DISCORD_GUILD_ID: "689213562740277361"
+      DISCORD_TEAM_SUPPORT_CHANNEL_ID: "796495809705017365"
+      SHOWCASE_AUDIENCE: "showcase"
       ROLE_STAFF: "808406057428844564"
       ROLE_MENTOR: "851913592013193237"
       CATEGORY: "852332018331025438"

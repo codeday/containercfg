@@ -3,7 +3,7 @@ datacenters: [ srnd ]
 
 tasks:
   quick-deploy:
-    image: "srnd/nomad-deployment-manager"
+    image: "codeday/nomad-deployment-manager"
     resources:
       memory: 128
 
